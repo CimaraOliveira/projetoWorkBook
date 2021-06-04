@@ -1,0 +1,105 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>WorkBook</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini">
+<!-- Navbar-->
+<header class="app-header"><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+                              aria-label="Hide Sidebar"></a><a class="app-header__logo"
+                                                               href="#">
+    <img  style=" filter: invert(100%)" height="50" src="{% static 'images/estacao-de-servico.svg' %}"> WorkBook</a>
+    <!-- Sidebar toggle button-->
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+
+
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i
+                class="fa fa-bell-o fa-lg"></i></a>
+            <ul class="app-notification dropdown-menu dropdown-menu-right">
+                <div class="app-notification__content">
+                    <li><a class="app-notification__item" href="#"><span
+                            class="app-notification__icon"><span
+                            class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i
+                            class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                        <div>
+                            <p class="app-notification__message">Mensagens</p>
+
+                        </div>
+                    </a></li>
+
+                </div>
+                </div>
+
+            </ul>
+        </li>
+
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
+                class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="#"><i
+                        class="fa fa-user fa-lg"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i>
+                    Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+
+    <ul class="app-menu">
+
+        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-home"></i><span
+                class="app-menu__label">Inicio</span></a></li>
+
+        <li><a class="app-menu__item" href="#"><i
+                class="app-menu__icon fa fa-star"></i><span
+                class="app-menu__label">Avaliações</span></a></li>
+
+        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i><span
+                class="app-menu__label">Perfil</span></a></li>
+
+        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pencil-square-o"></i><span
+                class="app-menu__label">Meus Dados</span></a></li>
+        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-envelope-o"></i><span
+                class="app-menu__label">Mensagens</span></a></li>
+
+
+        <li><a class="app-menu__item" href="#"><i
+                class="app-menu__icon fa fa-file-text"></i><span
+                class="app-menu__label">Relatório</span></a></li>
+
+
+
+    </ul>
+</aside>
+
+
+</body>
+</html>

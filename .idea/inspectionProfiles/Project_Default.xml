@@ -1,0 +1,79 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="setuptools" />
+            <item index="1" class="java.lang.String" itemvalue="mysqlclient" />
+            <item index="2" class="java.lang.String" itemvalue="lockfile" />
+            <item index="3" class="java.lang.String" itemvalue="tst" />
+            <item index="4" class="java.lang.String" itemvalue="Django" />
+            <item index="5" class="java.lang.String" itemvalue="CacheControl" />
+            <item index="6" class="java.lang.String" itemvalue="dj-static" />
+            <item index="7" class="java.lang.String" itemvalue="django-toolbelt" />
+            <item index="8" class="java.lang.String" itemvalue="msgpack" />
+            <item index="9" class="java.lang.String" itemvalue="static3" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E302" />
+          <option value="E271" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="cursos.settings.BASE_DIR" />
+          <option value="disciplina.models.Disciplina.resize_image" />
+          <option value="disciplina.models.img_full_path" />
+          <option value="disciplina.models.new_img" />
+          <option value="disciplina.models.img_pil" />
+          <option value="disciplina.models.new_width" />
+          <option value="disciplina.models.new_heigth" />
+          <option value="professor.models.new_heigth" />
+          <option value="user.models.Usuario" />
+          <option value="disciplina.forms.UserForm.Meta.data" />
+          <option value="disciplina.forms.UserForm.Meta.cleaned_data" />
+          <option value="disciplina.forms.UserForm.Meta.usuario" />
+          <option value="disciplina.forms" />
+          <option value="disciplina.form.UserForm.Meta.usuario" />
+          <option value="django.forms.UserForm" />
+          <option value="django.forms.PerfilForm" />
+          <option value="disciplina.form.UserForm.Meta.data" />
+          <option value="disciplina.form.UserForm.Meta.cleaned_data" />
+          <option value="disciplina.models.Disciplina.objects" />
+          <option value="disciplina.models.Usuario.objects" />
+          <option value="disciplina.views.forms" />
+          <option value="utils.decorators" />
+          <option value="object.as_view" />
+          <option value="object.dispatch" />
+          <option value="logout" />
+          <option value="disciplina.models.Usuario.Meta.user" />
+          <option value="disciplina.models.UserProfile.objects" />
+          <option value="disciplina.functions.directfectall" />
+          <option value="disciplina.models.UsuarioDisciplina.objects" />
+          <option value="disciplina.views.reservar" />
+          <option value="disciplina.views.Post" />
+          <option value="django.utils.deprecation.RemovedInDjango110Warning" />
+          <option value="importlib._common" />
+          <option value="disciplina.models.Professor.objects" />
+          <option value="accounts.views.PasswordResetCompleteVie.as_view" />
+          <option value="sistemaulas.settings.base" />
+          <option value="environ.Env" />
+          <option value="sistemaulas.settings.base.os" />
+          <option value="professor.views.is_valid" />
+          <option value="WorkBook.mensagem.models.usuario" />
+          <option value="WorkBook.mensagem.models.django" />
+          <option value="WorkBook.usuario.models.perfil" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
