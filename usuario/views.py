@@ -93,7 +93,7 @@ def submit_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('usuario:submit_login')
+    return redirect('usuario:home')
 
 def index(request):
     return render(request, 'usuario/index.html')
@@ -116,5 +116,27 @@ def index_perfil(request):
     elif nome:
         List = Usuario.objects.filter(perfil__nome__contains=nome)
     return render(request, 'usuario/home.html', {'List': List})
+
+def listarProfissional(request,id):
+    try:
+        user = Usuario.objects.get(id=id)
+        if user.perfil:
+            return render(request, 'usuario/listarProfissional.html', {'ListPerfil': user})
+    except Exception as error:
+        print(error)
+    return render(request, 'usuario/listarProfissional.html')
+
+"""
+
+def listarProfissional(request, id):
+    perfil = Perfil.objects.get(id=request.user.id)
+    profissional = Usuario.objects.get(perfil=perfil)
+
+    context = {
+        'profissional': profissional
+    }
+
+    return render(request, 'usuario/listarProfissional.html', context)
+
 
 
