@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Usuario, Perfil, Categoria
 from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib import auth
+from django.db.models import Q
 
-
-def login(request):
-    return render(request, 'usuario/login.html')
+def home(request):
+    return render(request, 'usuario/home.html')
 
 def register(request):
         username = request.POST['username']
@@ -53,6 +55,7 @@ def cadastro(request):
         cidade = user_request.get('cidade')
         telefone = user_request.get('telefone')
         perfil = user_request.get('perfil')
+        last_name = user_request.get('last_name')
 
         user = {'username': username, 'first_name': first_name, 'email': email, 'senha': senha, 'telefone': telefone,
                 'perfil': request.POST['user']}
@@ -63,14 +66,55 @@ def cadastro(request):
             print('success')
             messages.success(request, 'Usuário Registrado com Sucesso!')
 
-            new_user = Usuario.objects.create_superuser(username=username, first_name=first_name,
+            new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, last_name=last_name,
                                                         email=email, password=senha, cidade=cidade, telefone=telefone,
                                                         perfil=perfil)
             new_user.save()
             return redirect('usuario:cadastro')
         print('error')
-        return __get__register(request, user, {'error': 'Usuário já Registrado. Tente outro e-mail!'})
+        return __get__register(request, user, {'error': 'Usuário já Registrado. Tente outro Usuário!'})
 
+def submit_login(request):
+    if request.method != 'POST':
+        return render(request, 'usuario/submit_login.html')
 
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    user = auth.authenticate(username=username, password=password)
+
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+        messages.success(request, 'Login efetuado Sucesso!')
+        return redirect('usuario:index')
+    messages.error(request, 'E-mail e/ou senha inválido!')
+    return redirect('usuario:submit_login')
+
+def user_logout(request):
+    logout(request)
+    return redirect('usuario:submit_login')
+
+def index(request):
+    return render(request, 'usuario/index.html')
+
+def index_perfil(request):
+    List = None
+
+    nome = request.GET.get('profissao')
+    cidade = request.GET.get('destino')
+
+    if request.user is authenticate:
+        if nome and cidade:
+
+            List = Usuario.objects.filter((Q(cidade__contains=cidade))
+                                          & (Q(perfil__nome__contains=nome))
+                                          & (Q(perfil__isnull=False))
+                                          )
+
+        return render(request, 'usuario/index.html', {'List': List})
+    elif nome:
+        List = Usuario.objects.filter(perfil__nome__contains=nome)
+    return render(request, 'usuario/home.html', {'List': List})
 
 
