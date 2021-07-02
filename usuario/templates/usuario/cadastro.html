@@ -75,11 +75,7 @@
                                                aria-describedby="emailHelp"
                                                placeholder="Email" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="senha">Senha:</label>
-                                        <input class="form-control" name="senha" id="senha" type="password"
-                                               placeholder="Senha" required>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="cidade">Cidade:</label>
                                         <input class="form-control" name="cidade" id="cidade" type="text"
@@ -92,6 +88,16 @@
                                                aria-describedby="telefone"
                                                placeholder="Telefone" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="senha">Senha:</label>
+                                        <input class="form-control" name="senha" id="senha" type="password"
+                                               placeholder="Senha" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senha2">Senha:</label>
+                                        <input class="form-control" name="senha2" id="senha2" type="password"
+                                               placeholder="Conformar Senha" required>
+                                    </div>
                                     <fieldset>
                                         <label>Tipo de Usuário:</label><br/>
                                         <input type="radio" name="status" id="track" value="profissional"/><label for="track">Profissional</label><br/>
@@ -103,38 +109,6 @@
                                         <button class="btn btn-primary" type="submit">Cadastrar</button>
                                     </div>
                                 </div>
-
-
-                               <!-- <div id="show_profissional" class="col-lg-4 offset-lg-1">
-                                        <div class="form-group">
-                                            <label class="control-label" for="profissao">Profissão:</label>
-                                            <input class="form-control" name="profissao" id="profissao" type="text"
-                                                   placeholder="Profissão" >
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Categoria:</label>
-                                            <div class="animated-checkbox" id="tipo">
-                                                {% for categoria in categorias %}
-                                                <label>
-                                                    <input name="categoria{{categoria.id}}" value="{{categoria.id}}"
-                                                           type="checkbox"><span
-                                                        class="label-text"> {{categoria.nome}}</span>
-                                                </label>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="descricao">Descrição</label>
-                                            <textarea class="form-control" name="descricao" id="descricao"
-                                                      rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="slogan">Imagem:</label>
-                                            <input class="form-control-file" id="slogan" type="file"
-                                                   aria-describedby="fileHelp">
-                                        </div>
-                                    </div>-->
                             </div>
                         </form>
                     </div>
