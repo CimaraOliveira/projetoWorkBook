@@ -3,7 +3,7 @@ from .models import Usuario, Perfil, Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import auth
-from django.db.models import Q
+from .form import FormPerfil
 from django.core.validators import validate_email
 
 
@@ -12,6 +12,9 @@ def home(request):
 
 def teste(request):
     return render(request, 'usuario/teste.html')
+
+def index(request):
+    return render(request, 'usuario/index.html')
 
 def cadastro(request):
         if request.method != 'POST':
@@ -59,8 +62,57 @@ def cadastro(request):
         new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, last_name=last_name,
                                                     cidade=cidade, telefone=telefone,email=email, status=status, password=senha)
         new_user.save()
-        return redirect('usuario:cadastro')
+        return redirect('usuario:home')
 
+def add_perfil(request):
+    form = FormPerfil(request.POST, request.FILES)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.user = request.user
+        obj.save()
+        messages.success(request, 'Perfil Adicionado com sucesso!')
+        return redirect('usuario:add_perfil')
+    else:
+        form = FormPerfil(request.POST, request.FILES)
+    context = {
+        'form': form
+    }
+    return render(request, 'usuario/add_perfil.html',context)
+
+"""def categorias(request):
+    categoria = Categoria.objects.all()
+
+    context = {
+        'categoria': categoria
+    }
+    return render(request, 'usuario/teste.html', context)"""
+
+def categoria(request):
+    categorias = []
+    for key, value in request.POST.items():
+        if key.find('categoria') >= 0:
+            print(key, value)
+            categoria = Categoria.objects.get(id=value)
+            if categoria:
+                categorias.append(categoria)
+    return categorias
+
+
+
+"""def perfil(request): //
+
+
+    if request.method != 'POST':
+        return render(request, 'usuario/add_perfil.html')
+
+    profissao = request.POST['profissao']
+    categoria = request.POST['categoria']
+    descricao = request.POST['descricao']
+    imagem = request.POST['imagem']
+    cidade = request.POST['cidade']
+    user = request.POST['user']
+    return render(request, 'usuario/add_perfil.html')
+"""
 def submit_login(request):
     if request.method != 'POST':
         return render(request, 'usuario/submit_login.html')
@@ -73,10 +125,13 @@ def submit_login(request):
     if user is not None:
         login(request, user)
         messages.success(request, 'Login Efetuado Sucesso!')
-        return redirect('usuario:teste')
+        return redirect('usuario:index')
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 
 
-
+def logout_user(request):
+    request.session.flush()
+    logout(request)
+    return redirect('usuario:home')
 

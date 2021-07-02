@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<main class="app-content">
+    <div class="row">
+        <div class="col-md-12">
+          {% include 'parciais/_mensagges.html' %}
+            <div class="tile">
+                <h5><i class="fa fa-user"></i>  Adicionar Perfil Profissional</h5>
+                <div class="row">
+                    <div class="col-lg-12">
+                          <form action="#" method="POST" enctype="multipart/form-data">
+                            {%csrf_token %}
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.error }}</div>
+                            {% endif %}
+                              <br/>
+                              <div class="form-group">
+                                  <label for="id_profissao" class=" requiredField"> Profissao
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="profissao" maxlength="250"
+                                                       class="textinput textInput form-control " required="" id="id_profissao">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="id_descricao" class=" requiredField">Descricao
+                                  <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="descricao" maxlength="250"
+                                                       class="textinput textInput form-control" required="" id="id_descricao">
+                                  </div>
+                              </div>
+
+                              <div id="cidade" class="form-group">
+                                  <label for="id_cidade" class=" requiredField">Cidade<span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="cidade" maxlength="250"
+                                                       class="textinput textInput form-control"
+                                                       required="" id="id_cidade">
+                                  </div>
+                              </div>
+
+                              <div>
+                                  <label for="id_categoria" class=" requiredField"> Categoria
+                                      <span class="asteriskField">*</span></label>
+                                  <div class=""><select name="categoria" class="selectmultiple form-control"
+                                                        required="" id="id_categoria">
+                                      <option value="1">outros</option>
+                                      <option value="2">eventos</option>
+                                      <option value="3">reforma</option>
+                                      <option value="4">moda</option>
+                                      <option value="5">assist</option>
+                                  </select>
+                                  </div>
+                              </div>
+
+                              <div class="form-group"><label for="id_imagem" class=""> Imagem
+                              </label>
+                                  <div class=""><input type="file" name="imagem" accept="image/*"
+                                                       class="clearablefileinput form-control-file" id="id_imagem">
+                                  </div>
+                              </div>
+
+                              <div class="tile-footer">
+                                  <button class="btn btn-primary" type="submit">Salvar</button>
+                              </div>
+
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+  </main>
+
+
+{% endblock %}
