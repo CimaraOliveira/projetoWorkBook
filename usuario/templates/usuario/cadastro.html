@@ -26,12 +26,9 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<!-- Navbar-->
 <header class="app-header__logo"><a class="app-header">&nbsp;&nbsp;&nbsp;&nbsp;WorkBook</a>
 
 </header>
-<!-- Sidebar-->
-
 
 <main class="app-content-home">
 
@@ -95,53 +92,26 @@
                                                aria-describedby="telefone"
                                                placeholder="Telefone" required>
                                     </div>
-                                    <fieldset class="form-group">
-                                        <label for="tipo">Tipo de Usuario:</label>
-                                       <div class="form-check">
-                                            <label class="form-check-label">
-                                                {% if user %}
-                                                    {% if user.perfil == 'cliente' %}
-                                                        <input class="form-check-input" id="optionsRadios1" type="radio"
-                                                            name="user" value="cliente" checked>Cliente
-                                                    {% elif user.perfil == 'profissional'%}
-                                                        <input class="form-check-input" id="optionsRadios1" type="radio"
-                                                            name="user" value="cliente">Cliente
-                                                   {% endif %}
-                                                {% else %}
-                                                    <input class="form-check-input" id="optionsRadios1" type="radio"
-                                                            name="user" value="cliente" checked>Cliente
-                                                {% endif %}
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                {% if user %}
-                                                    {% if user.perfil == 'profissional' %}
-                                                        <input class="form-check-input" id="optionsRadios2" type="radio"
-                                                            name="user" value="profissional" checked>Profissional
-                                                    {% elif user.perfil == 'cliente'%}
-                                                        <input class="form-check-input" id="optionsRadios2" type="radio"
-                                                       name="user" value="profissional">Profissional
-                                                    {% endif %}
-                                                {% else %}
-                                                    <input class="form-check-input" id="optionsRadios2" type="radio"
-                                                       name="user" value="profissional">Profissional
-                                                {% endif %}
-
-                                            </label>
-                                        </div>
+                                    <fieldset>
+                                        <label>Tipo de Usuário:</label><br/>
+                                        <input type="radio" name="status" id="track" value="profissional"/><label for="track">Profissional</label><br/>
+                                        <input type="radio" name="status" id="event" value="cliente"/><label for="event">Cliente</label><br/>
                                     </fieldset>
+
+
                                     <div class="tile-footer">
                                         <button class="btn btn-primary" type="submit">Cadastrar</button>
                                     </div>
                                 </div>
-                                <div id="show_profissional" class="col-lg-4 offset-lg-1">
+
+
+                               <!-- <div id="show_profissional" class="col-lg-4 offset-lg-1">
                                         <div class="form-group">
                                             <label class="control-label" for="profissao">Profissão:</label>
                                             <input class="form-control" name="profissao" id="profissao" type="text"
                                                    placeholder="Profissão" >
                                         </div>
-                                        <!--Checkbox Markup-->
+
                                         <div class="form-group">
                                             <label class="control-label">Categoria:</label>
                                             <div class="animated-checkbox" id="tipo">
@@ -164,14 +134,13 @@
                                             <input class="form-control-file" id="slogan" type="file"
                                                    aria-describedby="fileHelp">
                                         </div>
-                                    </div>
+                                    </div>-->
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <!-- Essential javascripts for application to work-->

@@ -8,7 +8,36 @@ from django.db.models import Q
 def home(request):
     return render(request, 'usuario/home.html')
 
-def register(request):
+
+def cadastro(request):
+        if request.method != 'POST':
+            return render(request, 'usuario/cadastro.html')
+
+        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        senha = request.POST['senha']
+        cidade = request.POST['cidade']
+        telefone = request.POST['telefone']
+        status = request.POST['status']
+
+        if Usuario.objects.filter(email=email).exists():
+            messages.error(request, 'Email já existente para um usuário!')
+            return render(request, 'usuario/cadastro.html')
+
+        if Usuario.objects.filter(username=username).exists():
+            messages.error(request, 'Informe outro nome de usuário!')
+            return render(request, 'usuario/cadastro.html')
+
+        messages.success(request, 'Usuário Registrado com Sucesso!')
+
+        new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, last_name=last_name,
+                                                    cidade=cidade, telefone=telefone,email=email, status=status, password=senha)
+        new_user.save()
+        return redirect('usuario:cadastro')
+
+""""def register(request):
         username = request.POST['username']
         email = request.POST['email']
         senha = request.POST['senha']
@@ -124,19 +153,6 @@ def listarProfissional(request,id):
             return render(request, 'usuario/listarProfissional.html', {'ListPerfil': user})
     except Exception as error:
         print(error)
-    return render(request, 'usuario/listarProfissional.html')
-
-"""
-
-def listarProfissional(request, id):
-    perfil = Perfil.objects.get(id=request.user.id)
-    profissional = Usuario.objects.get(perfil=perfil)
-
-    context = {
-        'profissional': profissional
-    }
-
-    return render(request, 'usuario/listarProfissional.html', context)
-
+    return render(request, 'usuario/listarProfissional.html')"""
 
 
