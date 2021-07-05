@@ -27,7 +27,11 @@ class Perfil(models.Model):
     categoria = models.ManyToManyField(Categoria)
     descricao = models.CharField('descricao', max_length=250)
     imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
-    cidade = models.CharField('cidade', max_length=250)
+    cidade = models.CharField('cidade', max_length=40)
+    rua = models.CharField('rua', max_length=60)
+    uf = models.CharField('uf', max_length=2)
+    bairro = models.CharField('cidade', max_length=40)
+    cep = models.CharField('cep', max_length=10)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -39,9 +43,6 @@ class Perfil(models.Model):
         ordering = ['id']
 
 class Usuario(AbstractUser):
-    cidade = models.CharField('cidade', max_length=250,null=True, blank=True)
-    estado = models.CharField('estado', max_length=250,null=True, blank=True)
-    telefone = models.CharField('Telefone', max_length=20,null=True, blank=True)
     is_staff = models.BooleanField(default=1)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)

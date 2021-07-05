@@ -1,7 +1,7 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta name="description"
+       <meta name="description"
           content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
@@ -26,10 +26,23 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<header class="app-header__logo"><a class="app-header">&nbsp;&nbsp;&nbsp;&nbsp;WorkBook</a>
 
+<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:home' %}"><img
+        style=" filter: invert(100%)" height="50"
+        src="{% static 'images/estacao-de-servico.svg' %}">WorkBook</a>
+
+   <ul class="app-nav">
+        <li class="dropdown"><a class="app-nav__item" href="{% url 'usuario:home' %}" data-toggle="dropdown"><i
+                class="fa fa-home"></i>&nbsp;INÍCIO</a>
+
+        <li class="dropdown"><a class="app-nav__item" href="{% url 'usuario:submit_login' %}" data-toggle="dropdown"><i
+                class="fa fa-sign-in"></i>&nbsp;ENTRAR</a>
+        </li>
+        <li class="dropdown"><a class="app-nav__item" href="#sobre" data-toggle="dropdown"><i
+                class="fa fa-info-circle"></i>&nbsp;SOBRE</a>
+        </li>
+    </ul>
 </header>
-
 <main class="app-content-home">
 
     <div class="app-title">
@@ -55,55 +68,29 @@
                             <div class="row">
                                 <div id="show_class" class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="username">Usuario:</label>
-                                            <input class="form-control" value="{{user.username}}" name="username" id="username" type="text"
-                                                placeholder="Usuário" required>
+                                        <label for="username">Usuario <span class="asteriskField">*</span></label>
+                                            <input class="form-control" name="username" id="username" type="text"
+                                                placeholder="Usuário" required autofocus>
                                     </div>
+
+
                                     <div class="form-group">
-                                        <label for="first_name">Nome:</label>
-                                       <input class="form-control" name="first_name" id="first_name" type="text"
-                                               placeholder="Nome" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="last_name">Sobrenome:</label>
-                                       <input class="form-control" name="last_name" id="last_name" type="text"
-                                               placeholder="Sobrenome" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
+                                        <label for="email">Email<span class="asteriskField">*</span></label>
                                         <input class="form-control" name="email" id="email" type="email"
                                                aria-describedby="emailHelp"
-                                               placeholder="Email" required>
+                                               placeholder="email.com" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="cidade">Cidade:</label>
-                                        <input class="form-control" name="cidade" id="cidade" type="text"
-                                               aria-describedby="cidade"
-                                               placeholder="Cidade" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="telefone">Telefone:</label>
-                                        <input class="form-control" name="telefone" id="telefone" type="tel"
-                                               aria-describedby="telefone"
-                                               placeholder="Telefone" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="senha">Senha:</label>
+                                        <label for="senha">Senha<span class="asteriskField">*</span></label>
                                         <input class="form-control" name="senha" id="senha" type="password"
                                                placeholder="Senha" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="senha2">Senha:</label>
+                                        <label for="senha2">Senha<span class="asteriskField">*</span></label>
                                         <input class="form-control" name="senha2" id="senha2" type="password"
                                                placeholder="Conformar Senha" required>
                                     </div>
-                                    <fieldset>
-                                        <label>Tipo de Usuário:</label><br/>
-                                        <input type="radio" name="status" id="track" value="profissional"/><label for="track">Profissional</label><br/>
-                                        <input type="radio" name="status" id="event" value="cliente"/><label for="event">Cliente</label><br/>
-                                    </fieldset>
-
 
                                     <div class="tile-footer">
                                         <button class="btn btn-primary" type="submit">Cadastrar</button>
@@ -139,4 +126,8 @@
 
 </script>
 </body>
+{% include 'parciais/footer.html' %}
+
+<script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+<script src="{% static 'js/show_view.js'%}"></script>
 </html>

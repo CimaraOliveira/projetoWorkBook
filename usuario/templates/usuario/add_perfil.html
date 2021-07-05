@@ -2,7 +2,77 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
+<body>
+<script>
 
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('uf').value=("");
+            document.getElementById('ibge').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('uf').value=(conteudo.uf);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('uf').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    </script>
+</body>
 <main class="app-content">
     <div class="row">
         <div class="col-md-12">
@@ -11,7 +81,7 @@
                 <h5><i class="fa fa-user"></i>  Adicionar Perfil Profissional</h5>
                 <div class="row">
                     <div class="col-lg-12">
-                          <form action="#" method="POST" enctype="multipart/form-data">
+                          <form action="." method="POST" enctype="multipart/form-data">
                             {%csrf_token %}
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.error }}</div>
@@ -21,7 +91,7 @@
                                   <label for="id_profissao" class=" requiredField"> Profissao
                                       <span class="asteriskField">*</span> </label>
                                   <div class=""><input type="text" name="profissao" maxlength="250"
-                                                       class="textinput textInput form-control " required="" id="id_profissao">
+                                                       class="textinput textInput form-control " required="" id="id_profissao" autofocus>
                                   </div>
                               </div>
 
@@ -33,25 +103,60 @@
                                   </div>
                               </div>
 
-                              <div id="cidade" class="form-group">
-                                  <label for="id_cidade" class=" requiredField">Cidade<span class="asteriskField">*</span> </label>
-                                  <div class=""><input type="text" name="cidade" maxlength="250"
-                                                       class="textinput textInput form-control"
-                                                       required="" id="id_cidade">
-                                  </div>
-                              </div>
 
                               <div>
                                   <label for="id_categoria" class=" requiredField"> Categoria
                                       <span class="asteriskField">*</span></label>
                                   <div class=""><select name="categoria" class="selectmultiple form-control"
                                                         required="" id="id_categoria">
+                                      <option value="">Selecione</option>
                                       <option value="1">outros</option>
                                       <option value="2">eventos</option>
                                       <option value="3">reforma</option>
                                       <option value="4">moda</option>
                                       <option value="5">assist</option>
                                   </select>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class=" requiredField"> Cep
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="cep" size="10" maxlength="9"
+                                                       class="textinput textInput form-control " required="" id="cep" autofocus
+                                  onblur="pesquisacep(this.value);" />
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class=" requiredField"> Rua
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="rua" size="60"
+                                                       class="textinput textInput form-control " required="" id="rua" autofocus/>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class=" requiredField"> Bairro
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="bairro" size="40"
+                                                       class="textinput textInput form-control " required="" id="bairro" autofocus/>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class=" requiredField"> Cidade
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="cidade" size="40"
+                                                       class="textinput textInput form-control " required="" id="cidade" autofocus/>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class=" requiredField"> Estado
+                                      <span class="asteriskField">*</span> </label>
+                                  <div class=""><input type="text" name="uf"  size="2"
+                                                       class="textinput textInput form-control " required="" id="uf" autofocus/>
                                   </div>
                               </div>
 
@@ -72,12 +177,5 @@
             </div>
         </div>
     </div>
-
-
-
-
-
   </main>
-
-
 {% endblock %}

@@ -49,6 +49,8 @@
 </header>
 
 <main class="app-content-home">
+    {% include 'parciais/_mensagges.html' %}
+
     <div class="row" style="display: flex;
                             flex-direction: row;
                             justify-content: center;
@@ -57,13 +59,12 @@
         <form method="GET">
             {%csrf_token %}
 
-            <h1>
-                Pesquise pelo serviço desejado!
+            <h1>Precisa contratar um serviço de forma rápida?
 
             </h1>
-            <br/><br/>
-
-
+            <h1>
+                Aqui você encontrar com rapidez e eficiência!
+            </h1>
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
@@ -124,3 +125,4 @@
     2021</a></footer>
 <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
 <script src="{% static 'js/show_view.js'%}"></script>
+

@@ -1,0 +1,44 @@
+{% if List is not None %}
+<div>
+<table class="table">
+    <thead class="table-active">
+    <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Profissão</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for usuario in List %}
+    <tr>
+        <td>{{usuario.first_name}}</td>
+        <td>{{usuario.perfil.nome}}</td>
+        <td>{{usuario.cidade}}</td>
+        <td>{{usuario.estado}}</td>
+
+        <td>
+            <div class="col-md-4 col-xs-3">
+                <button title="Visualizar Perfil" class="btn btn-outline-primary">
+                    <a style="all: unset;"
+                       href="#"
+                       type="submit">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                            <i class="fa fa-eye"></i>
+                        </font></font>
+                    </a>
+                </button>
+
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    {% empty %}
+    <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ message }}</div>
+    {% endfor %}
+</table>
+</div>
+{% endif %}
+
+

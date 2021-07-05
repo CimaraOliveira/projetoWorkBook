@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <main class="app-content">
+           {% include 'parciais/_mensagges.html' %}
+
    <div class="row center-element">
+
         <form method="GET">
             {%csrf_token %}
-            <h1>Pesquise por um profissional desejado!</h1>
+            <h2> Pesquise pelo serviço desejado com rapidez e eficiência!</h2>
             <br />
             <div class="col-md-12">
                 <div class="row">
