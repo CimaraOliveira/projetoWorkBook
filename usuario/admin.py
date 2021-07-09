@@ -7,11 +7,11 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['id','username', 'email','is_superuser', 'is_active', 'is_staff', ]
 
 class PerfilAdmin(admin.ModelAdmin):
-    list_display = ['id','user_id','cidade','rua','profissao',  'descricao', 'imagem',]
+    list_display = ['id','user_id','first_name','slug','telefone','cidade','rua','profissao',  'descricao', 'imagem',]
 
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ['id','nome',]
+    list_display = ['id','nome','user',]
 
 
 admin.site.register(Perfil,PerfilAdmin)

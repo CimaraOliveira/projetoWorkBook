@@ -6,11 +6,24 @@ from django.contrib import auth
 from .form import FormPerfil
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
+from django.views.generic.detail import DetailView
+from . import models
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q, Value
+from django.db.models.functions import Concat
+
+
+app_name='usuario'
 
 
 
 def home(request):
-    return render(request, 'usuario/home.html')
+   perfil = Perfil.objects.all()
+
+   context = {
+       'perfil': perfil
+   }
+   return render(request, 'usuario/home.html',context)
 
 def teste(request):
     return render(request, 'usuario/teste.html')
@@ -77,6 +90,32 @@ def add_perfil(request):
     return render(request, 'usuario/add_perfil.html',context)
 
 
+def buscar(request):
+   termo = request.GET.get('termo')
+
+   if termo is None or not termo:
+       messages.error(request, 'Campo não pode ser vazio!')
+       return redirect('usuario:listarProfissional')
+
+   campos = Concat('profissao',Value(' '), 'cidade')
+
+   perfil = Perfil.objects.annotate(
+        nome_profissao=campos
+   ).filter(
+        Q(nome_profissao__icontains=termo) | Q(cidade__icontains=termo)
+
+   )
+   if not perfil:
+       messages.error(request, 'Pesquisa não encontrada!')
+       return redirect('usuario:listarProfissional')
+
+   context = {
+       'perfil': perfil
+   }
+   return render(request, 'usuario/buscar.html', context)
+
+
+
 """def categorias(request):
     categoria = Categoria.objects.all()
 
@@ -101,9 +140,23 @@ def submit_login(request):
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 
+class DetalhesProfissional(DetailView,LoginRequiredMixin):
+    model = models.Perfil
+    template_name = 'usuario/detalhesProfissional.html'
+    context_object_name = 'perfil'
+    slug_id_url_kwarg = 'slug'
+
 
 def logout_user(request):
     request.session.flush()
     logout(request)
     return redirect('usuario:home')
+
+def listarProfissional(request):
+    perfil = Perfil.objects.all()
+    context = {
+        'perfil':perfil
+    }
+    return render(request, 'usuario/listarProfissional.html',context)
+
 

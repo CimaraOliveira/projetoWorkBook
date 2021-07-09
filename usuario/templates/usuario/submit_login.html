@@ -15,22 +15,26 @@
     <title>Login - WorkBook</title>
 </head>
 <body>
+
 <section class="material-half-bg">
+    {% include 'parciais/_mensagges.html' %}
+
     <div class="cover"></div>
 </section>
 <section class="login-content">
     <div class="logo">
         <h1><img  style=" filter: invert(100%)" height="80" src="{% static 'images/estacao-de-servico.svg' %}">WorkBook</h1>
     </div>
+
     <div class="login-box">
-        {% include 'messages-login.html' %}
+
         <form class="login-form" action="{% url 'usuario:submit_login' %}" method="post">
             {% csrf_token %}
 
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
             <div class="form-group">
                 <label class="control-label">USUÁRIO</label>
-                <input type="text" class="form-control" name="username" placeholder="Email" required="required">
+                <input type="text" class="form-control" name="username" placeholder="Email" required="required" autofocus>
             </div>
             <div class="form-group">
                 <label class="control-label">SENHA</label>
@@ -51,7 +55,7 @@
                 <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>ENTRAR</button>
             </div>
             <div class="form-group " align="center">
-                <p class="semibold-text mb-2"><a href="#">Cadastre-se</a></p>
+                <p class="semibold-text mb-2"><a href="{% url 'usuario:cadastro' %}">Cadastre-se</a></p>
             </div>
         </form>
 
