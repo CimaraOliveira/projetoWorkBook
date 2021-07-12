@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-edit"></i>Entrar em Contato</h1>
+            <p>Responder Mensagem</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="post" class="form">
+                            {%csrf_token %}
+                            <div class="row">
+                                <div id="show_class" class="col-lg-12">
+
+                                    <div class="form-group">
+                                        <label for="id_texto">Responder Mensagem de {{request.user.username}} para:
+                                            {{respMensagem.nomeRemetente}}</label>
+                                        <textarea name="texto" cols="140" rows="5" class="form-control"
+                                                  required="" id="id_texto" placeholder="Deixe sua Mensagem Aqui!">
+
+                                        </textarea>
+                                    </div>
+                                    <!--<input  name="destinatario" id="destinatario">-->
+                                    <input type="hidden" name="destinatario" id="destinatario"
+                                           value={{respMensagem.remetente}}>
+                                    <input type="hidden" name="remetente" id="remetente" value={{request.user.id}}>
+                                    <input type="hidden" name="nomeRemetente" id="nomeRemetente"
+                                           value={{request.user.username}}>
+                                    <!--<input  name="remetente" id="remetente">-->
+
+                                    <div class="tile-footer">
+                                        <button class="btn btn-primary" type="submit">Enviar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

@@ -28,7 +28,7 @@
 <body class="app sidebar-mini">
 <!-- Navbar-->
 {% if user.is_authenticated %}
-<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:index' %}">WorkBook</a>
+<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}">WorkBook</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
                                     aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
@@ -69,7 +69,7 @@
 
     <ul class="app-menu">
 
-        <li><a class="app-menu__item" href="{% url 'usuario:index' %}"><i class="app-menu__icon fa fa-home"></i><span
+        <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i class="app-menu__icon fa fa-home"></i><span
                 class="app-menu__label">Inicio</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-star"></i><span
                 class="app-menu__label">Avaliações</span></a></li>
@@ -84,7 +84,7 @@
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-envelope-o">
             </i><span class="app-menu__label"> Mensagens</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="#"><i class="icon fa fa-commenting-o"></i>Caixa de Entrada</a></li>
+            <li><a class="treeview-item" href="{% url 'listarMensagem' idDestinatario=user.id %}"><i class="icon fa fa-commenting-o"></i>Caixa de Entrada</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-users"></i><span

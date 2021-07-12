@@ -79,6 +79,7 @@ class Usuario(AbstractUser):
         return "{} {}".format(self.first_name, self.last_name)
 
     class Meta:
+        db_table = 'usuario'
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuario'
 

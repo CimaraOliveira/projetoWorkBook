@@ -48,6 +48,7 @@ INSTALLED_APPS = [
      # local apps
     #'perfil.apps.PerfilConfig',
     'usuario.apps.UsuarioConfig',
+    'mensagem.apps.MensagemConfig',
 
 ]
 

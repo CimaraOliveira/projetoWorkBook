@@ -12,10 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 
-
 app_name='usuario'
-
-
 
 def home(request):
    perfil = Perfil.objects.all()
@@ -136,7 +133,7 @@ def submit_login(request):
     if user is not None:
         login(request, user)
         messages.success(request, 'Login Efetuado Sucesso!')
-        return redirect('usuario:index')
+        return redirect('usuario:listarProfissional')
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 

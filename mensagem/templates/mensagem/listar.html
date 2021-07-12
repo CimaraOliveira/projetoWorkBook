@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-edit"></i>Mensagens</h1>
+            <p>Caixa de Mensagem</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="post" class="form">
+                            <div class="row">
+
+                                {% for mensagem in mensagens %}
+
+                                <dl>{% if mensagem.nomeRemetente == request.user.username %}</dl>
+
+                                <dl>
+                                    <dt><b>{{mensagem.nomeRemetente}}</b></dt>
+                                    <dd>{{mensagem.texto}}</dd>
+                                </dl>
+
+                                {% else %}
+
+                                <dl>
+                                    <dt><b>{{mensagem.nomeRemetente}}</b></dt>
+                                    <dd> {{mensagem.texto}}</dd>
+
+                                </dl>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="tile-footer">
+                                <a class="btn btn-primary" href="#" type="submit">Responder</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+{% endblock %}
