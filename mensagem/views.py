@@ -7,7 +7,6 @@ from django.db.models import Q
 
 app_name = 'mensagem'
 
-
 @login_required(login_url='usuario:submit_login')
 def enviarMensagem(request, id):
     usuario = get_object_or_404(Usuario, id=id)
@@ -103,63 +102,6 @@ def responderMensagem(request, idRemetente, idDestinatario):
         'remetente': user
     }
     return render(request, 'responderMensagem.html', context)
-
-
-
-def enviar(request, id):
-    usuario = get_object_or_404(Usuario,id=id)
-    perfil = get_object_or_404(Perfil, user_id=usuario)
-    user = request.user.id
-    form = MensagemForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('listarMensagem')
-    else:
-        form = MensagemForm(request.POST)
-
-    context = {
-        'form': form,
-        'perfil': perfil,
-        'usuario': user
-    }
-    return render(request, 'mensagem/enviar.html', context)
-
-def listar(request):
-    user = request.user.id
-    mensagens = Mensagem.objects.filter(Q(destinatario=user) | Q(nomeRemetente=request.user.username))
-    context = {
-        'mensagens': mensagens,
-
-    }
-    return render(request, 'mensagem/listar.html', context)
-
-
-
-@login_required(login_url='usuario:submit_login')
-def responder(request, remetente):
-    respMensagem = Mensagem.objects.filter(remetente=remetente).first()
-    user = request.user.id
-    form = MensagemForm(request.POST)
-
-    if form.is_valid():
-        form.save()
-        return redirect('mensagem:listar')
-    else:
-        form = MensagemForm(request.POST)
-    context = {
-        'form': form,
-        'respMensagem': respMensagem,
-        'user': user
-    }
-    return render(request, 'mensagem/responder.html', context)
-
-
-
-
-
-
-
-
 
 
 
