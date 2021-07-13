@@ -50,9 +50,7 @@
 
 <main class="app-content-home">
         <div class="align-items-center page-content">
-
     {% include 'parciais/_mensagges.html' %}
-
 
          {% if 'perfil' not in request.path %}
             <br><br>
@@ -89,17 +87,30 @@
                             <h5 class="card-title">{{ perfil.profissao }} </h5></a>
                         <p>{{perfil.slug}}</p>
                     </div>
+
                 </div>
+
                 {% endfor %}
+
             </div>
-
-
-
-
     <div class="clearfix"></div>
+
         </div>
+    <nav aria-label="Navegação de página exemplo">
+        <ul class="pagination">
+            {% for pagina in perfil.paginator.page_range %}
+            {% if perfil.number == pagina %}
+            <li class="page-item active"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+
 
 </main>
+
 
 
 <div id="sobre">

@@ -11,6 +11,8 @@ from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+from django.core.paginator import Paginator
+
 
 app_name='usuario'
 
@@ -151,6 +153,9 @@ def logout_user(request):
 
 def listarProfissional(request):
     perfil = Perfil.objects.all()
+    paginator = Paginator(perfil, 2)
+    page = request.GET.get('p')
+    perfil = paginator.get_page(page)
     context = {
         'perfil':perfil
     }
