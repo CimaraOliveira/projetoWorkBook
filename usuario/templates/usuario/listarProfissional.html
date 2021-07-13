@@ -22,11 +22,11 @@
             <br/>
             <div class="card-columns">
                 {% for perfil in perfil %}
-                <div class="card" style="width: 18rem;">
+                <div class="card col-18" style="width: 18rem;">
                     {% if perfil.imagem %}
                     <a href="{{ perfil.slug }}">
                         <img class="rounded " src="{{ perfil.imagem.url  }}" alt="{{ perfil.profissao }}"
-                             style="max-width: 100%; height: auto">
+                             style="width: 288px; height: 200px; object-fit: fill;">
                     </a>
                     {% endif %}
                     <div class="card-body">
