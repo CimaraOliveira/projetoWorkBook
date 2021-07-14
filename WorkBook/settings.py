@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     #'perfil.apps.PerfilConfig',
     'usuario.apps.UsuarioConfig',
     'mensagem.apps.MensagemConfig',
+    'avaliacao.apps.AvaliacaoConfig',
+
 
 ]
 

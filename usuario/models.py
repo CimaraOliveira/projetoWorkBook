@@ -63,6 +63,7 @@ class Perfil(models.Model):
         ordering = ['id']
 
 class Usuario(AbstractUser):
+    imagem = models.ImageField(upload_to='fotosperfil/%Y/%m/', blank=True, null=True)
     is_staff = models.BooleanField(default=1)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)

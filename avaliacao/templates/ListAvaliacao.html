@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .estrelas input[type=radio] {
+    display: none;
+    }
+    .estrelas label i.fa:before {
+    content:'\f005';
+    color: #009688;
+    }
+    .estrelas input[type=radio]:checked ~ label i.fa:before {
+     color: #CCC;
+    }
+
+
+</style>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-star-o"></i> Avaliações do Profissional</h1>
+
+        </div>
+    </div>
+
+    <div class="row user">
+
+
+        {% for avaliar in avaliar %}
+        <div class="col-md-3">
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-timeline">
+                    <div class="timeline-post" style="max-height: 200px">
+                        <div class="post-media">
+
+                            <div class="product-img">
+                                <img width="50"
+                                     src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg">
+                            </div>
+
+                            <div class="content">
+                                <h5><a href="#">{{avaliar.cliente.first_name}}</a> Avaliou</h5>
+                                <p class="text-muted"><small>Nota: {{avaliar.nota}} {{avaliar.data_avaliacao}}</small>
+                                </p>
+                                <div class="post-content">
+
+                                    <!--<p> Nota: {{avaliar.nota}}</p>-->
+                                    <link rel="stylesheet"
+                                          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                                    <div class="estrelas">
+                                        <input type="radio" id="cm_star-empty" name="fb" value=""/>
+                                        <label for="cm_star-1"><i class="fa"></i></label>
+                                        {% if avaliar.nota == 1%}
+                                        <input type="radio" disabled id="cm_star-1" name="fb" value="1" checked/>
+                                        {% elif avaliar.nota != 1 %}
+                                        <input type="radio" disabled id="cm_star-1" name="fb" value="1"/>
+                                        {% endif %}
+                                        <label for="cm_star-2"><i class="fa"></i></label>
+                                        {% if avaliar.nota == 2%}
+                                        <input type="radio" disabled id="cm_star-2" name="fb" value="2" checked/>
+                                        {% elif avaliar.nota != 2 %}
+                                        <input type="radio" disabled id="cm_star-2" name="fb" value="2"/>
+                                        {% endif %}
+                                        <label for="cm_star-3"><i class="fa"></i></label>
+                                        {% if avaliar.nota == 3%}
+                                        <input type="radio" disabled id="cm_star-3" name="fb" value="3" checked/>
+                                        {% elif avaliar.nota != 3 %}
+                                        <input type="radio" disabled id="cm_star-3" name="fb" value="3"/>
+                                        {% endif %}
+                                        <label for="cm_star-4"><i class="fa"></i></label>
+                                        {% if avaliar.nota == 4%}
+                                        <input type="radio" disabled id="cm_star-4" name="fb" value="4" checked/>
+                                        {% elif avaliar.nota != 4 %}
+                                        <input type="radio" disabled id="cm_star-4" name="fb" value="4"/>
+                                        {% endif %}
+                                        <label for="cm_star-5"><i class="fa"></i></label>
+                                        {% if avaliar.nota == 5%}
+                                        <input type="radio" disabled id="cm_star-5" name="fb" value="5" checked/>
+                                        {% elif avaliar.nota != 5 %}
+                                        <input type="radio" disabled id="cm_star-5" name="fb" value="5"/>
+                                        {% endif %}
+                                        <!-- Button trigger modal -->
+                                        &nbsp;&nbsp;&nbsp;<button type="button" class="badge badge-primary" data-toggle="modal"
+                                                data-target="#exampleModal{{avaliar.id}}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{avaliar.id}}" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel{{avaliar.id}}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel{{avaliar.id}}">Detalhe da Avaliação</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{avaliar.descricao}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>{{avaliar.descricao|truncatechars_html:30}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <div class="alert alert-info"><i class="fa fa-info-circle"></i> Nenhuma Avaliação encontrada!</div>
+        </div>
+
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

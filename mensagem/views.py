@@ -7,6 +7,9 @@ from django.db.models import Q
 
 app_name = 'mensagem'
 
+def teste(request):
+    return render(request, 'teste.html')
+
 @login_required(login_url='usuario:submit_login')
 def enviarMensagem(request, id):
     usuario = get_object_or_404(Usuario, id=id)

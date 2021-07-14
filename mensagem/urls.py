@@ -6,5 +6,6 @@ urlpatterns = [
    path('responderMensagem/<int:idRemetente>/<int:idDestinatario>', views.responderMensagem, name='responderMensagem'),
    path('detalheMensagem/<int:idRemetente>/<int:idDestinatario>', views.detalheMensagem, name='detalheMensagem'),
    path('listarMensagem/<int:idDestinatario>', views.listarMensagem, name='listarMensagem'),
+   path('teste/', views.teste, name='teste'),
 
 ]
