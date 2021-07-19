@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Avaliacao
-from usuario.models import Usuario,Perfil
+from usuario.models import Usuario,Profissional
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 def _request_user(request):
     try:
         usuario = get_object_or_404(Usuario, id=request.user)
-        perfil = get_object_or_404(Perfil, user_id=usuario)
+        perfil = get_object_or_404(Profissional, user_id=usuario)
 
 
         if perfil:
@@ -19,7 +19,7 @@ def _request_user(request):
 def _request_perfil(id):
     try:
         usuario = get_object_or_404(Usuario, id=id)
-        prof = get_object_or_404(Perfil, user_id=usuario)
+        prof = get_object_or_404(Profissional, user_id=usuario)
         if prof.perfil:
             return prof
     except Exception as err:

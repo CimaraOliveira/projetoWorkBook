@@ -5,6 +5,7 @@ app_name = 'usuario'
 
 urlpatterns = [
 
+
    path('cadastro/',views.cadastro, name='cadastro'),
    path('index/', views.index, name='index'),
    path('add_perfil/', views.add_perfil, name='add_perfil'),

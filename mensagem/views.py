@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Mensagem
-from usuario.models import Usuario,Perfil
+from usuario.models import Usuario,Profissional
 from .forms import MensagemForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q

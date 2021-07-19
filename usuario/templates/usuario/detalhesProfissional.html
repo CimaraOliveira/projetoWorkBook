@@ -7,6 +7,7 @@
         <div class="col-lg-12">
             <div class="card user-card-full">
                 <div class="row m-l-0 m-r-0">
+                    <!--*******************************************-->
                     <div class="col-sm-4 bg-c-lite-green user-profile">
                         <div class="card-block text-center text-white">
                             <div class="m-b-55">
@@ -16,10 +17,11 @@
                                  {% endif %}
                             </div>
 
-                            <p>{{ perfil.first_name }}</p> <i
+                            <p>{{ perfil.user.first_name }}</p> <i
                                 class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                         </div>
                     </div>
+                    <!--***************************************-->
 
                     <div class="col-sm-8">
                         <div class="card-block">
@@ -41,7 +43,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Cidade</p>
-                                            <h6 class="text-muted f-w-400">{{ perfil.usuario.cidade }}</h6>
+                                            <h6 class="text-muted f-w-400">{{ perfil.user.cidade }}</h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Descrição</p>

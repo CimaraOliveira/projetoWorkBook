@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'rest_framework',
 
-     # local apps
-    #'perfil.apps.PerfilConfig',
+    'rest_framework.authtoken',
+
+
+
     'usuario.apps.UsuarioConfig',
     'mensagem.apps.MensagemConfig',
     'avaliacao.apps.AvaliacaoConfig',
@@ -84,6 +87,23 @@ TEMPLATES = [
         },
     },
 ]
+
+#Django RFST Frameworc
+"""REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASS': ('rest_framework.authentication.SessionAuthentication'),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly'),
+
+}"""
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+          'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.schemas.coreapi.AutoSchema',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+
+}
 
 WSGI_APPLICATION = 'WorkBook.wsgi.application'
 
@@ -159,3 +179,4 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Token 1d05356705ed093aa730ca4f48135a3b94aa7327

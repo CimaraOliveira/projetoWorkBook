@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Perfil, Categoria
+from .models import Usuario, Profissional, Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import auth
@@ -17,7 +17,7 @@ from django.core.paginator import Paginator
 app_name='usuario'
 
 def home(request):
-   perfil = Perfil.objects.all()
+   perfil = Profissional.objects.all()
 
    context = {
        'perfil': perfil
@@ -35,6 +35,11 @@ def cadastro(request):
             return render(request, 'usuario/cadastro.html')
 
         username = request.POST['username']
+        telefone = request.POST['telefone']
+        cidade = request.POST['cidade']
+        rua = request.POST['rua']
+        uf = request.POST['uf']
+        bairro = request.POST['bairro']
         email = request.POST['email']
         senha = request.POST['senha']
         senha2 = request.POST['senha2']
@@ -68,7 +73,8 @@ def cadastro(request):
 
         messages.success(request, 'Usuário Registrado com Sucesso!')
 
-        new_user = Usuario.objects.create_superuser(username=username, email=email,password=senha)
+        new_user = Usuario.objects.create_superuser(username=username, telefone=telefone, email=email,password=senha,
+                                                    cidade=cidade, rua=rua, uf=uf, bairro=bairro)
         new_user.save()
         return redirect('usuario:home')
 
@@ -98,7 +104,7 @@ def buscar(request):
 
    campos = Concat('profissao',Value(' '), 'cidade')
 
-   perfil = Perfil.objects.annotate(
+   perfil = Usuario.objects.annotate(
         nome_profissao=campos
    ).filter(
         Q(nome_profissao__icontains=termo) | Q(cidade__icontains=termo)
@@ -140,7 +146,7 @@ def submit_login(request):
     return redirect('usuario:submit_login')
 
 class DetalhesProfissional(DetailView,LoginRequiredMixin):
-    model = models.Perfil
+    model = models.Profissional
     template_name = 'usuario/detalhesProfissional.html'
     context_object_name = 'perfil'
     slug_id_url_kwarg = 'slug'
@@ -152,7 +158,7 @@ def logout_user(request):
     return redirect('usuario:home')
 
 def listarProfissional(request):
-    perfil = Perfil.objects.all()
+    perfil = Profissional.objects.all()
     paginator = Paginator(perfil, 2)
     page = request.GET.get('p')
     perfil = paginator.get_page(page)

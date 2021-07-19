@@ -25,24 +25,16 @@ class Categoria(models.Model):
         verbose_name_plural = 'Categorias'
         ordering = ['id']
 
-class Perfil(models.Model):
-    first_name = models.CharField('first_name ', max_length=250)
-    telefone = models.CharField('telefone', max_length=15)
+class Profissional(models.Model):
     profissao = models.CharField('Profissao',max_length=250)
     categoria = models.ManyToManyField(Categoria)
     slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
     descricao = models.CharField('descricao', max_length=250)
     imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
-    cidade = models.CharField('cidade', max_length=40)
-    rua = models.CharField('rua', max_length=60)
-    uf = models.CharField('uf', max_length=2)
-    bairro = models.CharField('cidade', max_length=40)
-    cep = models.CharField('cep', max_length=10)
     user = models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 
     def __str__(self):
         return self.profissao
-
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -53,8 +45,8 @@ class Perfil(models.Model):
 
     """def clean(self):
        model = self.__class__
-       if model.objects.count() > 0 and self.user_id != model.objects.get().user_id:
-            raise ValidationError("Você já tem um perfil cadastrado.")"""
+       if model.objects.count() > 0 and self.slug != model.objects.get().slug:
+            raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
 
 
     class Meta:
@@ -63,7 +55,12 @@ class Perfil(models.Model):
         ordering = ['id']
 
 class Usuario(AbstractUser):
+    telefone = models.CharField('telefone', max_length=15)
     imagem = models.ImageField(upload_to='fotosperfil/%Y/%m/', blank=True, null=True)
+    cidade = models.CharField('cidade', max_length=40)
+    rua = models.CharField('rua', max_length=60)
+    uf = models.CharField('uf', max_length=2)
+    bairro = models.CharField('bairro', max_length=40)
     is_staff = models.BooleanField(default=1)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
