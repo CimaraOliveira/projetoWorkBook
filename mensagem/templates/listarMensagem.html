@@ -17,7 +17,9 @@
                             <a href="{% url 'detalheMensagem' idRemetente=request.user.id idDestinatario=mensagem.destinatario.id %}"
                                class="product-title">
                                 <div class="product-img">
-                                    <img src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg" alt="Imagem do Produto">
+                                    {% if request.user.imagem %}
+                                    <img src="{{request.user.imagem.url}}"  style="max-width: 500px; height: auto">
+                                    {% endif %}
                                 </div>
                                 <div class="product-info">
                                     <p class="text-black-50"> {{mensagem.remetente.first_name}}</p>
@@ -42,7 +44,9 @@
                             <a href="{% url 'detalheMensagem' idRemetente=request.user.id idDestinatario=mensagem.remetente.id %}"
                                class="product-title">
                                 <div class="product-img">
-                                    <img src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg" alt="Imagem do Produto">
+                                    {% if mensagem.user.imagem %}
+                                    <img src="{{mensagem.user.imagem.url}}">
+                                    {% endif %}
                                 </div>
                                 <div class="product-info">
                                     <p class="text-black-50"> {{mensagem.remetente.first_name}}</p>
@@ -50,6 +54,7 @@
                                         <span class="label label-primary pull-right"><font
                                                 style="vertical-align: inherit;"><font
                                                 style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
+
                                         </font>
                                         </span>
                                     </font>
@@ -91,12 +96,16 @@
                                         style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font></font></span>
                             </div>
                             <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="https://cdn.iconscout.com/icon/free/png-512/laptop-user-1-1179329.png"
-                                 alt="imagem do usuário da mensagem">
+                            {% if request.user.imagem %}
+                            <img class="direct-chat-img" src="{{request.user.imagem.url}}">
+                            {% endif %}
+
+
                             <!-- /.direct-chat-img -->
                             <div class="direct-chat-text"><font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">
                                     {{mensagem.texto}}
+
                                 </font></font></div>
                             <!-- /.direct-chat-text -->
                         </div>
