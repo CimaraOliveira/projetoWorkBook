@@ -3,7 +3,7 @@ from .models import Usuario, Profissional, Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import auth
-from .form import FormPerfil
+from .form import FormPerfil, FormDadosPessoais
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
@@ -77,6 +77,7 @@ def cadastro(request):
                                                     cidade=cidade, rua=rua, uf=uf, bairro=bairro)
         new_user.save()
         return redirect('usuario:home')
+
 
 @login_required(login_url='usuario:submit_login')
 def add_perfil(request):
@@ -166,5 +167,18 @@ def listarProfissional(request):
         'perfil':perfil
     }
     return render(request, 'usuario/listarProfissional.html',context)
+
+def dadosPessoais(request, id):
+    data = {}
+    usuario = Usuario.objects.get(id=id)
+    form = FormDadosPessoais(request.POST or None, instance=usuario)
+
+    if form.is_valid():
+        form.save()
+        return redirect('usuario:dadosPessoais', usuario.id)
+
+    data['form'] = form
+    data['usuario'] = usuario
+    return render(request, 'usuario/dadosPessoais.html',data)
 
 

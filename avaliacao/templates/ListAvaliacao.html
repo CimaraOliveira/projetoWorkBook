@@ -25,21 +25,22 @@
 
     <div class="row user">
 
-
         {% for avaliar in avaliar %}
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="tab-content">
                 <div class="tab-pane active" id="user-timeline">
-                    <div class="timeline-post" style="max-height: 200px">
-                        <div class="post-media">
+                    <div class="timeline-post" style="max-height: 200px; left:500;">
+                        <div class="post-media"> <!--width: 300px; height: 200px;-->
 
                             <div class="product-img">
+                                {% if request.user.imagem %}
                                 <img width="50"
-                                     src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg">
+                                     src="{{ request.user.imagem.url  }}">
+                                {% endif %}
                             </div>
 
                             <div class="content">
-                                <h5><a href="#">{{avaliar.cliente.first_name}}</a> Avaliou</h5>
+                                <h5><a href="#"></a>{{avaliar.cliente.username}}</h5>
                                 <p class="text-muted"><small>Nota: {{avaliar.nota}} {{avaliar.data_avaliacao}}</small>
                                 </p>
                                 <div class="post-content">

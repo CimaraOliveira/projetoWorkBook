@@ -15,6 +15,7 @@ urlpatterns = [
    path('logout/', views.logout_user, name='logout_user'),
    path('listarProfissional', views.listarProfissional, name='listarProfissional'),
    path('buscar', views.buscar, name='buscar'),
+   path('dadosPessoais/<int:id>', views.dadosPessoais, name='dadosPessoais'),
    path('<slug>', views.DetalhesProfissional.as_view(), name='detalhesProfissional'),
 
 ]

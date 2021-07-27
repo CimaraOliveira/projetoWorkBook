@@ -13,7 +13,7 @@ def teste(request):
 @login_required(login_url='usuario:submit_login')
 def enviarMensagem(request, id):
     usuario = get_object_or_404(Usuario, id=id)
-    perfil = get_object_or_404(Perfil, user_id=usuario)
+    perfil = get_object_or_404(Profissional, user_id=usuario)
     user = request.user.id
     form = MensagemForm(request.POST)
     if form.is_valid():
@@ -66,6 +66,8 @@ def listarMensagem(request, idDestinatario):
     }
     return render(request, 'listarMensagem.html', context)
 
+def test_chat(request):
+    return render(request, 'test_chat.html')
 
 @login_required(login_url='usuario:submit_login')
 def detalheMensagem(request, idRemetente, idDestinatario):
@@ -75,8 +77,6 @@ def detalheMensagem(request, idRemetente, idDestinatario):
         (Q(destinatario__id=idDestinatario) & Q(remetente__id=idRemetente)) |
         (Q(destinatario__id=idRemetente) & Q(remetente__id=idDestinatario))).order_by('id')
 
-    #for m in mensagens_detalhe:
-     #   print(m.texto)
 
     context = {
         'mensagens_detalhe': mensagens_detalhe,
@@ -85,6 +85,8 @@ def detalheMensagem(request, idRemetente, idDestinatario):
         'destinatario': Usuario.objects.get(id=idDestinatario)
     }
     return render(request, 'listarMensagem.html', context)
+
+
 
 
 @login_required(login_url='usuario:submit_login')

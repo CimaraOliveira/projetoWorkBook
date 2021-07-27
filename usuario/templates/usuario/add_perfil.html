@@ -78,16 +78,63 @@
         <div class="col-md-12">
           {% include 'parciais/_mensagges.html' %}
             <div class="tile">
-                <h5><i class="fa fa-user"></i>  Adicionar Perfil Profissional</h5>
+                <h5><i class="fa fa-user"></i>  Adicionar Profissional</h5>
                 <div class="row">
                     <div class="col-lg-12">
                           <form action="." method="POST" enctype="multipart/form-data">
                             {%csrf_token %}
+
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.error }}</div>
                             {% endif %}
                               <br/>
-                               {{form|crispy}}
+
+
+                               <!--{{form|crispy}}-->
+
+
+                                  <div id="div_id_profissao" class="form-group"><label for="id_profissao">
+                                      Profissao<span class="asteriskField">*</span> </label>
+                                      <div class=""><input type="text" name="profissao" maxlength="250"
+                                                           class="textinput textInput form-control "
+                                                           required="" id="id_profissao">
+                                          </div>
+                                  </div>
+                                  <div id="div_id_categoria" class="form-group"><label for="id_categoria"
+                                                                                       >
+                                      Categoria<span class="asteriskField">*</span> </label>
+                                      <div class=""><select name="categoria"
+                                                            class="selectmultiple form-control " required=""
+                                                            id="id_categoria" multiple="">
+                                          <option value="1">eventos</option>
+
+                                      </select>
+                                          <p id="error_1_id_categoria" class="invalid-feedback"><strong>Este campo é
+                                              obrigatório.</strong></p></div>
+                                  </div>
+                                  <div id="div_id_slug" class="form-group"><label for="id_slug" class="">
+                                      Atalho
+                                  </label>
+                                      <div class=""><input type="text" name="slug" maxlength="50"
+                                                           class="textinput textInput form-control" id="id_slug"></div>
+                                  </div>
+                                  <div id="div_id_descricao" class="form-group"><label for="id_descricao"
+                                                                                       class=" requiredField">
+                                      Descricao<span class="asteriskField">*</span> </label>
+                                      <div class=""><input type="text" name="descricao" maxlength="250"
+                                                           class="textinput textInput form-control"
+                                                           required="" id="id_descricao">
+                                          <p id="error_1_id_descricao" class="invalid-feedback"><strong>Este campo é
+                                              obrigatório.</strong></p></div>
+                                  </div>
+                                  <div id="div_id_imagem" class="form-group"><label for="id_imagem" class="">
+                                      Imagem
+                                  </label>
+                                      <div class=""><input type="file" name="imagem" accept="image/*"
+                                                           class="clearablefileinput form-control-file" id="id_imagem">
+                                      </div>
+                                  </div>
+
                               <div class="tile-footer">
                                   <button class="btn btn-primary" type="submit">Salvar</button>
                               </div>

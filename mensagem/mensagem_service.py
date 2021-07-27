@@ -1,8 +1,80 @@
-from rest_framework import viewsets
+import generics as generics
+from django.db.models import Q
+from rest_framework import viewsets, status, filters
+from rest_framework.decorators import action
+from rest_framework.generics import get_object_or_404
+
+from usuario.models import Usuario
 from .models import Mensagem
+from rest_framework import generics
 from .serializers import MensagemSerializer
+from rest_framework.response import Response
+from django_filters import rest_framework as filters
+
+
 
 class MensagemViewSet(viewsets.ModelViewSet):
     queryset = Mensagem.objects.all()
     serializer_class = MensagemSerializer
+
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = '__all__'
+
+    def get_object(self):
+        if self.kwargs.get('remetente_id'):
+            return get_object_or_404(self.get_queryset(),
+                                     remetente_id=self.kwargs.get('remetente_id'),
+                                     id=self.kwargs.get('destinatario_id'))
+        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('destinatario_id'))
+
+    """@action(detail=True, methods=['get'])
+    def get_queryset(self):
+        remetente = self.kwargs.get('remetente',None)
+        destinatario = self.kwargs.get('destinatario',None)
+
+        print('************',remetente)
+        return Mensagem.objects.filter(remetente=remetente).filter(
+            destinatario=destinatario
+        )"""
+
+    """def get_queryset(self):
+        return self.queryset.filter(
+            remetente=self.kwargs.get('remetente')
+        ).filter(destinatario=self.kwargs.get('destinatario'))
+    """
+
+
+
+
+
+    @action(methods=['get'], detail=False, url_path='get_by_last_messages')
+    def get_by_last_messages(self, request):
+        id_str = "id"
+        id_user = self.request.GET.get(id_str) or self.request.session[id_str]
+
+        def mensagens_por_usuario(id):
+            # essa query vai pegar a ultima mensagem feita pelo remetente ou pelo destinatario.
+
+            sql = "select * from usuario u where u.id in (select u2.id from usuario u2" \
+                  "	inner join Mensagen m on(u2.id = m.remetente_id) " \
+                  "	where u2.id != (select u3.id from usuario u3 where u3.id = %s and u3.id =" \
+                  " m.destinatario_id) ORDER by m.id desc)" \
+                  "	OR u.id in (" \
+                  "	select u4.id from usuario u4 " \
+                  "inner join Mensagen m2 on(u4.id = m2.destinatario_id)" \
+                  "	where u4.id != (select u5.id from usuario u5 where u5.id =" \
+                  " %s and u5.id = m2.remetente_id) ORDER by m2.id DESC) ORDER by u.id DESC"
+            usuarios = Usuario.objects.raw(sql, [id, id])
+
+            mensagens = []
+            for user in usuarios:
+                if user.id != id:
+                    mensagem = Mensagem.objects.filter((Q(destinatario__id=user.id) & Q(remetente__id=id)) | (
+                                Q(remetente__id=user.id) & Q(destinatario__id=id))).last()
+                    if mensagem:
+                        mensagens.append(mensagem)
+
+            return mensagens
+        return Response(status=status.HTTP_200_OK,
+                        data=MensagemSerializer(instance=mensagens_por_usuario(id_user), many=True, context={'request': request}).data)
 

@@ -61,7 +61,7 @@ class Usuario(AbstractUser):
     rua = models.CharField('rua', max_length=60)
     uf = models.CharField('uf', max_length=2)
     bairro = models.CharField('bairro', max_length=40)
-    is_staff = models.BooleanField(default=1)
+    is_staff = models.BooleanField(default=0)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
 

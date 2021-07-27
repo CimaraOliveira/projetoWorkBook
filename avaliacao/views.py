@@ -4,6 +4,9 @@ from usuario.models import Usuario,Profissional
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
+def teste(request):
+    return render(request, 'teste.html')
+
 def _request_user(request):
     try:
         usuario = get_object_or_404(Usuario, id=request.user)
@@ -44,7 +47,7 @@ def avaliar(request, id):
             avaliar = Avaliacao.objects.create(descricao=descricao, nota=nota, cliente=client, profissional=prof, data_avaliacao=data)
             avaliar.save()
 
-       return redirect('usuario:index')
+       return redirect('usuario:home')
     return avaliacao(request)
 
 @login_required(login_url='usuario:submit_login')
@@ -52,16 +55,4 @@ def listAvaliacao(request):
     avaliar = Avaliacao.objects.filter(profissional=request.user.id)
 
     return render(request, 'ListAvaliacao.html', {'avaliar': avaliar})
-
-
-"""def avaliacao(request):
-    user = request.user
-    context = {
-        user:user
-    }
-    return render(request, 'avaliacao/avaliacao.html',context)
-
-def listarAvaliacao(request):
-    avaliar = Avaliacao.objects.filter(profissional=request.user.id)
-    return render(request, 'avaliacao/listarAvaliacao.html',{'avaliar': avaliar})"""
 

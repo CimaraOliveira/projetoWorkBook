@@ -6,7 +6,11 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Minhas Mensagems</font></font></h3>
+                    <h3 class="box-title">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Minhas Mensagems</font>
+                        </font>
+                    </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -15,26 +19,25 @@
                         <li class="item">
                             {% if mensagem.remetente.id == request.user.id %}
                             <a href="{% url 'detalheMensagem' idRemetente=request.user.id idDestinatario=mensagem.destinatario.id %}"
-                               class="product-title">
+                                class="product-title">
                                 <div class="product-img">
                                     {% if request.user.imagem %}
-                                    <img src="{{request.user.imagem.url}}"  style="max-width: 500px; height: auto">
+                                    <img src="{{request.user.imagem.url}}" style="max-width: 500px; height: auto">
                                     {% endif %}
                                 </div>
                                 <div class="product-info">
                                     <p class="text-black-50"> {{mensagem.remetente.first_name}}</p>
                                     <font>
-                                        <span class="label label-primary pull-right"><font
-                                                style="vertical-align: inherit;"><font
-                                                style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
-                                        </font>
+                                        <span class="label label-primary pull-right">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
+                                            </font>
                                         </span>
                                     </font>
                                     <span class="product-description">
                                         <font style="vertical-align: inherit;">
-                                            <font
-                                                    style="vertical-align: inherit;">
-                                                    {{mensagem.texto}}
+                                            <font style="vertical-align: inherit;">
+                                                {{mensagem.texto}}
                                             </font>
                                         </font>
                                     </span>
@@ -42,7 +45,7 @@
                             </a>
                             {% else %}
                             <a href="{% url 'detalheMensagem' idRemetente=request.user.id idDestinatario=mensagem.remetente.id %}"
-                               class="product-title">
+                                class="product-title">
                                 <div class="product-img">
                                     {% if mensagem.user.imagem %}
                                     <img src="{{mensagem.user.imagem.url}}">
@@ -51,18 +54,17 @@
                                 <div class="product-info">
                                     <p class="text-black-50"> {{mensagem.remetente.first_name}}</p>
                                     <font>
-                                        <span class="label label-primary pull-right"><font
-                                                style="vertical-align: inherit;"><font
-                                                style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
+                                        <span class="label label-primary pull-right">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
 
-                                        </font>
+                                            </font>
                                         </span>
                                     </font>
                                     <span class="product-description">
                                         <font style="vertical-align: inherit;">
-                                            <font
-                                                    style="vertical-align: inherit;">
-                                                    {{mensagem.texto}}
+                                            <font style="vertical-align: inherit;">
+                                                {{mensagem.texto}}
                                             </font>
                                         </font>
                                     </span>
@@ -78,8 +80,12 @@
         <div class="col-md-6">
             <div class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bate-papo
-                        direto</font></font></h3>
+                    <h3 class="box-title">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Bate-papo
+                                direto</font>
+                        </font>
+                    </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -88,12 +94,18 @@
                         {% for mensagem in mensagens_detalhe %}
 
                         {% if mensagem.destinatario.id == destinatario.id %}
-                            <div class="direct-chat-msg">
+                        <div class="direct-chat-msg">
                             <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-left"><font style="vertical-align: inherit;"><font
-                                        style="vertical-align: inherit;">{{remetente.first_name}}</font></font></span>
-                                <span class="direct-chat-timestamp pull-right"><font
-                                        style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font></font></span>
+                                <span class="direct-chat-name pull-left">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">{{remetente.first_name}}</font>
+                                    </font>
+                                </span>
+                                <span class="direct-chat-timestamp pull-right">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
+                                    </font>
+                                </span>
                             </div>
                             <!-- /.direct-chat-info -->
                             {% if request.user.imagem %}
@@ -102,31 +114,44 @@
 
 
                             <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text"><font style="vertical-align: inherit;">
+                            <div class="direct-chat-text">
                                 <font style="vertical-align: inherit;">
-                                    {{mensagem.texto}}
+                                    <font style="vertical-align: inherit;">
+                                        {{mensagem.texto}}
 
-                                </font></font></div>
+                                    </font>
+                                </font>
+                            </div>
                             <!-- /.direct-chat-text -->
                         </div>
                         {% else %}
-                            <div class="direct-chat-msg right">
+                        <div class="direct-chat-msg right">
 
 
                             <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-right"><font style="vertical-align: inherit;"><font
-                                        style="vertical-align: inherit;">{{mensagem.remetente.first_name}}</font></font></span>
-                                <span class="direct-chat-timestamp pull-left"><font
-                                        style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font></font></span>
+                                <span class="direct-chat-name pull-right">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">{{mensagem.remetente.first_name}}</font>
+                                    </font>
+                                </span>
+                                <span class="direct-chat-timestamp pull-left">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">{{mensagem.data_mensagem}}</font>
+                                    </font>
+                                </span>
                             </div>
                             <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg"
-                                 alt="imagem do usuário da mensagem">
+                            <img class="direct-chat-img"
+                                src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg"
+                                alt="imagem do usuário da mensagem">
                             <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">
-                                {{mensagem.texto}}
-                            </font></font></div>
+                            <div class="direct-chat-text">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        {{mensagem.texto}}
+                                    </font>
+                                </font>
+                            </div>
                             <!-- /.direct-chat-text -->
                         </div>
                         {% endif %}
@@ -137,19 +162,21 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     {% if destinatario %}
-                    <form action="{% url 'responderMensagem' idRemetente=remetente.id idDestinatario=destinatario.id %}" method="post">
+                    <form action="{% url 'responderMensagem' idRemetente=remetente.id idDestinatario=destinatario.id %}"
+                        method="post">
                         {%csrf_token %}
                         <input type="hidden" name="remetente" id="remetente" value={{remetente.id}}>
-                        <input type="hidden" id="input-date" name="data_mensagem"/>
-                        <input type="hidden" name="destinatario" id="destinatario"
-                                           value={{destinatario.id}}>
+                        <input type="hidden" id="input-date" name="data_mensagem" />
+                        <input type="hidden" name="destinatario" id="destinatario" value={{destinatario.id}}>
+
                         <div class="input-group">
-                            <input type="text" name="texto" placeholder="Digite a mensagem ..." class="form-control">
+                            <input type="text" name="texto" placeholder="Digite uma mensagem" class="form-control">
                             <span class="input-group-btn">
-                            <button onclick="setarInput()" type="submit" class="btn btn-primary block" id="demoNotify1"><font
-                                    style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">Responder</font></font></button>
-                          </span>
+                                <button onclick="setarInput()" type="submit" class="btn btn-primary block"
+                                    id="demoNotify1">
+                                    <i class="fa fa-paper-plane"></i>
+                                </button>
+                            </span>
                         </div>
                     </form>
                     {% endif %}
@@ -160,48 +187,48 @@
     </div>
 </main>
 <script>
-    function setarInput(){
-       const input = document.getElementById("input-date")
-       const date = new Date()
-       input.value = formDateTime(date)
+    function setarInput() {
+        const input = document.getElementById("input-date")
+        const date = new Date()
+        input.value = formDateTime(date)
     }
 
-    function formDate(date){
-    try {
-        const dateForm = new Date(date);
-        return checkNumber(dateForm.getDate())
-            + "/" + checkNumber(dateForm.getMonth() + 1)
-            + "/" + dateForm.getFullYear();
-    }catch (e) {
-        throw new DOMException('Informe um objeto data válido');
+    function formDate(date) {
+        try {
+            const dateForm = new Date(date);
+            return checkNumber(dateForm.getDate())
+                + "/" + checkNumber(dateForm.getMonth() + 1)
+                + "/" + dateForm.getFullYear();
+        } catch (e) {
+            throw new DOMException('Informe um objeto data válido');
+        }
     }
-}
 
-function checkNumber(value){
-    if (value < 10){
-        return "0"+ value;
+    function checkNumber(value) {
+        if (value < 10) {
+            return "0" + value;
+        }
+        return value;
     }
-    return value;
-}
 
-function formTime(date){
-    try {
-        const dateForm = new Date(date);
-        return checkNumber(dateForm.getHours()) + ":" + checkNumber(dateForm.getMinutes()) + ":";
-    }catch (e) {
-        throw new DOMException('Informe um objeto data válido');
+    function formTime(date) {
+        try {
+            const dateForm = new Date(date);
+            return checkNumber(dateForm.getHours()) + ":" + checkNumber(dateForm.getMinutes()) + ":";
+        } catch (e) {
+            throw new DOMException('Informe um objeto data válido');
+        }
     }
-}
 
-function formDateTime(date){
-    try {
-        const dateForm = new Date(date);
-        return formDate(dateForm) + " "
-            + checkNumber(dateForm.getHours()) + ":" + checkNumber(dateForm.getMinutes()) + ":"
-            + checkNumber(dateForm.getSeconds());
-    }catch (e) {
-        throw new DOMException('Informe um objeto data válido');
+    function formDateTime(date) {
+        try {
+            const dateForm = new Date(date);
+            return formDate(dateForm) + " "
+                + checkNumber(dateForm.getHours()) + ":" + checkNumber(dateForm.getMinutes()) + ":"
+                + checkNumber(dateForm.getSeconds());
+        } catch (e) {
+            throw new DOMException('Informe um objeto data válido');
+        }
     }
-}
 </script>
 {% endblock %}

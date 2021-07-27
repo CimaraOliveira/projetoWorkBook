@@ -12,15 +12,14 @@ router.register(r'perfil', ProfissionalViewSet)
 router.register(r'mensagem', MensagemViewSet)
 
 
-
 urlpatterns = [
-    path('', include('usuario.urls')),
 
+    path('', include('usuario.urls')),
     path('admin/', admin.site.urls),
     path('mensagem/', include('mensagem.urls')),
     path ('avaliacao/', include('avaliacao.urls')),
     path('api/', include(router.urls)),
-    #path('api-auth/', include('rest_framework.urls')),
+    #path('api/', include('rest_framework.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
