@@ -19,13 +19,13 @@ class MensagemViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = '__all__'
-
-    def get_object(self):
+    #m29r7cio
+    """def get_object(self):
         if self.kwargs.get('remetente_id'):
             return get_object_or_404(self.get_queryset(),
                                      remetente_id=self.kwargs.get('remetente_id'),
                                      id=self.kwargs.get('destinatario_id'))
-        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('destinatario_id'))
+        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('destinatario_id'))"""
 
     """@action(detail=True, methods=['get'])
     def get_queryset(self):
@@ -77,4 +77,19 @@ class MensagemViewSet(viewsets.ModelViewSet):
             return mensagens
         return Response(status=status.HTTP_200_OK,
                         data=MensagemSerializer(instance=mensagens_por_usuario(id_user), many=True, context={'request': request}).data)
+
+    @action(methods=['get'], detail=False, url_path='get_by_detalhe_mensagens')
+    def get_by_detalhe_mensagens(self, request):
+        id_remetente_str = "remetente"
+        id_destinatario_str = "destinatario"
+        id_remetente = self.request.GET.get(id_remetente_str) or self.request.session[id_remetente_str]
+        id_destinatario = self.request.GET.get(id_destinatario_str) or self.request.session[id_destinatario_str]
+
+        mensagens_detalhe = Mensagem.objects.filter(
+            (Q(destinatario__id=id_destinatario) & Q(remetente__id=id_remetente)) |
+            (Q(destinatario__id=id_remetente) & Q(remetente__id=id_destinatario))).order_by('id')
+
+        return Response(status=status.HTTP_200_OK,
+                        data=MensagemSerializer(instance=mensagens_detalhe, many=True,
+                                                context={'request': request}).data)
 
