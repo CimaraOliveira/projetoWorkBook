@@ -5,13 +5,14 @@ from django.conf import settings
 from usuario.usuario_service import UsuarioViewSet, ProfissionalViewSet
 from mensagem.mensagem_service import MensagemViewSet
 from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token
 
 router = routers.DefaultRouter()
-router.register(r'usuario', UsuarioViewSet)
+router.register(r'usuario', UsuarioViewSet, basename="Usuários")
 router.register(r'perfil', ProfissionalViewSet)
 router.register(r'mensagem', MensagemViewSet)
 
-
+#pip freeze > requirements.txt
 urlpatterns = [
 
     path('', include('usuario.urls')),
@@ -19,7 +20,9 @@ urlpatterns = [
     path('mensagem/', include('mensagem.urls')),
     path ('avaliacao/', include('avaliacao.urls')),
     path('api/', include(router.urls)),
-    #path('api/', include('rest_framework.urls')),
+    #path('api-token/', obtain_jwt_token),
+    path('api-auth/', include('rest_framework.urls'))
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,51 +1,23 @@
-import generics as generics
 from django.db.models import Q
-from rest_framework import viewsets, status, filters
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.generics import get_object_or_404
-
 from usuario.models import Usuario
 from .models import Mensagem
-from rest_framework import generics
 from .serializers import MensagemSerializer
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-
-
 class MensagemViewSet(viewsets.ModelViewSet):
+    """
+    API de Mensagens WorkBook
+    """
+
     queryset = Mensagem.objects.all()
     serializer_class = MensagemSerializer
 
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = '__all__'
     #m29r7cio
-    """def get_object(self):
-        if self.kwargs.get('remetente_id'):
-            return get_object_or_404(self.get_queryset(),
-                                     remetente_id=self.kwargs.get('remetente_id'),
-                                     id=self.kwargs.get('destinatario_id'))
-        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('destinatario_id'))"""
-
-    """@action(detail=True, methods=['get'])
-    def get_queryset(self):
-        remetente = self.kwargs.get('remetente',None)
-        destinatario = self.kwargs.get('destinatario',None)
-
-        print('************',remetente)
-        return Mensagem.objects.filter(remetente=remetente).filter(
-            destinatario=destinatario
-        )"""
-
-    """def get_queryset(self):
-        return self.queryset.filter(
-            remetente=self.kwargs.get('remetente')
-        ).filter(destinatario=self.kwargs.get('destinatario'))
-    """
-
-
-
-
 
     @action(methods=['get'], detail=False, url_path='get_by_last_messages')
     def get_by_last_messages(self, request):
