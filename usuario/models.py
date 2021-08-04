@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
-
+from rest_framework.authtoken.models import Token
 
 class Categoria(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -43,6 +45,8 @@ class Profissional(models.Model):
 
         super().save(*args, **kwargs)
 
+
+
     """def clean(self):
        model = self.__class__
        if model.objects.count() > 0 and self.slug != model.objects.get().slug:
@@ -65,19 +69,21 @@ class Usuario(AbstractUser):
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
 
-    LOAN_STATUS = (
-        ('profissional', 'Profissional'),
-        ('cliente', 'Cliente'),
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_auth_token(sender, instance=None, created=False, **kwargs):
+        if created:
+            Token.objects.create(user=instance)
 
-    )
-    status = models.CharField(max_length=15, choices=LOAN_STATUS, blank=True)
 
     @property
     def name(self):
         return "{} {}".format(self.first_name, self.last_name)
 
+
+
     class Meta:
         db_table = 'usuario'
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuario'
+
 

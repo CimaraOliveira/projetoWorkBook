@@ -5,7 +5,13 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 def teste(request):
-    return render(request, 'teste.html')
+    usuario = get_object_or_404(Usuario, id=request.user)
+    perfil = get_object_or_404(Profissional, user_id=usuario)
+
+
+
+
+    return render(request, 'avaliacao/teste.html')
 
 def _request_user(request):
     try:
@@ -47,7 +53,7 @@ def avaliar(request, id):
             avaliar = Avaliacao.objects.create(descricao=descricao, nota=nota, cliente=client, profissional=prof, data_avaliacao=data)
             avaliar.save()
 
-       return redirect('usuario:home')
+       return redirect('usuario:listarProfissional')
     return avaliacao(request)
 
 @login_required(login_url='usuario:submit_login')

@@ -29,19 +29,40 @@ const baseURI = "http://127.0.0.1:8000";
 const uri_by_last_messages = `${baseURI}/api/mensagem/get_by_last_messages`;
 const uri_by_messages = `${baseURI}/api/mensagem/get_by_detalhe_mensagens/`;
 const uri_post_messages = `${baseURI}/api/mensagem/`;
-const idUser = 1
+const uri_api_token = `${baseURI}/api-token/`
+const uri_api_auth_key = `${baseURI}/api/usuario/get_by_auth_key/`
+const uri_api_username_password = `${baseURI}/api/usuario/get_by_username_password/`
+let idUser = -1
+let basic = null
+
+function get_csrftoken(){
+	const coo = document.cookie
+	const index = coo.search('csrftoken')
+	if (index > -1){
+		return coo.substring(coo.search('=') + 1, document.cookie.length)
+	}
+	return ""
+}
 
 $(document).ready(async function () {
 	// essa url retorna a lista dos usuarios?e
 	//const data = await Req.getJSON("http://127.0.0.1:8000/api/usuario/", null)
 	//console.log(await data.json())
+	
+	console.log()
 	if ($("#list-mensagens").length) {
-		await Req.getJSON({uri: `${uri_by_last_messages}`, params: { id: 1 },
+		let key = JSON.parse(Session.get('key'))
+		basic = JSON.parse(Session.get('basic'))
+		let id = JSON.parse(Session.get('id')) 
+		idUser = id.id
+
+		await Req.getJSON({uri: `${uri_by_last_messages}`, headers:{
+			'Authorization': basic
+		}, params: { token: key.key },
 		onSuccess: (data) => createList(data), onError: (data) => console.log(data)})
 		//const d = await Req.getJSON(`${uri_by_last_messages}`, {id: 1})
 		//console.log(await d.json())
 		//createListMensagens();
-		// para mostrar as mensagens na div bate-papo. vc precisa cria um recurso (APi) para retornar essas mensagens. vc pode usar as consultas que tem na parte web
 	}
 });
 
@@ -85,16 +106,18 @@ function footer(destinatario, remetente){
 }
 
 function enviarMensagem(value, destinatario, remetente, input){
+	console.log(basic)
 	if (value !== ''){
-		/*Req.postJSON({uri: `${uri_post_messages}`, body: {
+		Req.postJSON({uri: `${uri_post_messages}`, body: {
 			texto: value,
 			destinatario: destinatario,
 			remetente: remetente
 		}, headers: {
-			'Authorization': `Token e01d52b65cb5a82212d473558bfd57de62a2ecc1`
+			'Authorization': `Basic ${basic}`,
+			'X-CSRFToken': get_csrftoken()
 		}, onSuccess: (res) => createListMensagens(res.data), onError: (data) => console.log(data)})
 		value = ""
-		input.value = value*/
+		input.value = value
 		console.log(destinatario, remetente, idUser)
 	}
 }

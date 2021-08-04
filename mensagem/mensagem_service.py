@@ -6,23 +6,32 @@ from .models import Mensagem
 from .serializers import MensagemSerializer
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.authtoken.models import Token
+
 
 class MensagemViewSet(viewsets.ModelViewSet):
     """
     API de Mensagens WorkBook
     """
 
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Mensagem.objects.all()
     serializer_class = MensagemSerializer
 
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = '__all__'
-    #m29r7cio
+
+    # m29r7cio
 
     @action(methods=['get'], detail=False, url_path='get_by_last_messages')
     def get_by_last_messages(self, request):
-        id_str = "id"
-        id_user = self.request.GET.get(id_str) or self.request.session[id_str]
+        token_str = "token"
+        token_user = self.request.GET.get(token_str) or self.request.session[token_str]
+        query_token = Token.objects.filter(key=token_user).values()[0]
+        print('ID USER -> ', query_token['key'])
 
         def mensagens_por_usuario(id):
             # essa query vai pegar a ultima mensagem feita pelo remetente ou pelo destinatario.
@@ -42,13 +51,16 @@ class MensagemViewSet(viewsets.ModelViewSet):
             for user in usuarios:
                 if user.id != id:
                     mensagem = Mensagem.objects.filter((Q(destinatario__id=user.id) & Q(remetente__id=id)) | (
-                                Q(remetente__id=user.id) & Q(destinatario__id=id))).last()
+                            Q(remetente__id=user.id) & Q(destinatario__id=id))).last()
                     if mensagem:
                         mensagens.append(mensagem)
 
             return mensagens
+
         return Response(status=status.HTTP_200_OK,
-                        data=MensagemSerializer(instance=mensagens_por_usuario(id_user), many=True, context={'request': request}).data)
+                        data=MensagemSerializer(instance=mensagens_por_usuario(query_token['user_id']), many=True,
+                                                context={'request': request}).data)
+
 
     @action(methods=['get'], detail=False, url_path='get_by_detalhe_mensagens')
     def get_by_detalhe_mensagens(self, request):
@@ -64,4 +76,3 @@ class MensagemViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK,
                         data=MensagemSerializer(instance=mensagens_detalhe, many=True,
                                                 context={'request': request}).data)
-

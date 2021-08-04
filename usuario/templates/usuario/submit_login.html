@@ -34,11 +34,11 @@
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
             <div class="form-group">
                 <label class="control-label">USUÁRIO</label>
-                <input type="text" class="form-control" name="username" placeholder="Email" required="required" autofocus>
+                <input type="text" id="username" class="form-control" name="username" placeholder="Email" required="required" autofocus>
             </div>
             <div class="form-group">
                 <label class="control-label">SENHA</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="required">
             </div>
             <div class="form-group">
                 <div class="utility">
@@ -52,7 +52,7 @@
 
             </div>
             <div class="form-group btn-container">
-                <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>ENTRAR</button>
+                <button id="submit_login" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>ENTRAR</button>
             </div>
             <div class="form-group " align="center">
                 <p class="semibold-text mb-2"><a href="{% url 'usuario:cadastro' %}">Cadastre-se</a></p>
@@ -63,9 +63,13 @@
 </section>
 <!-- Essential javascripts for application to work-->
 <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+<script src="{% static 'js/lib/lib-tag.js'%}"></script>
+<script src="{% static 'js/lib/lib-utils.js'%}"></script>
 <script src="{% static 'js/popper.min.js'%}"></script>
 <script src="{% static 'js/bootstrap.min.js'%}"></script>
 <script src="{% static 'js/main.js'%}"></script>
+<script src="{% static 'js/Session.js'%}"></script>
+<script src="{% static 'js/login.js'%}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script src="{% static 'js/plugins/pace.min.js'%}"></script>
 <script type="text/javascript">

@@ -7,6 +7,7 @@ from mensagem.mensagem_service import MensagemViewSet
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
+
 router = routers.DefaultRouter()
 router.register(r'usuario', UsuarioViewSet, basename="Usuários")
 router.register(r'perfil', ProfissionalViewSet)
@@ -20,8 +21,9 @@ urlpatterns = [
     path('mensagem/', include('mensagem.urls')),
     path ('avaliacao/', include('avaliacao.urls')),
     path('api/', include(router.urls)),
-    #path('api-token/', obtain_jwt_token),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-token/', obtain_jwt_token),
+    path('api-auth/', include('rest_framework.urls')),
+
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

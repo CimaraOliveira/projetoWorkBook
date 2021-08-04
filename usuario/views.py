@@ -35,6 +35,7 @@ def cadastro(request):
             return render(request, 'usuario/cadastro.html')
 
         username = request.POST['username']
+        first_name = request.POST['first_name']
         telefone = request.POST['telefone']
         cidade = request.POST['cidade']
         rua = request.POST['rua']
@@ -73,7 +74,7 @@ def cadastro(request):
 
         messages.success(request, 'Usuário Registrado com Sucesso!')
 
-        new_user = Usuario.objects.create_superuser(username=username, telefone=telefone, email=email,password=senha,
+        new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, telefone=telefone, email=email,password=senha,
                                                     cidade=cidade, rua=rua, uf=uf, bairro=bairro)
         new_user.save()
         return redirect('usuario:home')
@@ -103,12 +104,12 @@ def buscar(request):
        messages.error(request, 'Campo não pode ser vazio!')
        return redirect('usuario:listarProfissional')
 
-   campos = Concat('profissao',Value(' '), 'cidade')
+   campos = Concat('cidade',Value(' '),  'profissao')
 
-   perfil = Usuario.objects.annotate(
+   perfil = Profissional.objects.annotate(
         nome_profissao=campos
    ).filter(
-        Q(nome_profissao__icontains=termo) | Q(cidade__icontains=termo)
+        Q(profissao__icontains=termo) | Q(descricao__icontains=termo)
 
    )
    if not perfil:
