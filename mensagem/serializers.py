@@ -12,5 +12,5 @@ class MensagemSerializer(serializers.ModelSerializer):
                   'texto',
                   'destinatario',
                   'remetente',
-                  #'data_mensagem'
+                  'data_mensagem'
                   )

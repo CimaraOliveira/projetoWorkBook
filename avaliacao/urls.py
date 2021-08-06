@@ -8,6 +8,5 @@ urlpatterns = [
    path('avaliacao/<id>', views.avaliar, name='avaliar'),
    path('listAvaliacao/', views.listAvaliacao, name='listAvaliacao'),
    path('<id>', views.avaliacao, name='avaliacao'),
-   path('teste/', views.teste, name=''),
 
 ]

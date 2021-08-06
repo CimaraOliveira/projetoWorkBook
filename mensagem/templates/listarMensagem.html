@@ -46,9 +46,9 @@
                             {% else %}
                             <a href="{% url 'detalheMensagem' idRemetente=request.user.id idDestinatario=mensagem.remetente.id %}"
                                 class="product-title">
-                                <div class="product-img">
-                                    {% if mensagem.user.imagem %}
-                                    <img src="{{mensagem.user.imagem.url}}">
+                                <div class="product-img"> <!-- Minhas Mensagens -->
+                                    {% if mensagem.remetente.imagem %}
+                                    <img src="{{mensagem.remetente.imagem.url}}" style="max-width: 500px; height: auto">
                                     {% endif %}
                                 </div>
                                 <div class="product-info">
@@ -141,9 +141,14 @@
                                 </span>
                             </div>
                             <!-- /.direct-chat-info -->
+                             {% if mensagem.remetente.imagem %}
                             <img class="direct-chat-img"
-                                src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg"
+                                src="{{mensagem.remetente.imagem.url}}" style="max-width: 500px; height: auto"
                                 alt="imagem do usuário da mensagem">
+                             {% endif %}
+                            <!--<img class="direct-chat-img"
+                                src="https://image.freepik.com/vetores-gratis/icone-de-perfil-de-pessoas_24877-40758.jpg"
+                                alt="imagem do usuário da mensagem">-->
                             <!-- /.direct-chat-img -->
                             <div class="direct-chat-text">
                                 <font style="vertical-align: inherit;">
@@ -232,3 +237,4 @@
     }
 </script>
 {% endblock %}
+

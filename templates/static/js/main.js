@@ -33,7 +33,9 @@ const uri_api_token = `${baseURI}/api-token/`
 const uri_api_auth_key = `${baseURI}/api/usuario/get_by_auth_key/`
 const uri_api_username_password = `${baseURI}/api/usuario/get_by_username_password/`
 let idUser = -1
+let key = null
 let basic = null
+const keyIdPerfil = 'id-perfil'
 
 function get_csrftoken(){
 	const coo = document.cookie
@@ -44,38 +46,51 @@ function get_csrftoken(){
 	return ""
 }
 
-$(document).ready(async function () {
-	// essa url retorna a lista dos usuarios?e
-	//const data = await Req.getJSON("http://127.0.0.1:8000/api/usuario/", null)
-	//console.log(await data.json())
-	
-	console.log()
+function save_id_perfil(){
+	Session.create('id-perfil', document.getElementById('id-perfil').textContent)
+	window.location.href = "/mensagem/teste-chat/"//aqui. show kkkkk. pois vlw, vou sair
+}
+
+async function enviar_mensagem_pelo_perfil(id){
+	//enviar-mensagem-perfil
+	//id-perfil
+	if (id !== null){
+		await batePapo(idUser, id)
+		Session.remove(keyIdPerfil)
+	}
+
+}
+
+$(document).ready(async function () { 
 	if ($("#list-mensagens").length) {
-		let key = JSON.parse(Session.get('key'))
+		key = JSON.parse(Session.get('key'))
 		basic = JSON.parse(Session.get('basic'))
 		let id = JSON.parse(Session.get('id')) 
 		idUser = id.id
-
-		await Req.getJSON({uri: `${uri_by_last_messages}`, headers:{
-			'Authorization': basic
-		}, params: { token: key.key },
-		onSuccess: (data) => createList(data), onError: (data) => console.log(data)})
-		//const d = await Req.getJSON(`${uri_by_last_messages}`, {id: 1})
-		//console.log(await d.json())
-		//createListMensagens();
+		const idPerfil = JSON.parse(Session.get(keyIdPerfil))
+		await enviar_mensagem_pelo_perfil(idPerfil)
+		await render()// ta. outra coisa, ficou com alguma duvida dessa funcionalidade. show. depois vc muda a url pra ficar mais legal, lembre de alterar na funcao que ela ta direcionando para a tela de teste
 	}
 });
 
-function batePapo(remetente, destinatario){
-	Req.getJSON({uri: `${uri_by_messages}`, params: {remetente: remetente, destinatario: destinatario}
-	, onSuccess: (res) => mensagens(res), onError: () => {}})
+async function render(){
+	document.getElementById('list-mensagens').innerHTML = ""
+	await Req.getJSON({uri: `${uri_by_last_messages}`, headers:{
+		'Authorization': basic
+	}, params: { token: key.key },
+	onSuccess: async (data) => await createList(data), onError: (data) => console.log(data)})
+}
 
-	function mensagens(res){
+async function batePapo(remetente, destinatario){
+	await Req.getJSON({uri: `${uri_by_messages}`, params: {remetente: remetente, destinatario: destinatario}
+	, onSuccess: async (res) => await mensagens(res), onError: () => {}})
+
+	async function mensagens(res){
 		const {data} = res 
 		document.getElementById('direct-chat').innerHTML = ""
 		document.getElementById('direct-chat-footer').innerHTML = ""
 		for (let obj of data){
-			createListMensagens(obj)
+			await createListMensagensBatePapo(obj)
 		}
 		if (remetente === idUser){
 			footer(destinatario, remetente)
@@ -101,102 +116,75 @@ function footer(destinatario, remetente){
 	inputElement.addEventListener('keyup', (event) => {
 		value = event.target.value
 	}, false)
-	buttonElement.addEventListener('click', () => enviarMensagem(value, destinatario, remetente, inputElement), false)
+	buttonElement.addEventListener('click', async () => await enviarMensagem(value, destinatario, remetente, inputElement), false)
 	View.append(element, document.getElementById('direct-chat-footer'));
 }
 
-function enviarMensagem(value, destinatario, remetente, input){
-	console.log(basic)
+async function enviarMensagem(value, destinatario, remetente, input){ 
 	if (value !== ''){
-		Req.postJSON({uri: `${uri_post_messages}`, body: {
+		await Req.postJSON({uri: `${uri_post_messages}`, body: {
 			texto: value,
 			destinatario: destinatario,
-			remetente: remetente
+			remetente: remetente,
+			data_mensagem: new Date()
 		}, headers: {
 			'Authorization': `Basic ${basic}`,
 			'X-CSRFToken': get_csrftoken()
-		}, onSuccess: (res) => createListMensagens(res.data), onError: (data) => console.log(data)})
+		}, onSuccess: async (res) => await createListMensagensBatePapo(res.data, true), onError: (data) => console.log(data)})
 		value = ""
 		input.value = value
-		console.log(destinatario, remetente, idUser)
 	}
-}
+} 
 
-function createListMensagens(mensagem) {
+async function createListMensagensBatePapo(mensagem, isRefresh) {
 	
-	if (idUser === mensagem.remetente){
-		console.log('r', mensagem.remetente)
-		Req.getJSON({uri: `${baseURI}/api/usuario/`,
-		params: [mensagem.remetente], onSuccess: (res) => getRemetenteBatePapo(res.data, mensagem), onError: (data) => console.log(data)})
-	} else {
-		console.log( 'd', mensagem.destinatario)
-		Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [mensagem.remetente],
-		onSuccess: (res) => getDestinatarioBatePapo(res.data, mensagem), onError: (data) => console.log(data)})
+	if (idUser === mensagem.remetente){ 
+		const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`,
+		params: [mensagem.remetente], 
+		})
+		if (resp.status === 200){
+			const body = await resp.json()
+			getRemetenteBatePapo(body, mensagem) 
+		}
+	} else { 
+		const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [mensagem.remetente], 
+		})
+		if (resp.status === 200){
+			const body = await resp.json()
+			getDestinatarioBatePapo(body, mensagem)
+		}
 	}
 
-	function getDestinatarioBatePapo(dest, mensagem) {
-		console.log(dest)
-		const spanName = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-name pull-left' }, value: dest.username })
-		const spanData = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-timestamp pull-right' }, value: mensagem.data_mensagem})
-		const divDirectInfo = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-info clearfix' }, children: [spanName, spanData] })
-		const image = new Tag({ tagName: 'img', attrs: { src: dest.imagem, 
-		class: 'direct-chat-img' } })
-		const divDirectText = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-text' }, value: mensagem.texto })
-		const divDirectDestinatario = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-msg' }, children: [divDirectInfo, image, divDirectText] })
-		View.append(new TagView(divDirectDestinatario).element, document.getElementById('direct-chat'));
-	}
-
-	function getRemetenteBatePapo(rem, mensagem) {
-		console.log(rem)
-		const spanName = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-name pull-left' }, value: rem.username })
-		const spanData = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-timestamp pull-right' }, value: mensagem.data_mensagem })
-		const divDirectInfo = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-info clearfix' }, children: [spanName, spanData] })
-		const image = new Tag({ tagName: 'img', attrs: { src: rem.imagem, class: 'direct-chat-img' } })
-		const divDirectText = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-text' }, value: mensagem.texto })
-		const divDirectRemetente = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-msg right' }, children: [divDirectInfo, image, divDirectText] })
-		View.append(new TagView(divDirectRemetente).element, document.getElementById('direct-chat'));
+	if (isRefresh){
+		await render()			
 	}  
 	
 }
+
+/*function await render(){
+	setInterval(async () =>{
+	  await render()
+	}, 1000)
+}*/
 
 async function createList(res) { 
 	const {data} = res
 	
 	for (let obj of data) {
-		if (idUser === obj['remetente']){
-			Req.getJSON({uri: `${baseURI}/api/usuario/`,
-			params: [obj['remetente']], onSuccess: (res) => getRemetente(res.data, obj['destinatario'], obj), onError: (data) => console.log(data)})
+		if (idUser !== obj['remetente']){
+			const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`,
+			params: [obj['remetente']]})
+			if (resp.status === 200){
+				const body = await resp.json()
+				getRemetenteList(body, obj['destinatario'], obj)
+			}
 		} else {
-			Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [obj['destinatario']],
-			onSuccess: (res) => getDestinatario(res.data, obj['remetente'], obj), onError: (data) => console.log(data)})
+			const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [obj['destinatario']]})
+			if (resp.status === 200){
+				const body = await resp.json()
+				getDestinatarioList(body, obj['remetente'], obj)
+			}
 		}  
-	}
-
-	function getRemetente(rem, dest, mensagem) {   
-		const img = new Tag({ tagName: 'img', attrs: { src: rem.imagem !== null ? rem.imagem : 'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png', style: 'max-width: 500px; height: auto' } })
-		const divImg = new Tag({ tagName: 'div', attrs: { class: 'product-img' }, children: [img] })
-		const pUsername = new Tag({ tagName: 'p', value: rem.username, attrs: { class: 'text-black-50' } })
-		const spanDataMensagem = new Tag({ tagName: 'span', attrs: { class: 'label label-primary pull-right' }, value: mensagem.data_mensagem })
-		const spanTexto = new Tag({ tagName: 'span', attrs: { class: 'product-description' }, value: mensagem.texto })
-		const divInfo = new Tag({ tagName: 'div', attrs: { class: 'product-info' }, children: [pUsername, spanDataMensagem, spanTexto] })
-		const a = new Tag({ tagName: 'a', attrs: { class: 'product-title', href: '#'}, children: [divImg, divInfo] })
-		const li = new Tag({ tagName: 'li', attrs: { class: 'item' }, children: [a] })
-		const liView = new TagView(li)
-		liView.element.addEventListener('click', () => batePapo(rem.id, dest), false);
-		View.append(liView.element, document.getElementById('list-mensagens'))
-	}
-
-	function getDestinatario(dest, rem, messagem) { 
-		const img = new Tag({ tagName: 'img', attrs: { src: dest.imagem !== null ? dest.imagem : 'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png', style: 'max-width: 500px; height: auto' } })
-		const divImg = new Tag({ tagName: 'div', attrs: { class: 'product-img' }, children: [img] })
-		const pUsername = new Tag({ tagName: 'p', value: dest.username, attrs: { class: 'text-black-50' } })
-		const spanDataMensagem = new Tag({ tagName: 'span', attrs: { class: 'label label-primary pull-right' }, value: messagem.data_mensagem })
-		const spanTexto = new Tag({ tagName: 'span', attrs: { class: 'product-description' }, value: messagem.texto })
-		const divInfo = new Tag({ tagName: 'div', attrs: { class: 'product-info' }, children: [pUsername, spanDataMensagem, spanTexto] })
-		const a = new Tag({ tagName: 'a', attrs: { class: 'product-title', href: '#'}, children: [divImg, divInfo] })
-		const li = new Tag({ tagName: 'li', attrs: { class: 'item' }, children: [a] })
-		const liView = new TagView(li)
-		liView.element.addEventListener('click', () => batePapo(rem, dest.id), false);
-		View.append(liView.element, document.getElementById('list-mensagens'))
-	}
+	} 
+	
 }

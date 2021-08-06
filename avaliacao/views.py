@@ -1,36 +1,28 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Avaliacao
 from usuario.models import Usuario,Profissional
+from avaliacao.models import Avaliacao
 from datetime import datetime
+from .form import AvaliacaoForm
 from django.contrib.auth.decorators import login_required
 
-def teste(request):
-    usuario = get_object_or_404(Usuario, id=request.user)
-    perfil = get_object_or_404(Profissional, user_id=usuario)
-
-
-
-
-    return render(request, 'avaliacao/teste.html')
-
+# funcao que retorna o usuario logado
 def _request_user(request):
     try:
-        usuario = get_object_or_404(Usuario, id=request.user)
-        perfil = get_object_or_404(Profissional, user_id=usuario)
-
-
-        if perfil:
-            return perfil
+        user = Usuario.objects.get(id=request.user.id)
+        if user:
+            return user
     except Exception as err:
         print(err)
     return None
 
+# funcao que retorna o perfil pelo id
 def _request_perfil(id):
     try:
-        usuario = get_object_or_404(Usuario, id=id)
-        prof = get_object_or_404(Profissional, user_id=usuario)
-        if prof.perfil:
-            return prof
+       usuario = get_object_or_404(Usuario, id=id)
+       prof = Profissional.objects.get(user_id=usuario)
+       #prof = get_object_or_404(Profissional, user_id=usuario)
+       if prof.perfil:
+         return prof
     except Exception as err:
         print(err)
     return None

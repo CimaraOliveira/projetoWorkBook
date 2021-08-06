@@ -56,8 +56,9 @@
                                     <p class="m-b-10 f-w-600"></p>
 
                                     <div class="col">
-                                        <a class="btn btn-primary block"
-                                           href="{% url 'listarMensagem' perfil.user.id %}">Mensagem</a>
+                                        <span id="id-perfil" hidden>{{ perfil.user.id }}</span>
+                                        <a onclick="save_id_perfil()" class="btn btn-primary block" id="enviar-mensagem-perfil"
+                                          href="#">Mensagem</a>
 
                                         <a class="btn btn-primary block"
                                            href="{% url 'avaliacao:avaliacao' perfil.user.id %}">Avaliar</a>
