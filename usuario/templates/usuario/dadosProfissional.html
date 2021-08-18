@@ -9,7 +9,7 @@
             <div class="card user-card-full">
                 <div class="row m-l-0 m-r-0">
                     <div class="card-body">
-                        <form method="post" action="{% url 'usuario:dadosPessoais' usuario.id %}" enctype="multipart/form-data">
+                        <form method="post" action="{% url 'usuario:dadosProfissional' profissional.user_id %}" enctype="multipart/form-data">
                             {% csrf_token %}
 
                                 {{ form|crispy }}

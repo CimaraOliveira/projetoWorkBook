@@ -3,7 +3,7 @@ from .models import Usuario, Profissional, Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import auth
-from .form import FormPerfil, FormDadosPessoais
+from .form import FormPerfil, FormDadosPessoais, FormEditProfissional
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
@@ -201,3 +201,14 @@ def dadosPessoais(request, id):
     return render(request, 'usuario/dadosPessoais.html',data)
 
 
+def dadosProfissional(request, user_id):
+    data = {}
+    profissional = Profissional.objects.get(user_id=user_id)
+
+    form = FormEditProfissional(request.POST or None, instance=profissional)
+    if form.is_valid():
+        form.save()
+        return redirect('usuario:dadosProfissional', profissional.user_id)
+    data['form'] = form
+    data['profissional'] = profissional
+    return render(request, 'usuario/dadosProfissional.html', data)
