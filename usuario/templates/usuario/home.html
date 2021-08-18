@@ -52,7 +52,7 @@
         <div class="align-items-center page-content">
     {% include 'parciais/_mensagges.html' %}
 
-         {% if 'perfil' not in request.path %}
+         {% if 'profissional' not in request.path %}
             <br><br>
            <form method="get" action="#">
 
@@ -74,18 +74,18 @@
 
 
             <div class="card-columns">
-                {% for perfil in perfil %}
+                {% for profissional in profissional %}
                 <div class="card col-18" style="width: 18rem;">
-                    {% if perfil.imagem %}
+                    {% if profissional.imagem %}
                     <a href="{{ perfil.slug }}">
-                        <img class="rounded " src="{{ perfil.imagem.url  }}" alt="{{ perfil.profissao }}"
+                        <img class="rounded " src="{{ profissional.imagem.url  }}" alt="{{ profissional.profissao }}"
                              style="width: 288px; height: 200px; object-fit: fill;">
                     </a>
                     {% endif %}
                     <div class="card-body">
                         <a href="{{ perfil.slug }}">
-                            <h5 class="card-title">{{ perfil.profissao }} </h5></a>
-                        <p>{{perfil.slug}}</p>
+                            <h5 class="card-title">{{ profissional.profissao }} </h5></a>
+                        <p>{{profissional.slug}}</p>
                     </div>
 
                 </div>
@@ -98,8 +98,8 @@
         </div>
     <nav aria-label="Navegação de página exemplo">
         <ul class="pagination">
-            {% for pagina in perfil.paginator.page_range %}
-            {% if perfil.number == pagina %}
+            {% for pagina in profissional.paginator.page_range %}
+            {% if profissional.number == pagina %}
             <li class="page-item active"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>
             {% else %}
             <li class="page-item"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>

@@ -54,7 +54,7 @@
     {% include 'parciais/_mensagges.html' %}
 
 
-         {% if 'perfil' not in request.path %}
+         {% if 'profissional' not in request.path %}
             <br><br>
            <form method="get" action="#">
 
@@ -76,18 +76,18 @@
 
 
             <div class="card-columns">
-                {% for perfil in perfil %}
+                {% for profissional in profissional %}
                 <div class="card" style="width: 18rem;">
-                    {% if perfil.imagem %}
-                    <a href="{{ perfil.slug }}">
-                        <img class="rounded " src="{{ perfil.imagem.url  }}" alt="{{ perfil.profissao }}"
+                    {% if profissional.imagem %}
+                    <a href="{{ profissional.slug }}">
+                        <img class="rounded " src="{{ profissional.imagem.url  }}" alt="{{ profissional.profissao }}"
                              style="max-width: 100%; height: auto">
                     </a>
                     {% endif %}
                     <div class="card-body">
-                        <a href="{{ perfil.slug }}">
-                            <h5 class="card-title">{{ perfil.profissao }} </h5></a>
-                        <p>{{perfil.slug}}</p>
+                        <a href="{{ profissional.slug }}">
+                            <h5 class="card-title">{{ profissional.profissao }} </h5></a>
+                        <p>{{profissional.slug}}</p>
                     </div>
                 </div>
                 {% endfor %}

@@ -34,9 +34,13 @@
             <div class="tile">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form method="post" action="{% url 'avaliacao:avaliar' user.id %}" class="form">
+                        <!--profissional.user.id-->
+                        <form method="post" action="{% url 'avaliacao:avaliar'  profissional.user_id %}" class="form">
                             {%csrf_token %}
-                            <div class="row"> <!--user.id-->
+                            <div class="row"> <!--{{profissional.user.id}} {{profissional.user_id}} -->
+
+
+
 
                                 <div id="show_class" class="col-lg-12">
                                     <div class="form-group">
@@ -58,9 +62,13 @@
                                         </div>
                                     </div>
 
+                                       {{profissional.user.id}}
+                                       {{request.user}}
+
+
                                    <div class="form-group">
-                                        <label for="id_texto">Deixe seu comentario:</label>
-                                         <label for="id_texto">{{profissional.user}}</label>
+                                        <label for="id_texto">Deixe sua avaliação para:</label>
+                                         <label for="id_texto">{{profissional.user.first_name}}</label>
                                         <textarea name="descricao" cols="140" rows="5" class="form-control"
                                                   required="" id="id_texto"
                                                   placeholder="Deixe seu comentario aqui!"></textarea>

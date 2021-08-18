@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'usuario.apps.UsuarioConfig',
     'mensagem.apps.MensagemConfig',
     'avaliacao.apps.AvaliacaoConfig',
+    'notificacoes.apps.NotificacoesConfig',
+    'teste.apps.TesteConfig',
 
 
 ]

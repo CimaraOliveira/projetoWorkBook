@@ -5,7 +5,7 @@
     {% include 'parciais/_mensagges.html' %}
     <div class="row">
         <div class="col-lg-12">
-            {% if 'perfil' not in request.path %}
+            {% if 'profissional' not in request.path %}
             <form method="get" action="{% url 'usuario:buscar' %}">
                 <div class="form-group row">
                     <div class="col-12">
@@ -21,18 +21,18 @@
             <br/>
             <br/>
             <div class="card-columns">
-                {% for perfil in perfil %}
+                {% for profissional in profissional %}
                 <div class="card col-18" style="width: 18rem;">
-                    {% if perfil.imagem %}
-                    <a href="{{ perfil.slug }}">
-                        <img class="rounded " src="{{ perfil.imagem.url  }}" alt="{{ perfil.profissao }}"
+                    {% if profissional.imagem %}
+                    <a href="{{ profissional.slug }}">
+                        <img class="rounded " src="{{ profissional.imagem.url  }}" alt="{{ profissional.profissao }}"
                              style="width: 288px; height: 200px; object-fit: fill;">
                     </a>
                     {% endif %}
                     <div class="card-body">
-                        <a href="{{ perfil.slug }}">
-                            <h5 class="card-title">{{ perfil.profissao }} </h5></a>
-                        <p>{{perfil.slug}}</p>
+                        <a href="{{ profissional.slug }}">
+                            <h5 class="card-title">{{ profissional.profissao }} </h5></a>
+                        <p>{{profissional.user.first_name}}</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -42,8 +42,8 @@
 
     <nav aria-label="Navegação de página exemplo">
   <ul class="pagination">
-      {% for pagina in perfil.paginator.page_range %}
-        {% if perfil.number == pagina %}
+      {% for pagina in profissional.paginator.page_range %}
+        {% if profissional.number == pagina %}
           <li class="page-item active"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>
         {% else %}
           <li class="page-item"><a class="page-link" href="?p={{ pagina }}">{{ pagina }}</a></li>

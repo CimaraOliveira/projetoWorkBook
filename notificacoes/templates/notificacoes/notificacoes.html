@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block style %}
+
+<style>
+        div.polaroid {
+            width: 250px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
+        }
+        div.container {
+            padding: 10px;
+        }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row" style="display: flex;flex-direction: row;justify-content: center;align-items: center">
+
+            <div class="col-md-12">
+                 {% include 'parciais/_mensagges.html' %}
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Notificações</h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table" id="list-oferecer-carona">
+                                <thead class=" text-primary">
+                                <th>
+                                    Foto
+                                </th>
+                                <th>
+                                    Mensagem
+                                </th>
+                                <th>
+                                    Data
+                                </th>
+                                </thead>
+                                <tbody>
+                                {% for notificacao in notificacoes %}
+                                <tr>
+
+                                    <td><img src="{{ notificacao.usuario_envia.foto.url }}" style="width: 95px">
+                                    </td>
+                                    <td>{{ notificacao.usuarioEnvia.imagem }}</td>
+                                    <td>{{ notificacao.mensagem }}</td>
+                                    <td>{{ notificacao.data_notificacao }}</td>
+
+                                </tr>
+                                </tbody>
+                                {% empty %}
+                                 <tfoot>
+                                 {% include 'parciais/menssage_notificacao.html' with mensagem='Nenhuma notificação registrada!'  %}
+                                </tfoot>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario, Profissional, Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -17,10 +17,10 @@ from django.core.paginator import Paginator
 app_name='usuario'
 
 def home(request):
-   perfil = Profissional.objects.all()
+   profissional = Profissional.objects.all()
 
    context = {
-       'perfil': perfil
+       'profissional': profissional
    }
    return render(request, 'usuario/home.html',context)
 
@@ -104,20 +104,20 @@ def buscar(request):
        messages.error(request, 'Campo não pode ser vazio!')
        return redirect('usuario:listarProfissional')
 
-   campos = Concat('cidade',Value(' '),  'profissao')
+   campos = Concat('descricao',Value(' '),  'profissao')
 
-   perfil = Profissional.objects.annotate(
+   profissional = Profissional.objects.annotate(
         nome_profissao=campos
    ).filter(
         Q(profissao__icontains=termo) | Q(descricao__icontains=termo)
 
    )
-   if not perfil:
+   if not profissional:
        messages.error(request, 'Pesquisa não encontrada!')
        return redirect('usuario:listarProfissional')
 
    context = {
-       'perfil': perfil
+       'profissional': profissional
    }
    return render(request, 'usuario/buscar.html', context)
 
@@ -147,11 +147,29 @@ def submit_login(request):
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 
-class DetalhesProfissional(DetailView,LoginRequiredMixin):
+#class DetalhesProfissional(DetailView,LoginRequiredMixin):
+class DetalhesProfissional(DetailView):
     model = models.Profissional
     template_name = 'usuario/detalhesProfissional.html'
-    context_object_name = 'perfil'
-    slug_id_url_kwarg = 'slug'
+    context_object_name = 'profissional'
+    pk_id_url_kwarg = 'pk'
+
+"""class DetalhesProfissional(DetailView):
+    model = models.Profissional
+    template_name = 'usuario/detalhesProfissional.html'
+    context_object_name = 'profissional'
+    slug_id_url_kwarg = 'slug'"""
+
+
+"""def detalhesProfissional(request,id):
+    user = get_object_or_404(Usuario, id=id)
+    profissional = get_object_or_404(Profissional, user_id=user)
+
+    context = {
+        'profissional': profissional
+    }
+    return render(request, 'usuario/detalhesProfissional.html', context)"""
+
 
 
 def logout_user(request):
@@ -160,12 +178,12 @@ def logout_user(request):
     return redirect('usuario:home')
 
 def listarProfissional(request):
-    perfil = Profissional.objects.all()
-    paginator = Paginator(perfil, 2)
+    profissional = Profissional.objects.all()
+    paginator = Paginator(profissional, 2)
     page = request.GET.get('p')
-    perfil = paginator.get_page(page)
+    profissional = paginator.get_page(page)
     context = {
-        'perfil':perfil
+        'profissional':profissional
     }
     return render(request, 'usuario/listarProfissional.html',context)
 

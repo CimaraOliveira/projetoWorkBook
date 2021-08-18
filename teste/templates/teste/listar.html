@@ -1,0 +1,33 @@
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Nota</th>
+        <th scope="col">descricao</th>
+        <th scope="col">Profissional</th>
+
+
+
+      </tr>
+      </thead>
+      <tbody>
+      {% for testeAvaliacao in listar  %}
+      <tr>
+
+          <td>{{ testeAvaliacao.nota }}</td>
+        <td>{{ testeAvaliacao.descricao }}</td>
+
+           <td>{{testeAvaliacao.usuario.username}}</td>
+           <td>{{testeAvaliacao.cliente.first_name}}</td>
+
+           <td>{{testeAvaliacao.profissional_id}}</td>
+
+      <td>
+
+      </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>

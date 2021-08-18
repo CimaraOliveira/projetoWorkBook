@@ -1,6 +1,9 @@
 from django.db.models import Q
 from rest_framework import viewsets, status
+from datetime import datetime
 from rest_framework.decorators import action
+
+from notificacoes.models import Notificacao
 from usuario.models import Usuario
 from .models import Mensagem
 from .serializers import MensagemSerializer
@@ -24,7 +27,26 @@ class MensagemViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = '__all__'
 
-    # m29r7cio
+    def create(self, request, *args, **kwargs):
+        mensagemReq = request.data
+        mensagem = Mensagem.objects.create(texto=mensagemReq['texto'], destinatario=Usuario.objects.get(id=mensagemReq['destinatario']), remetente=Usuario.objects.get(id=mensagemReq['remetente']), data_mensagem=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        Mensagem.save(mensagem)
+        noticacao = Notificacao.objects.create(texto=mensagemReq['texto'], mensagemRecebida=mensagem)
+        Notificacao.save(noticacao)
+        return Response(status=status.HTTP_201_CREATED,
+                        data=MensagemSerializer(instance=mensagem,
+                                                context={'request': request}).data)
+
+    @action(methods=['get'], detail=False, url_path='get_by_id')
+    def get_by_id(self, request):
+        id_str = "id"
+        id = self.request.GET.get(id_str) or self.request.session[id_str]
+        mensagem = Mensagem.objects.get(id=id)
+        if mensagem:
+            return Response(status=status.HTTP_200_OK,
+                            data=MensagemSerializer(instance=mensagem,
+                                                   context={'request': request}).data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     @action(methods=['get'], detail=False, url_path='get_by_last_messages')
     def get_by_last_messages(self, request):

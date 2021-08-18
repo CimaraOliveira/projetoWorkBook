@@ -17,5 +17,6 @@ urlpatterns = [
    path('buscar', views.buscar, name='buscar'),
    path('dadosPessoais/<int:id>', views.dadosPessoais, name='dadosPessoais'),
    path('<slug>', views.DetalhesProfissional.as_view(), name='detalhesProfissional'),
+   #path('detalhesProfissional/<id>', views.detalhesProfissional, name='detalhesProfissional')
 
 ]

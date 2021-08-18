@@ -28,10 +28,11 @@
 const baseURI = "http://127.0.0.1:8000";
 const uri_by_last_messages = `${baseURI}/api/mensagem/get_by_last_messages`;
 const uri_by_messages = `${baseURI}/api/mensagem/get_by_detalhe_mensagens/`;
-const uri_post_messages = `${baseURI}/api/mensagem/`;
+const uri_api_messages = `${baseURI}/api/mensagem/`;
 const uri_api_token = `${baseURI}/api-token/`
 const uri_api_auth_key = `${baseURI}/api/usuario/get_by_auth_key/`
 const uri_api_username_password = `${baseURI}/api/usuario/get_by_username_password/`
+const uri_api_notificacao = `${baseURI}/api/notificacao/get_status`
 let idUser = -1
 let key = null
 let basic = null
@@ -48,7 +49,7 @@ function get_csrftoken(){
 
 function save_id_perfil(){
 	Session.create('id-perfil', document.getElementById('id-perfil').textContent)
-	window.location.href = "/mensagem/teste-chat/"//aqui. show kkkkk. pois vlw, vou sair
+	window.location.href = "/mensagem/teste-chat/"
 }
 
 async function enviar_mensagem_pelo_perfil(id){
@@ -69,7 +70,7 @@ $(document).ready(async function () {
 		idUser = id.id
 		const idPerfil = JSON.parse(Session.get(keyIdPerfil))
 		await enviar_mensagem_pelo_perfil(idPerfil)
-		await render()// ta. outra coisa, ficou com alguma duvida dessa funcionalidade. show. depois vc muda a url pra ficar mais legal, lembre de alterar na funcao que ela ta direcionando para a tela de teste
+		await render()
 	}
 });
 
@@ -122,7 +123,7 @@ function footer(destinatario, remetente){
 
 async function enviarMensagem(value, destinatario, remetente, input){ 
 	if (value !== ''){
-		await Req.postJSON({uri: `${uri_post_messages}`, body: {
+		await Req.postJSON({uri: `${uri_api_messages}`, body: {
 			texto: value,
 			destinatario: destinatario,
 			remetente: remetente,
@@ -138,21 +139,10 @@ async function enviarMensagem(value, destinatario, remetente, input){
 
 async function createListMensagensBatePapo(mensagem, isRefresh) {
 	
-	if (idUser === mensagem.remetente){ 
-		const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`,
-		params: [mensagem.remetente], 
-		})
-		if (resp.status === 200){
-			const body = await resp.json()
-			getRemetenteBatePapo(body, mensagem) 
-		}
-	} else { 
-		const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [mensagem.remetente], 
-		})
-		if (resp.status === 200){
-			const body = await resp.json()
-			getDestinatarioBatePapo(body, mensagem)
-		}
+	if (idUser === mensagem.remetente){  
+		getRemetenteBatePapo(await getUser(mensagem.remetente), mensagem)  
+	} else {  
+		getDestinatarioBatePapo(await getUser(mensagem.remetente), mensagem) 
 	}
 
 	if (isRefresh){
@@ -167,23 +157,25 @@ async function createListMensagensBatePapo(mensagem, isRefresh) {
 	}, 1000)
 }*/
 
+async function getUser(id){
+	const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/get_by_id/`,
+		params: {id: id}, 
+		})
+		console.log(resp)
+	if (resp.status === 200){
+		return await resp.json()
+	}	
+	return null
+}
+
 async function createList(res) { 
 	const {data} = res
 	
 	for (let obj of data) {
 		if (idUser !== obj['remetente']){
-			const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`,
-			params: [obj['remetente']]})
-			if (resp.status === 200){
-				const body = await resp.json()
-				getRemetenteList(body, obj['destinatario'], obj)
-			}
+			getRemetenteList(await getUser(obj['remetente']), obj['destinatario'], obj)
 		} else {
-			const resp = await Req.getJSON({uri: `${baseURI}/api/usuario/`, params: [obj['destinatario']]})
-			if (resp.status === 200){
-				const body = await resp.json()
-				getDestinatarioList(body, obj['remetente'], obj)
-			}
+			getDestinatarioList(await getUser(obj['destinatario']), obj['remetente'], obj)
 		}  
 	} 
 	

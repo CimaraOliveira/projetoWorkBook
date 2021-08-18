@@ -1,8 +1,9 @@
 {% load static %}
 <html lang="en">
+
 <head>
     <meta name="description"
-          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+        content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:site" content="@pratikborsadiya">
@@ -14,7 +15,7 @@
     <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
     <meta property="og:description"
-          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+        content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <title>WorkBook</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,55 +26,55 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body class="app sidebar-mini">
-<!-- Navbar-->
-{% if user.is_authenticated %}
-<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}">WorkBook</a>
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                    aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
+    <!-- Navbar-->
+    {% if user.is_authenticated %}
+    <header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}">WorkBook</a>
+        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+            aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
 
 
-        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i
-                class="fa fa-bell-o fa-lg"></i></a>
-            <ul class="app-notification dropdown-menu dropdown-menu-right">
-                <div class="app-notification__content">
-                    <li><a class="app-notification__item" href="#"><span class="app-notification__icon"><span
-                            class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i
-                            class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                        <div>
-                            <p class="app-notification__message">Mensagens</p>
-
-                        </div>
-                    </a></li>
+            <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
+                    aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
+                <ul class="app-notification dropdown-menu dropdown-menu-right">
+                    <div class="app-notification__content" id="notificacoes">
+                        
                     </div>
-                </div>
-            </ul>
-        </li>
+                </ul>
+            </li>
 
-        <li class="dropdown"><a class="app-nav__item" href="#" aria-label="Open Profile Menu"><i
-                class="fa fa-user fa-lg"></i></a>
-        </li>
+            <li class="dropdown"><a class="app-nav__item" href="{% url 'teste_chat'  %}"
+                    aria-label="Open Profile Menu"><i class="fa fa-envelope-o"></i></a>
+            </li>
 
+            <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
+                    aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}"><i
+                                class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                </ul>
+            </li>
 
+            <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
+                    aria-label="Open Profile Menu"><i class="fa fa fi-rr-caret-down"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                    <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}"><i class="fa fa-sign-out"></i>
+                            Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
 
-        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
-                class="fa fa-user fa-lg"></i></a>
-            <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-</header>
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
 
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-
-    <!--<div class="app-sidebar__user">
+        <!--<div class="app-sidebar__user">
         {% if usuario.imagem %}
         <img src="{{ usuario.imagem.url }}" class="app-sidebar__user-avatar" alt="User-Profile-Image">
         {% endif %}
@@ -84,35 +85,38 @@
 
 
 
-    <ul class="app-menu">
+        <ul class="app-menu">
 
-        <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i class="app-menu__icon fa fa-home"></i><span
-                class="app-menu__label">Inicio</span></a></li>
+            <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i
+                        class="app-menu__icon fa fa-home"></i><span class="app-menu__label">Inicio</span></a></li>
 
-         <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' %}"><i class="app-menu__icon icon fa fa-user"></i><span
-                class="app-menu__label">Adicionar Profissional</span></a></li>
+            <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' %}"><i
+                        class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label">Adicionar
+                        Profissional</span></a></li>
 
-        <li><a class="app-menu__item" href="{% url 'avaliacao:listAvaliacao' %}"><i class="app-menu__icon fa fa-star"></i><span
-                class="app-menu__label">Avaliações Profissional</span></a></li>
-
-
-
-
-
-        <li><a class="app-menu__item" href="{% url 'listarMensagem' idDestinatario=user.id%}"><i class="app-menu__icon fa fa-envelope-o"></i><span
-                class="app-menu__label">Mensagens</span></a></li>
-
-        <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i class="app-menu__icon fa fa-edit"></i><span
-                class="app-menu__label">Dados Pessoais</span></a></li>
-
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-file-text"></i><span
-                class="app-menu__label">Relatório</span></a></li>
-        <li><a class="app-menu__item" href="{% url 'usuario:logout_user' %}"><i class="app-menu__icon fa fa-sign-out"></i><span
-                class="app-menu__label">Sair</span></a></li>
+            <li><a class="app-menu__item" href="{% url 'avaliacao:listAvaliacao' %}"><i
+                        class="app-menu__icon fa fa-star"></i><span class="app-menu__label">Avaliações
+                        Profissional</span></a></li>
 
 
-    </ul>
-</aside>
-{% endif %}
+
+            <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
+                        class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label">Mensagens</span></a>
+            </li>
+
+            <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i
+                        class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Dados Pessoais</span></a>
+            </li>
+
+            <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-file-text"></i><span
+                        class="app-menu__label">Relatório</span></a></li>
+            <li><a class="app-menu__item" href="{% url 'usuario:logout_user' %}"><i
+                        class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Sair</span></a></li>
+
+
+        </ul>
+    </aside>
+    {% endif %}
 </body>
+
 </html>

@@ -18,6 +18,17 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
+    @action(methods=['get'], detail=False, url_path='get_by_id')
+    def get_by_id(self, request):
+        id_str = "id"
+        id = self.request.GET.get(id_str) or self.request.session[id_str]
+        usuario = Usuario.objects.get(id=id)
+        if usuario:
+            return Response(status=status.HTTP_200_OK,
+                            data=UsuarioSerializer(instance=usuario,
+                                                context={'request': request}).data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     @action(methods=['get'], detail=False, url_path='get_by_auth_key')
     def get_by_auth_key(self, request):
         auth_key_str = "key"

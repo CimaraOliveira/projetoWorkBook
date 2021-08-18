@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from rest_framework.authtoken.models import Token
 
+
 class Categoria(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     LOAN_STATUS = (
@@ -27,36 +28,7 @@ class Categoria(models.Model):
         verbose_name_plural = 'Categorias'
         ordering = ['id']
 
-class Profissional(models.Model):
-    profissao = models.CharField('Profissao',max_length=250)
-    categoria = models.ManyToManyField(Categoria)
-    slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
-    descricao = models.CharField('descricao', max_length=250)
-    imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
-    user = models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 
-    def __str__(self):
-        return self.profissao
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            slug = f'{slugify(self.user)}'
-            self.slug = slug
-
-        super().save(*args, **kwargs)
-
-
-
-    """def clean(self):
-       model = self.__class__
-       if model.objects.count() > 0 and self.slug != model.objects.get().slug:
-            raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
-
-
-    class Meta:
-        verbose_name = 'Perfil'
-        verbose_name_plural = 'Perfis'
-        ordering = ['id']
 
 class Usuario(AbstractUser):
     telefone = models.CharField('telefone', max_length=15)
@@ -68,6 +40,8 @@ class Usuario(AbstractUser):
     is_staff = models.BooleanField(default=0)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
+    avaliado = models.IntegerField('avaliado', blank=True, null=True)
+
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -85,5 +59,36 @@ class Usuario(AbstractUser):
         db_table = 'usuario'
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuario'
+
+class Profissional(models.Model):
+            profissao = models.CharField('Profissao', max_length=250)
+            categoria = models.ManyToManyField(Categoria)
+            slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
+            descricao = models.CharField('descricao', max_length=250)
+            imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
+            user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario')
+
+            # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+
+            def __str__(self):
+                return self.profissao
+
+            def save(self, *args, **kwargs):
+                if not self.slug:
+                    slug = f'{slugify(self.user)}'
+                    self.slug = slug
+
+                super().save(*args, **kwargs)
+
+            """def clean(self):
+               model = self.__class__
+               if model.objects.count() > 0 and self.slug != model.objects.get().slug:
+                    raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
+
+            class Meta:
+                verbose_name = 'Profissional'
+                verbose_name_plural = 'Profissional'
+                ordering = ['id']
+
 
 
