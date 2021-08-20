@@ -39,8 +39,12 @@
         <ul class="app-nav">
 
 
-            <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
-                    aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown"
+                    aria-label="Show notifications">
+                    <span id="badge-size"></span>
+                    <i class="fa fa-bell-o fa-lg"></i>
+                </a>
                 <ul class="app-notification dropdown-menu dropdown-menu-right">
                     <div class="app-notification__content" id="notificacoes">
                         
@@ -81,7 +85,7 @@
         <ul class="app-menu">
 
             <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i
-                        class="app-menu__icon fa fa-home"></i><span class="app-menu__label">Inicio</span></a></li>
+                        class="app-menu__icon fa fa-home"></i><span class="app-menu__label">Início</span></a></li>
 
             <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' %}"><i
                         class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label">Adicionar
@@ -91,12 +95,15 @@
                         class="app-menu__icon fa fa-star"></i><span class="app-menu__label">Avaliações
                         Profissional</span></a></li>
 
+
+
                <li>
                    <a class="app-menu__item" href="{% url 'usuario:dadosProfissional' request.user.id %}">
-                       <i class="app-menu__icon fa fa-edit"></i>
+                       <i class="app-menu__icon fa fa-id-badge"></i>
                        <span class="app-menu__label">Dados Profissionais</span>
                    </a>
                </li>
+
 
             <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
                         class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label">Mensagens</span></a>
@@ -105,7 +112,7 @@
             <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i
                         class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Dados Pessoais</span></a>
             </li>
-
+           <!--{% if profissional.user.user_id %}-->
 
              <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-id-badge"></i>
                  <span class="app-menu__label">Dados Profissional</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -126,14 +133,14 @@
                 </ul>
              </li>
 
+
+         <!--{% endif %}-->
+
             <li>
                 <a class="app-menu__item" href="{% url 'usuario:logout_user' %}"><i
                         class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Sair</span>
                 </a>
             </li>
-
-
-
 
         </ul>
     </aside>

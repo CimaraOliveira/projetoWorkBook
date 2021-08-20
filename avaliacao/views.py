@@ -16,21 +16,20 @@ def _request_user(request):
     return None
 
 """
-select * from  usuario_profissional as prof inner join usuario as usu on (prof.user_id=usu.id) where  prof.user_id=2
+select * from  usuario_profissional as prof inner join usuario as usu on (prof.user_id=usu.id) 
+where  prof.user_id=2
 
 """
 
 # funcao que retorna o perfil pelo id
-def _request_profissional(id):
+def _request_profissional(user_id):
     try:
-       #user = Usuario.objects.filter(id=id)
-       #prof = get_object_or_404(Profissional, user_id=user)
+       #user =  Usuario.objects.get(id=id)
+       prof = Profissional.objects.get(user_id=user_id)
 
-       user =  Usuario.objects.get(id=id)
-       prof = get_object_or_404(Profissional,user_id=user.id)
-
-       print('**usuario profissional',user)
+       #print('**usuario profissional',user)
        print('**profissional', prof)
+
 
        if prof:
          return prof

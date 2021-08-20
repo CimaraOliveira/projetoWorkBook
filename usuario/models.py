@@ -40,7 +40,7 @@ class Usuario(AbstractUser):
     is_staff = models.BooleanField(default=0)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
-    avaliado = models.IntegerField('avaliado', blank=True, null=True)
+
 
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -61,13 +61,12 @@ class Usuario(AbstractUser):
         verbose_name_plural = 'Usuario'
 
 class Profissional(models.Model):
-            profissao = models.CharField('Profissao', max_length=250)
+            profissao = models.CharField('Profissão', max_length=250)
             categoria = models.ManyToManyField(Categoria)
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
-            descricao = models.CharField('descricao', max_length=250)
+            descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
             user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario')
-
             # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 
             def __str__(self):

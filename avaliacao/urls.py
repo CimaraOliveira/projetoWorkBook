@@ -7,7 +7,7 @@ urlpatterns = [
 
    path('avaliacao/<user_id>', views.avaliar, name='avaliar'),
    path('listAvaliacao/', views.listAvaliacao, name='listAvaliacao'),
-   path('<user_id>', views.avaliacao, name='avaliacao'),
-   path('listar/', views.avaliacao, name='avaliacao'),
+   path('<int:user_id>', views.avaliacao, name='avaliacao'),
+
 
 ]

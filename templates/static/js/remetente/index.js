@@ -1,7 +1,6 @@
 
 
 function getRemetenteBatePapo(rem, mensagem) {
-	console.log('rem',rem)
 	const spanName = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-name pull-left' }, value: rem.username })
 	const spanData = new Tag({ tagName: 'span', attrs: { class: 'direct-chat-timestamp pull-right' }, value: mensagem.data_mensagem })
 	const divDirectInfo = new Tag({ tagName: 'div', attrs: { class: 'direct-chat-info clearfix' }, children: [spanName, spanData] })

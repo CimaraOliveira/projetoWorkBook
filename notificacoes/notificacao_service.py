@@ -53,13 +53,12 @@ class NotificacaoViewSet(viewsets.ModelViewSet):
 
         def len_por_usuario(destinatario, remetente):
             sql = "select * from Notificacao n2 " \
-                  "	where n2.lido = 0 and n2.id in (" \
-                  "	SELECT n3.id FROM Mensagen m2" \
-                  "	inner join Notificacao n3 on m2.id = n3.mensagemRecebida_id" \
-                  "	inner join usuario u2 on m2.destinatario_id = u2.id" \
-                  "	inner join usuario u3 on m2.remetente_id = u3.id" \
-                  "	where u2.id = %s and u3.id = %s" \
-                  ")"
+                  "where n2.lido = 0 and n2.id in ( " \
+                  "SELECT n3.id FROM Mensagen m2 " \
+                  "inner join Notificacao n3 on m2.id = n3.mensagemRecebida_id " \
+                  "inner join usuario u2 on m2.destinatario_id = u2.id " \
+                  "inner join usuario u3 on m2.remetente_id = u3.id " \
+                  "where u2.id = %s and u3.id = %s )"
             notificacoes = Notificacao.objects.raw(sql, [destinatario, remetente])
             return len(notificacoes)
 
@@ -67,12 +66,11 @@ class NotificacaoViewSet(viewsets.ModelViewSet):
             # essa query vai pegar as notificacoes nao lida.
 
             sql = "select * from Notificacao n " \
-                  " WHERE n.id in (" \
-                  "	select n2.id from Notificacao n2" \
-                  "	inner join Mensagen m on m.id = n2.mensagemRecebida_id" \
-                  "	inner join usuario u on m.destinatario_id = u.id or m.remetente_id = u.id" \
-                  "	where u.id = %s and n.lido = 0 GROUP by m.remetente_id HAVING max(n2.id)" \
-                  "	) ORDER by n.id DESC"
+                  "WHERE n.id in ( " \
+                  " select n2.id from Notificacao n2 inner join Mensagen m on m.id = n2.mensagemRecebida_id " \
+                  " inner join usuario u on m.destinatario_id = u.id " \
+                  " where u.id = %s and n.lido = 0 GROUP by m.remetente_id HAVING max(n2.id) " \
+                  " ) ORDER by n.id DESC"
             notificacoes = Notificacao.objects.raw(sql, [id])
             obj = []
             for notificacao in notificacoes:

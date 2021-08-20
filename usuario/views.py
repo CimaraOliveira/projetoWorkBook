@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario, Profissional, Categoria
 from django.contrib import messages
@@ -147,29 +148,30 @@ def submit_login(request):
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 
-#class DetalhesProfissional(DetailView,LoginRequiredMixin):
-class DetalhesProfissional(DetailView):
-    model = models.Profissional
-    template_name = 'usuario/detalhesProfissional.html'
-    context_object_name = 'profissional'
-    pk_id_url_kwarg = 'pk'
 
 """class DetalhesProfissional(DetailView):
     model = models.Profissional
     template_name = 'usuario/detalhesProfissional.html'
     context_object_name = 'profissional'
-    slug_id_url_kwarg = 'slug'"""
+    pk_id_url_kwarg = 'pk'"""
+
+class DetalhesProfissional(DetailView):
+    model = models.Profissional
+    template_name = 'usuario/detalhesProfissional.html'
+    context_object_name = 'profissional'
+    slug_id_url_kwarg = 'slug'
+
 
 
 """def detalhesProfissional(request,id):
-    user = get_object_or_404(Usuario, id=id)
-    profissional = get_object_or_404(Profissional, user_id=user)
+    usuario = Usuario.objects.get(id=id)
+    profisssional = get_object_or_404(Profissional, user_id=usuario)
 
     context = {
-        'profissional': profissional
+        'profisssional':profisssional
     }
-    return render(request, 'usuario/detalhesProfissional.html', context)"""
 
+    return render(request, "usuario/detalhesProfissional.html",context)"""
 
 
 def logout_user(request):
