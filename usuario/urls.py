@@ -15,6 +15,7 @@ urlpatterns = [
    path('logout/', views.logout_user, name='logout_user'),
    path('listarProfissional', views.listarProfissional, name='listarProfissional'),
    path('buscar', views.buscar, name='buscar'),
+   path('teste', views.teste, name='teste'),
    path('dadosPessoais/<int:id>', views.dadosPessoais, name='dadosPessoais'),
    path('dadosProfissional/<int:user_id>', views.dadosProfissional, name='dadosProfissional'),
    #path('profissional_detail/<int:user_id>', views.dadosProfissional, name='dadosProfissional'),

@@ -44,6 +44,32 @@ class NotificacaoViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK, data=NotificacaoSerializer(instance=notificacao,
                                                                               context={'request': request}).data)
 
+    def util_get_by_remetente_and_destinatario(self, remetente, destinatario):
+        sql = "select * from Notificacao n2 " \
+              "where n2.lido = 0 and n2.id in ( " \
+              "SELECT n3.id FROM Mensagen m2 " \
+              "inner join Notificacao n3 on m2.id = n3.mensagemRecebida_id " \
+              "inner join usuario u2 on m2.destinatario_id = u2.id " \
+              "inner join usuario u3 on m2.remetente_id = u3.id " \
+              "where u2.id = %s and u3.id = %s )"
+        notificacoes = Notificacao.objects.raw(sql, [destinatario, remetente])
+        return notificacoes
+
+    @action(methods=['get'], detail=False, url_path='get_by_remetente_and_destinatario')
+    def get_by_remetente_and_destinatario(self, request):
+        remetente_str = "remetente"
+        remetente_user = self.request.GET.get(remetente_str) or self.request.session[remetente_str]
+        destinatario_str = "destinatario"
+        destinatario_user = self.request.GET.get(destinatario_str) or self.request.session[destinatario_str]
+
+        notificacoes = self.util_get_by_remetente_and_destinatario(remetente_user, destinatario_user)
+        if notificacoes and len(notificacoes) > 0:
+            return Response(status=status.HTTP_200_OK,
+                            data=NotificacaoSerializer(instance=notificacoes,
+                                                       many=True,
+                                                       context={'request': request}).data)
+        return Response(status.HTTP_404_NOT_FOUND)
+
     @action(methods=['get'], detail=False, url_path='get_status')
     def get_status(self, request):
         token_str = "token"
@@ -52,15 +78,7 @@ class NotificacaoViewSet(viewsets.ModelViewSet):
         print('ID USER -> ', query_token['key'])
 
         def len_por_usuario(destinatario, remetente):
-            sql = "select * from Notificacao n2 " \
-                  "where n2.lido = 0 and n2.id in ( " \
-                  "SELECT n3.id FROM Mensagen m2 " \
-                  "inner join Notificacao n3 on m2.id = n3.mensagemRecebida_id " \
-                  "inner join usuario u2 on m2.destinatario_id = u2.id " \
-                  "inner join usuario u3 on m2.remetente_id = u3.id " \
-                  "where u2.id = %s and u3.id = %s )"
-            notificacoes = Notificacao.objects.raw(sql, [destinatario, remetente])
-            return len(notificacoes)
+            return len(self.util_get_by_remetente_and_destinatario(remetente, destinatario))
 
         def notificacoes_por_usuario(id):
             # essa query vai pegar as notificacoes nao lida.
@@ -83,4 +101,3 @@ class NotificacaoViewSet(viewsets.ModelViewSet):
             return json.dumps(obj)
 
         return HttpResponse(notificacoes_por_usuario(query_token['user_id']))
-

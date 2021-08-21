@@ -13,7 +13,7 @@
                             <div class="m-b-55">
                                 {% if profissional.imagem %}
                                 <img src="{{ profissional.imagem.url }}" class="img-fluid"  alt="User-Profile-Image"
-                                style="max-width: 190px; height: auto">
+                                style="max-width: 250px; height: auto">
                                  {% endif %}
                             </div>
                             <p>{{ profissional.user.first_name }}</p> <i
@@ -30,15 +30,17 @@
                                   <div class="row">
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Nome</p>
-                                            <h6 class="text-muted f-w-400">{{ profissional.user.email}}</h6>
+                                            <h6 class="text-muted f-w-400">{{ profissional.user.first_name}}</h6>
                                         </div>
+
+
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Email</p>
-                                            <h6 class="text-muted f-w-400">{{ profissional.user.username }}</h6>
+                                            <h6 class="text-muted f-w-400">{{ profissional.user.email }}</h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Telefone</p>
-                                            <h6 class="text-muted f-w-400">{{ profissional.profissao }}</h6>
+                                            <h6 class="text-muted f-w-400">{{ profissional.telefone }}</h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Cidade</p>
@@ -54,12 +56,12 @@
                                 <div class="col-sm-6">
                                     <p class="m-b-10 f-w-600"></p>
 
-                                    {{profissional.user.id}} <!-- id do profissional tabela usuario -->
-                                    {{profissional.id}} <!-- id profissional -->
-                                    {{profissional.user_id}} <!-- user id profissional tabela usuario-->
-                                    {{profissional.user.username}} <!-- nome profissional tabela usuario-->
-                                    {{request.user}} <!-- usuario logado -->
-
+                                    <span>id do profissional tabela usuario -> {{profissional.user.id}}<br /></span> <!-- id do profissional tabela usuario -->
+                                    <span>id profissional -> {{profissional.id}}<br /></span> <!-- id profissional -->
+                                    <span>user id profissional tabela usuario -> {{profissional.user_id}}<br /></span> <!-- user id profissional tabela usuario-->
+                                    <span>nome profissional tabela usuario -> {{profissional.user.username}}<br /></span> <!-- nome profissional tabela usuario-->
+                                    <span>usuario logado -> {{request.user}}<br /></span> <!-- usuario logado -->
+                                    <span>pegando id profissional -> {{profissional.user_id}}<br /></span> <!--pegando id profissional-->
                                     <div class="col">
                                         <span id="id-perfil" hidden>{{ profissional.user.id }}</span>
                                         <a onclick="save_id_perfil()" class="btn btn-primary block" id="enviar-mensagem-perfil"
@@ -68,8 +70,6 @@
                                         <a class="btn btn-primary block"
                                            href="{% url 'avaliacao:avaliacao'  profissional.user_id  %}">Avaliar</a>
                                     </div>
-                                    <!--pegando id profissional-->
-                                    {{profissional.user_id}}
 
                                 </div>
                             </div>

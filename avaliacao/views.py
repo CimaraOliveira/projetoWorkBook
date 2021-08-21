@@ -58,11 +58,51 @@ def avaliar(request, user_id):
        return redirect('usuario:listarProfissional')
     return avaliacao(request)
 
+def get_avaliacao(id):
+    sql_prof = "select * from usuario u " \
+               "inner join usuario_profissional up on u.id = up.user_id " \
+               "where u.id = %s"
+
+    prof = Usuario.objects.raw(sql_prof, [id])
+
+    if prof:
+        sql = "select * " \
+        "from avaliacao a where " \
+        "a.id in (select a2.id from avaliacao a2 " \
+        "inner join usuario_profissional p on p.id = a2.profissional_id " \
+        "inner join usuario u on u.id = p.user_id where u.id = %s)"
+        return Avaliacao.objects.raw(sql, [id])
+
+    sql_user = "select * from avaliacao a where a.id " \
+               "in (select a2.id from avaliacao a2 " \
+               "inner join usuario u on u.id = a2.cliente_id " \
+               "where u.id = %s)"
+    return Avaliacao.objects.raw(sql_user, [id])
+
 @login_required(login_url='usuario:submit_login')
 def listAvaliacao(request):
-    avaliar = Avaliacao.objects.filter(profissional=request.user.id)
+    id = request.user.id
+    # select *
+    # from avaliacao a
+    # where
+    # a.id in (
+    #     select a2.id from avaliacao a2
+    # inner join usuario u on u.id = a2.cliente_id
+    # where u.id = 3
+    # )
 
-    return render(request, 'ListAvaliacao.html', {'avaliar': avaliar})
+    # select *
+    # from avaliacao a
+    # where
+    # a.id in (
+    #     select a2.id from avaliacao a2
+    # inner join usuario_profissional p on p.id = a2.profissional_id
+    # inner join usuario u on u.id = p.user_id
+    # where u.id = 2
+    # )
+    #avaliar = Avaliacao.objects.filter(profissional=request.user.id)
+
+    return render(request, 'ListAvaliacao.html', {'avaliar': get_avaliacao(id)})
 
 
 @login_required(login_url='usuario:submit_login')
