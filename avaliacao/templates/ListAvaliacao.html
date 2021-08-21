@@ -33,9 +33,9 @@
                         <div class="post-media"> <!--width: 300px; height: 200px;-->
 
                             <div class="product-img">
-                                {% if request.user.imagem %}
+                                {% if user.imagem %}
                                 <img width="50"
-                                     src="{{ request.user.imagem.url  }}">
+                                     src="{{ user.imagem.url  }}">
                                 {% endif %}
                             </div>
 

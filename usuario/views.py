@@ -9,7 +9,6 @@ from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from . import models
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 from django.core.paginator import Paginator
@@ -19,7 +18,6 @@ app_name='usuario'
 
 def home(request):
    profissional = Profissional.objects.all()
-
    context = {
        'profissional': profissional
    }

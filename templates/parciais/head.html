@@ -43,7 +43,7 @@
                 <a class="app-nav__item" href="#" data-toggle="dropdown"
                     aria-label="Show notifications">
                     <span id="badge-size"></span>
-                    <i class="fa fa-bell-o fa-lg"></i>
+                    <i class="fa fa-bell-o fa-lg" title="Notificações"></i>
                 </a>
                 <ul class="app-notification dropdown-menu dropdown-menu-right">
                     <div class="app-notification__content" id="notificacoes">
@@ -54,10 +54,10 @@
 
 
             <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
-                    aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                    aria-label="Open Profile Menu" title="Usuário"><i class="fa fa-user fa-lg"></i></a>
                 <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                    <li><a class="dropdown-item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i class="fa fa-user fa-lg"></i>Dados Pessoais</a></li>
-                    <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}"><i
+                    <li><a class="dropdown-item" href="{% url 'usuario:dadosPessoais' request.user.id %}" title="Dados Pessoais" ><i class="fa fa-user fa-lg"></i>Dados Pessoais</a></li>
+                    <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}" title="Sair"><i
                                 class="fa fa-sign-out fa-lg"></i> Sair</a></li>
                 </ul>
             </li>
@@ -85,7 +85,7 @@
         <ul class="app-menu">
 
             <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i
-                        class="app-menu__icon fa fa-home"></i><span class="app-menu__label">Início</span></a></li>
+                        class="app-menu__icon fa fa-home"></i><span class="app-menu__label" title="Início">Início</span></a></li>
 
             <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' %}"><i
                         class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label">Adicionar

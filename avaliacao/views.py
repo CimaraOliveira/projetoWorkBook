@@ -105,12 +105,4 @@ def listAvaliacao(request):
     return render(request, 'ListAvaliacao.html', {'avaliar': get_avaliacao(id)})
 
 
-@login_required(login_url='usuario:submit_login')
-def listar(request):
-    usuario = Usuario.objects.get(id=request.user.id)
-    avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
 
-    context = {
-        'avaliacao':avaliacao
-    }
-    return render(request, 'listar.html')

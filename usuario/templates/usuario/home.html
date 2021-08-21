@@ -34,6 +34,8 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
         <!--Notification Menu-->
+         <li class="dropdown"><a class="app-nav__item" href="" data-toggle="dropdown"><i
+                class="fa fa fa-home"></i>&nbsp;INÍCIO</a>
         <li class="dropdown"><a class="app-nav__item" href="#sobre" data-toggle="dropdown"><i
                 class="fa fa-info-circle"></i>&nbsp;SOBRE</a>
         </li>
@@ -54,14 +56,14 @@
 
          {% if 'profissional' not in request.path %}
             <br><br>
-           <form method="get" action="#">
+           <form method="get" action="{% url 'usuario:buscar' %}">
 
                 <div class="form-group row">
                     <div class="col-11" >
                         <input class="form-control"
                                type="search"
                                id="search-input"
-                               placeholder="Informe o serviço que você procura"
+                               placeholder="Informe o serviço que você procura!"
                                name="termo" aria-label="Search">
 
 
@@ -77,13 +79,13 @@
                 {% for profissional in profissional %}
                 <div class="card col-18" style="width: 18rem;">
                     {% if profissional.imagem %}
-                    <a href="{{ perfil.slug }}">
+                    <a href="{{ profissional.slug }}">
                         <img class="rounded " src="{{ profissional.imagem.url  }}" alt="{{ profissional.profissao }}"
                              style="width: 288px; height: 200px; object-fit: fill;">
                     </a>
                     {% endif %}
                     <div class="card-body">
-                        <a href="{{ perfil.slug }}">
+                        <a href="{{ profissional.slug }}">
                             <h5 class="card-title">{{ profissional.profissao }} </h5></a>
                         <p>{{profissional.slug}}</p>
                     </div>
@@ -123,9 +125,10 @@
                          src="{% static 'images/estacao-de-servico.svg' %}">
                 </div>
                 <h3>O que é o WorkBook?</h3>
-                <p>WorkBook é uma plataforma de contratação de serviços da região. Conectando Profissionais de toda a
-                    região com pessoas que precisam e solicitão serviço, atendendo com qualidade, facilidade e rapidez
-                    todos os tipos de necessidade.</p>
+                <p>WorkBook é uma plataforma para auxiliar profissionais na divulgação de serviços.
+                    Auxiando clientes que buscam por estes serviços e encontram dificuldade.
+                    Conectando Profissionais e clientes de toda região, atendendo com qualidade, facilidade e
+                    rapidez todos os tipos de necessidade.</p>
             </div>
             <div class="features-card">
                 <div class="feature-icon-backdrop">
@@ -133,15 +136,14 @@
                          src="{% static 'images/group.svg' %}">
                 </div>
                 <h3>Colaboradores</h3>
-                <p class="feature-description">Francisca Cimara De Oliveira</p>
-                <p>Maria Cleonice Cardoso Da Silva</p>
+                <p class="feature-description">Francisca Cimara de Oliveira</p>
+                <p>Maria Cleonice Cardoso da Silva</p>
             </div>
 
         </div>
     </section>
 </div>
-<footer class="landing-footer"><b></b><a href="https://github.com/cleocardoso/WorkBook" target="_blank" rel="noopener">WorkBook
-    2021</a></footer>
+<footer class="landing-footer"><b></b>WorkBook&copy2021</footer>
 <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
 <script src="{% static 'js/show_view.js'%}"></script>
 
