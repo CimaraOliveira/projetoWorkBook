@@ -78,8 +78,26 @@ def cadastro(request):
         new_user.save()
         return redirect('usuario:home')
 
-
 @login_required(login_url='usuario:submit_login')
+def add_perfil(request):
+    template_name = 'usuario/add_perfil.html'
+    if request.method == 'POST':
+        form = FormPerfil(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+        messages.success(request, 'Perfil profissional adicionado com sucesso!')
+        return redirect('usuario:add_perfil')
+    else:
+        form = FormPerfil()
+
+    context = {
+        'form': form
+    }
+    return render(request, template_name,context)
+
+"""@login_required(login_url='usuario:submit_login')
 def add_perfil(request):
     form = FormPerfil(request.POST, request.FILES)
     if form.is_valid():
@@ -90,11 +108,13 @@ def add_perfil(request):
         return redirect('usuario:add_perfil')
     else:
         form = FormPerfil(request.POST, request.FILES)
+
     context = {
         'form': form
     }
-    return render(request, 'usuario/add_perfil.html',context)
 
+    return render(request, 'usuario/add_perfil.html',context)
+"""
 
 def buscar(request):
    termo = request.GET.get('termo')
@@ -112,7 +132,7 @@ def buscar(request):
 
    )
    if not profissional:
-       messages.error(request, 'Pesquisa não encontrada!')
+       messages.error(request, 'Profissional não encontrado!')
        return redirect('usuario:listarProfissional')
 
    context = {
@@ -212,3 +232,4 @@ def dadosProfissional(request, user_id):
     data['form'] = form
     data['profissional'] = profissional
     return render(request, 'usuario/dadosProfissional.html', data)
+

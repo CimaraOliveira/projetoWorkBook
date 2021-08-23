@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if not request.user.is_authenticated %}
+<header>
+    {% include 'parciais/nav.html' %}
+</header>
+{% endif %}
+
 <main class="app-content">
     {% include 'parciais/_mensagges.html' %}
 
@@ -50,11 +56,12 @@
                             <th>Descrição:</th>
                             <td>{{ profissional.descricao }}</td>
                         </tr>
-
-                        </tbody>
+                       </tbody>
                     </table>
                     <br>
                     <br>
+
+
 
 
                     {% if user.is_authenticated %}

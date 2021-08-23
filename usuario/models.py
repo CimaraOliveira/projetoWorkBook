@@ -53,8 +53,6 @@ class Usuario(AbstractUser):
     def name(self):
         return "{} {}".format(self.first_name, self.last_name)
 
-
-
     class Meta:
         db_table = 'usuario'
         verbose_name = 'Usuario'
@@ -66,28 +64,35 @@ class Profissional(models.Model):
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
-            user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario')
+            user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario',
+                                        error_messages={
+                                            "unique": "Já existe um profissional cadastrado para este usuário."
+                                        }
+                                        )
+            acesso =  models.BooleanField(default=True)
             # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 
             def __str__(self):
                 return self.profissao
 
+
             def save(self, *args, **kwargs):
                 if not self.slug:
                     slug = f'{slugify(self.user)}'
                     self.slug = slug
-
                 super().save(*args, **kwargs)
-
-            """def clean(self):
-               model = self.__class__
-               if model.objects.count() > 0 and self.slug != model.objects.get().slug:
-                    raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
 
             class Meta:
                 verbose_name = 'Profissional'
                 verbose_name_plural = 'Profissional'
                 ordering = ['id']
+
+
+            """def clean(self):
+                model = self.__class__
+                if model.objects.count() > 0 and self.user_id != model.objects.get().user_id:
+                    raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
+
 
 
 

@@ -3,12 +3,12 @@ from usuario.models import Usuario,Profissional
 from avaliacao.models import Avaliacao
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # funcao que retorna o usuario logado
 def _request_user(request):
     try:
         user = Usuario.objects.get(id=request.user.id)
-        print('*** usuarioLogado ******', user)
         if user:
             return user
     except Exception as err:
@@ -24,12 +24,7 @@ where  prof.user_id=2
 # funcao que retorna o perfil pelo id
 def _request_profissional(user_id):
     try:
-       #user =  Usuario.objects.get(id=id)
        prof = Profissional.objects.get(user_id=user_id)
-
-       #print('**usuario profissional',user)
-       print('**profissional', prof)
-
 
        if prof:
          return prof
@@ -51,11 +46,19 @@ def avaliar(request, user_id):
        print("cliente",client, "profissional", prof)
        data_e_hora_atuais = datetime.now()
        data = data_e_hora_atuais.strftime("%d/%m/%Y %H:%M:%S")
+
+       """if not nota:
+           messages.error(request, 'Deixe sua estrela para o profissional!')"""
+           #return render(request, 'avaliacao.html', {'profissional': _request_profissional(user_id)})
+
        if client and prof:
             avaliar = Avaliacao.objects.create(descricao=descricao, nota=nota, cliente=client, profissional=prof, data_avaliacao=data)
             avaliar.save()
 
+
+
        return redirect('usuario:listarProfissional')
+
     return avaliacao(request)
 
 def get_avaliacao(id):
@@ -105,4 +108,6 @@ def listAvaliacao(request):
     return render(request, 'ListAvaliacao.html', {'avaliar': get_avaliacao(id)})
 
 
+def avaliacoesProfissional(request):
+    pass
 
