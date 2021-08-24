@@ -11,7 +11,7 @@ class ProfissionalAdmin(admin.ModelAdmin):
 
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ['id','nome','user',]
+    list_display = ['id','nome',]
 
 
 admin.site.register(Profissional,ProfissionalAdmin)

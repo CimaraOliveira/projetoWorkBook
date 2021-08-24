@@ -26,7 +26,7 @@ class FormEditProfissional(ModelForm):
     class Meta:
         model = Profissional
         fields = '__all__'
-        exclude = ('user','slug',)
+        exclude = ('user','slug', 'acesso_permitido',)
 
 
 
