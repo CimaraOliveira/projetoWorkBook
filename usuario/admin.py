@@ -4,7 +4,7 @@ from .models import Usuario, Profissional, Categoria
 @admin.register(Usuario)
 class UserAdmin(admin.ModelAdmin):
     model = Usuario
-    list_display = ['id','first_name','username', 'cidade', 'email','telefone','cidade','rua','imagem','is_superuser', 'is_active', 'is_staff', ]
+    list_display = ['id','is_profissional','first_name','username', 'cidade', 'email','telefone','cidade','rua','imagem','is_superuser', 'is_active', 'is_staff', ]
 
 class ProfissionalAdmin(admin.ModelAdmin):
     list_display = ['id','user_id','slug','profissao', 'descricao', 'imagem',]

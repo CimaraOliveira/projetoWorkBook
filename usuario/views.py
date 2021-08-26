@@ -79,21 +79,32 @@ def cadastro(request):
         return redirect('usuario:home')
 
 @login_required(login_url='usuario:submit_login')
-def add_perfil(request):
+def add_perfil(request, id):
+
     template_name = 'usuario/add_perfil.html'
+    #usuario = Usuario.objects.get(id=id)
     if request.method == 'POST':
         form = FormPerfil(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
+            obj = Usuario.objects.get(id=id)
+            obj.is_profissional=True
+            #obj.user.is_profissional == Usuario.is_profissional
+            #obj.user.is_profissional == request.user
+            #obj.user = request.user.is_profissional
+            #obj.user.is_profissional
             obj.save()
+            form.save()
+            print("************", request.user)
         messages.success(request, 'Perfil profissional adicionado com sucesso!')
-        return redirect('usuario:add_perfil')
+        return redirect('usuario:add_perfil',id)
     else:
         form = FormPerfil()
 
     context = {
         'form': form
+
     }
     return render(request, template_name,context)
 
@@ -141,21 +152,21 @@ def buscar(request):
    return render(request, 'usuario/buscar.html', context)
 
 
-
-"""def categorias(request):
-    categoria = Categoria.objects.all()
-
-    context = {
-        'categoria': categoria
-    }
-    return render(request, 'usuario/teste.html', context)"""
-
 def submit_login(request):
     if request.method != 'POST':
         return render(request, 'usuario/submit_login.html')
 
     username = request.POST.get('username')
     password = request.POST.get('password')
+
+    #usuario = Usuario.objects.filter(username=username)
+    """usuario = get_object_or_404(Usuario, username=username)
+    profissional= 'sim'
+
+    try:
+        prof = get_object_or_404(Profissional, user_id=usuario.id)
+    except:
+        profissional='nao'"""
 
     user = auth.authenticate(username=username, password=password)
 
@@ -166,12 +177,6 @@ def submit_login(request):
     messages.error(request, 'E-mail e/ou senha inválido!')
     return redirect('usuario:submit_login')
 
-
-"""class DetalhesProfissional(DetailView):
-    model = models.Profissional
-    template_name = 'usuario/detalhesProfissional.html'
-    context_object_name = 'profissional'
-    pk_id_url_kwarg = 'pk'"""
 
 class DetalhesProfissional(DetailView):
     model = models.Profissional

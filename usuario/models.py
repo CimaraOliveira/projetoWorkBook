@@ -45,6 +45,7 @@ class Usuario(AbstractUser):
     is_staff = models.BooleanField(default=0)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
+    is_profissional = models.BooleanField(default=False)
 
 
 
@@ -73,14 +74,12 @@ class Profissional(models.Model):
                                         error_messages={
                                             "unique": "Já existe um profissional cadastrado para este usuário."
                                         }
-                                        )
+                                       )
             acesso_permitido = models.BooleanField(default=True)
 
-            # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 
             def __str__(self):
                 return self.profissao
-
 
             def save(self, *args, **kwargs):
                 if not self.slug:
