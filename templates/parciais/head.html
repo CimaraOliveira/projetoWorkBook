@@ -61,10 +61,6 @@
                                 class="fa fa-sign-out fa-lg"></i> Sair</a></li>
                 </ul>
             </li>
-
-
-
-
         </ul>
     </header>
 
@@ -76,9 +72,11 @@
             <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i
                         class="app-menu__icon fa fa-home"></i><span class="app-menu__label" title="Início">Início</span></a></li>
 
+            {% if not user.is_profissional %}
             <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' user.id  %}"><i
                         class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label">Adicionar
                         Profissional</span></a></li>
+            {% endif %}
 
 
 
