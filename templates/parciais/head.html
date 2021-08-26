@@ -84,30 +84,17 @@
 
             {% if user.is_profissional %}
             <li><a class="app-menu__item" href="{% url 'avaliacao:listAvaliacao' %}"><i
-                        class="app-menu__icon fa fa-star"></i><span class="app-menu__label">Avaliações
+                    class="app-menu__icon fa fa-star"></i><span class="app-menu__label">Avaliações
                         Profissional</span></a></li>
-            {% endif %}
 
-
-               <li>
-                   <a class="app-menu__item" href="{% url 'usuario:dadosProfissional' request.user.id %}">
-                       <i class="app-menu__icon fa fa-id-badge"></i>
-                       <span class="app-menu__label">Dados Profissionais</span>
-                   </a>
-               </li>
-
-
-
-            <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
-                        class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label">Mensagens</span></a>
+            <li>
+                <a class="app-menu__item" href="{% url 'usuario:dadosProfissional' request.user.id %}">
+                    <i class="app-menu__icon fa fa-id-badge"></i>
+                    <span class="app-menu__label">Dados Profissionais</span>
+                </a>
             </li>
 
-            <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i
-                        class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Dados Pessoais</span></a>
-            </li>
-
-
-             <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-id-badge"></i>
+            <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-id-badge"></i>
                  <span class="app-menu__label">Dados Profissional</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                 <ul class="treeview-menu">
               <li>
@@ -129,6 +116,22 @@
                <li>
                 </ul>
              </li>
+
+
+            {% endif %}
+
+
+
+
+
+
+            <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
+                        class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label">Mensagens</span></a>
+            </li>
+
+            <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i
+                        class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Dados Pessoais</span></a>
+            </li>
 
 
             <li>
