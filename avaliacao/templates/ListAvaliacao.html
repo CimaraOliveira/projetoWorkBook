@@ -34,19 +34,15 @@
                         <div class="post-media"> <!--width: 300px; height: 200px;-->
 
                             <div class="product-img">
-                                {% if user.imagem %}
+                                {% if avaliar.cliente.imagem %}
                                 <img width="50"
-                                     src="{{ user.imagem.url  }}">
+                                     src="{{avaliar.cliente.imagem.url}}">
                                 {% else %}
                                 <img width="50"
                                      src="https://static.vecteezy.com/ti/vetor-gratis/p1/2318271-icone-do-perfil-do-usuario-gr%C3%A1tis-vetor.jpg">
 
                                 {% endif %}
                             </div>
-
-
-
-
 
                             <div class="content">
                                 <h5><a href="#"></a>{{avaliar.cliente.username}}</h5>
