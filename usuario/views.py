@@ -90,10 +90,6 @@ def add_perfil(request, id):
             obj.user = request.user
             obj = Usuario.objects.get(id=id)
             obj.is_profissional=True
-            #obj.user.is_profissional == Usuario.is_profissional
-            #obj.user.is_profissional == request.user
-            #obj.user = request.user.is_profissional
-            #obj.user.is_profissional
             obj.save()
             form.save()
             print("************", request.user)
@@ -204,7 +200,7 @@ def logout_user(request):
 
 def listarProfissional(request):
     profissional = Profissional.objects.all()
-    paginator = Paginator(profissional, 2)
+    paginator = Paginator(profissional, 3)
     page = request.GET.get('p')
     profissional = paginator.get_page(page)
     context = {

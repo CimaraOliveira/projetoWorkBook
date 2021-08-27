@@ -37,8 +37,16 @@
                                 {% if user.imagem %}
                                 <img width="50"
                                      src="{{ user.imagem.url  }}">
+                                {% else %}
+                                <img width="50"
+                                     src="https://static.vecteezy.com/ti/vetor-gratis/p1/2318271-icone-do-perfil-do-usuario-gr%C3%A1tis-vetor.jpg">
+
                                 {% endif %}
                             </div>
+
+
+
+
 
                             <div class="content">
                                 <h5><a href="#"></a>{{avaliar.cliente.username}}</h5>

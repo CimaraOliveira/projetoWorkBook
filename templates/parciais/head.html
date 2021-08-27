@@ -32,7 +32,7 @@
 <body class="app sidebar-mini">
     <!-- Navbar-->
     {% if user.is_authenticated %}
-    <header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}">WorkBook</a>
+    <header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}" title="Início">WorkBook</a>
         <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
             aria-label="Hide Sidebar"></a>
         <!-- Navbar Right Menu-->
@@ -74,21 +74,21 @@
 
             {% if not user.is_profissional %}
             <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' user.id  %}"><i
-                        class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label">Adicionar
-                        Profissional</span></a></li>
+                        class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label" title="Adicionar Profissional">
+                Adicionar Profissional</span></a></li>
             {% endif %}
 
 
 
             {% if user.is_profissional %}
             <li><a class="app-menu__item" href="{% url 'avaliacao:listAvaliacao' %}"><i
-                    class="app-menu__icon fa fa-star"></i><span class="app-menu__label">Avaliações
+                    class="app-menu__icon fa fa-star"></i><span class="app-menu__label" title="Avaliações">Avaliações
                         Profissional</span></a></li>
 
             <li>
                 <a class="app-menu__item" href="{% url 'usuario:dadosProfissional' request.user.id %}">
                     <i class="app-menu__icon fa fa-id-badge"></i>
-                    <span class="app-menu__label">Dados Profissionais</span>
+                    <span class="app-menu__label" title="Dados profissionais">Dados Profissionais</span>
                 </a>
             </li>
 
@@ -119,22 +119,18 @@
             {% endif %}
 
 
-
-
-
-
             <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
-                        class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label">Mensagens</span></a>
+                        class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label" title="Mensagens">Mensagens</span></a>
             </li>
 
             <li><a class="app-menu__item" href="{% url 'usuario:dadosPessoais' request.user.id %}"><i
-                        class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Dados Pessoais</span></a>
+                        class="app-menu__icon fa fa-edit"></i><span class="app-menu__label" title="Dados Pessoais">Dados Pessoais</span></a>
             </li>
 
 
             <li>
                 <a class="app-menu__item" href="{% url 'usuario:logout_user' %}"><i
-                        class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Sair</span>
+                        class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label" title="Sair">Sair</span>
                 </a>
             </li>
 
