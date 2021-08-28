@@ -104,24 +104,6 @@ def add_perfil(request, id):
     }
     return render(request, template_name,context)
 
-"""@login_required(login_url='usuario:submit_login')
-def add_perfil(request):
-    form = FormPerfil(request.POST, request.FILES)
-    if form.is_valid():
-        obj = form.save(commit=False)
-        obj.user = request.user
-        obj.save()
-        messages.success(request, 'Perfil Profissional Adicionado com sucesso!')
-        return redirect('usuario:add_perfil')
-    else:
-        form = FormPerfil(request.POST, request.FILES)
-
-    context = {
-        'form': form
-    }
-
-    return render(request, 'usuario/add_perfil.html',context)
-"""
 
 def buscar(request):
    termo = request.GET.get('termo')
@@ -155,22 +137,13 @@ def submit_login(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
 
-    #usuario = Usuario.objects.filter(username=username)
-    """usuario = get_object_or_404(Usuario, username=username)
-    profissional= 'sim'
-
-    try:
-        prof = get_object_or_404(Profissional, user_id=usuario.id)
-    except:
-        profissional='nao'"""
-
     user = auth.authenticate(username=username, password=password)
 
     if user is not None:
         login(request, user)
         messages.success(request, 'Login Efetuado Sucesso!')
         return redirect('usuario:listarProfissional')
-    messages.error(request, 'E-mail e/ou senha inválido!')
+    messages.error(request, 'E-mail e/ou senha inválidos!')
     return redirect('usuario:submit_login')
 
 
@@ -179,18 +152,6 @@ class DetalhesProfissional(DetailView):
     template_name = 'usuario/detalhesProfissional.html'
     context_object_name = 'profissional'
     slug_id_url_kwarg = 'slug'
-
-
-
-"""def detalhesProfissional(request,id):
-    usuario = Usuario.objects.get(id=id)
-    profisssional = get_object_or_404(Profissional, user_id=usuario)
-
-    context = {
-        'profisssional':profisssional
-    }
-
-    return render(request, "usuario/detalhesProfissional.html",context)"""
 
 
 def logout_user(request):

@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-token/', obtain_jwt_token),
     path('api-auth/', include('rest_framework.urls')),
-
+    path('accounts/', include('accounts.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

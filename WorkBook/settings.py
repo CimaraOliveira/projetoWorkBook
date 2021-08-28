@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
 
-
+    'accounts',
     'usuario.apps.UsuarioConfig',
     'mensagem.apps.MensagemConfig',
     'avaliacao.apps.AvaliacaoConfig',
@@ -190,3 +190,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Token 8d0e2b870bc59a87c66c1825735231e8f9aab219
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "sistema.workbook@gmail.com"
+EMAIL_HOST_PASSWORD = "workbook.21"
