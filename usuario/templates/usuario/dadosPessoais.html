@@ -6,7 +6,7 @@
     {% include 'parciais/_mensagges.html' %}
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-user-circle"></i> Dados Pessoais</h1>
+            <h1><i class="fa fa-edit"></i> Alterar dados pessoais</h1>
         </div>
     </div>
     <div class="row">
@@ -19,13 +19,11 @@
 
                                 {{ form|crispy }}
 
-
-
-
                             <div class="row">
                                 <div class="col">
                                     <button type="submit" class="btn btn-success" title="Atualizar">Atualizar</button>
-                                    <button type="submit" class="btn btn-danger" title="Cancelar">Cancelar</button>
+                                    <a class="btn btn-danger" href="{% url 'usuario:detailUsuario' user.id %}">Cancelar</a>
+
                                 </div>
 
                             </div>

@@ -82,7 +82,6 @@ def cadastro(request):
 def add_perfil(request, id):
 
     template_name = 'usuario/add_perfil.html'
-    #usuario = Usuario.objects.get(id=id)
     if request.method == 'POST':
         form = FormPerfil(request.POST, request.FILES)
         if form.is_valid():
@@ -92,9 +91,8 @@ def add_perfil(request, id):
             obj.is_profissional=True
             obj.save()
             form.save()
-            print("************", request.user)
         messages.success(request, 'Perfil profissional adicionado com sucesso!')
-        return redirect('usuario:add_perfil',id)
+        return redirect('usuario:detailProfissional',id)
     else:
         form = FormPerfil()
 
@@ -169,7 +167,48 @@ def listarProfissional(request):
     }
     return render(request, 'usuario/listarProfissional.html',context)
 
+@login_required(login_url='usuario:submit_login')
 def dadosPessoais(request, id):
+    data = {}
+    usuario = Usuario.objects.get(id=id)
+    form = FormDadosPessoais(request.POST or None, instance=usuario)
+
+    if form.is_valid():
+        form.save()
+        return redirect('usuario:detailUsuario', usuario.id)
+
+    data['form'] = form
+    data['usuario'] = usuario
+    return render(request, 'usuario/dadosPessoais.html',data)
+
+@login_required(login_url='usuario:submit_login')
+def dadosProfissional(request, user_id):
+    data = {}
+    profissional = Profissional.objects.get(user_id=user_id)
+
+    form = FormEditProfissional(request.POST or None, instance=profissional)
+    if form.is_valid():
+        form.save()
+        return redirect('usuario:detailProfissional', profissional.user_id)
+    data['form'] = form
+    data['profissional'] = profissional
+    return render(request, 'usuario/dadosProfissional.html', data)
+
+@login_required(login_url='usuario:submit_login')
+def detailProfissional(request, user_id):
+    data = {}
+    profissional = Profissional.objects.get(user_id=user_id)
+    form = FormPerfil(request.POST or None, instance=profissional)
+    if form.is_valid():
+        form.save()
+        return redirect('usuario:dadosProfissional', profissional.user_id)
+
+    data['form'] = form
+    data['profissional'] = profissional
+    return render(request, 'usuario/detailProfissional.html', data)
+
+@login_required(login_url='usuario:submit_login')
+def detailUsuario(request, id):
     data = {}
     usuario = Usuario.objects.get(id=id)
     form = FormDadosPessoais(request.POST or None, instance=usuario)
@@ -180,18 +219,4 @@ def dadosPessoais(request, id):
 
     data['form'] = form
     data['usuario'] = usuario
-    return render(request, 'usuario/dadosPessoais.html',data)
-
-
-def dadosProfissional(request, user_id):
-    data = {}
-    profissional = Profissional.objects.get(user_id=user_id)
-
-    form = FormEditProfissional(request.POST or None, instance=profissional)
-    if form.is_valid():
-        form.save()
-        return redirect('usuario:dadosProfissional', profissional.user_id)
-    data['form'] = form
-    data['profissional'] = profissional
-    return render(request, 'usuario/dadosProfissional.html', data)
-
+    return render(request, 'usuario/detailUsuario.html', data)

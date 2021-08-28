@@ -20,7 +20,7 @@ class FormDadosPessoais(ModelForm):
     class Meta:
         model = Usuario
         fields = '__all__'
-        exclude = ('is_active','is_staff','is_superuser','user_permissions','groups','last_login','password','status', 'date_joined',)
+        exclude = ('is_active','is_staff','is_superuser','is_profissional','user_permissions','groups','last_login','password','status', 'date_joined',)
 
 class FormEditProfissional(ModelForm):
     class Meta:
