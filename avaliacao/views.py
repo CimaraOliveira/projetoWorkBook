@@ -36,6 +36,12 @@ def listarAvaliacao(request):
     return render(request, 'listarAvaliacao.html', context)
 
 
-def clientelistarAvaliacoes(request):
-    return render(request, 'clientelistarAvaliacoes.html')
+def clientelistarAvaliacoes(request,id):
+    usuario = Usuario.objects.get(id=id)
+    avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+
+    context = {
+        'avaliacao':avaliacao
+    }
+    return render(request, 'clientelistarAvaliacoes.html', context)
 
