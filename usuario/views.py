@@ -220,3 +220,6 @@ def detailUsuario(request, id):
     data['form'] = form
     data['usuario'] = usuario
     return render(request, 'usuario/detailUsuario.html', data)
+
+
+

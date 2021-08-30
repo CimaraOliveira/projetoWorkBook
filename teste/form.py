@@ -5,4 +5,6 @@ class AvaliacaoForm(ModelForm):
     class Meta:
         model = TesteAvaliacao
         fields = '__all__'
-        exclude = ('cliente', 'profissional',)
+        #exclude = ('cliente',)
+        #exclude = ('profissional',)
+        #exclude = ('cliente', 'profissional',)

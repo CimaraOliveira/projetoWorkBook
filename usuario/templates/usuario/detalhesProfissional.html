@@ -100,7 +100,7 @@
                            href="#" title="Enviar Mensagem">Enviar Mensagem</a>
 
                         <a class="btn btn-primary block"
-                           href="{% url 'avaliacao:avaliacao'  profissional.user_id  %}" title="Avaliar Profissional">Avaliar Profissional</a>
+                           href="{% url 'avaliacao:avaliacao'  profissional.user.id  %}" title="Avaliar Profissional">Avaliar Profissional</a>
                     </div>
 
                     {% endif %}
