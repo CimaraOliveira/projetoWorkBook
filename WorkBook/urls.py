@@ -24,7 +24,6 @@ urlpatterns = [
     path('mensagem/', include('mensagem.urls')),
     path ('avaliacao/', include('avaliacao.urls')),
     path ('notificacoes/', include('notificacoes.urls')),
-    path ('teste/', include('teste.urls')),
     path('api/', include(router.urls)),
     path('api-token/', obtain_jwt_token),
     path('api-auth/', include('rest_framework.urls')),

@@ -4,6 +4,7 @@ from avaliacao.models import Avaliacao
 from django.contrib.auth.decorators import login_required
 from .form import AvaliacaoForm
 
+@login_required(login_url='usuario:submit_login')
 def avaliacao(request,id):
     usuario = Usuario.objects.get(id=id)
     profissional = Profissional.objects.get(user=usuario)
@@ -15,7 +16,7 @@ def avaliacao(request,id):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
-        return redirect('listar')
+        return redirect('usuario:listarProfissional')
     else:
         form = AvaliacaoForm()
     context = {
