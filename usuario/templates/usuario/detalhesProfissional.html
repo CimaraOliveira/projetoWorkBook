@@ -3,7 +3,7 @@
 
 {% if not request.user.is_authenticated %}
 
-  <style>
+<style>
   imgpos {
 	position: absolute;
     right: 0px;
@@ -18,7 +18,8 @@
     border: 3px solid #73AD21;
     padding: 10px;
 	}
-  </style>
+
+</style>
 
 <header>
     {% include 'parciais/nav.html' %}
@@ -34,6 +35,11 @@
             <h1><i class="fa fa-id-badge"></i> Informações Profissionais</h1>
         </div>
     </div>
+    <div align="right">
+
+
+    </div>
+
 
     <div class="row">
         <div class="col-lg-12">
@@ -43,79 +49,94 @@
                         <div class="profile">
                             <br>
 
+
                             <div class="info">
                                 {% if profissional.user.imagem %}
                                 <div align="right">
-                                <img title="Profissional"
-                                     src="{{profissional.user.imagem.url}}"  width="120" height="120" id="imgpos"
-                                     class="rounded-circle">
+                                    <img title="Profissional"
+                                         src="{{profissional.user.imagem.url}}" width="120" height="120" id="imgpos"
+                                         class="rounded-circle">
                                 </div>
-
-
                                 {% else %}
                                 <div align="right">
-                                <img title="Profissional"
-                                     src="https://static.vecteezy.com/ti/vetor-gratis/p1/2318271-icone-do-perfil-do-usuario-gr%C3%A1tis-vetor.jpg"  width="120" height="120" id="imgpos1"
-                                     class="rounded-circle">
-                                {% endif %}
+                                    <img title="Profissional"
+                                         src="https://static.vecteezy.com/ti/vetor-gratis/p1/2318271-icone-do-perfil-do-usuario-gr%C3%A1tis-vetor.jpg"
+                                         width="120" height="120" id="imgpos1"
+                                         class="rounded-circle">
+                                    {% endif %}
+
                                 </div>
 
                                 <h1>{{profissional.user.first_name}} {{ profissional.user.last_name}}</h1>
                                 <h4>{{profissional.profissao}}</h4>
                                 <br>
 
-                                <div align="right">
-                                    <h1><i class="fa fa-star-o"></i>Estrelas</h1>
-                                </div>
+                                <!--<div align="right">
+                                     <div class="card col-18" style="width: 18rem;">
+                                         <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
+                                             <img class="rounded " src="https://img2.gratispng.com/20180714/qjv/kisspng-5-star-guest-house-car-dealership-film-scratches-5b4ab62ac141e9.4054372515316229547916.jpg"
+                                                  style="width: 80px; height: 80px; object-fit: fill;"
+                                                  title="Avaliações do Profissional">
+                                         </a>
+                                     </div>
+
+                                </div>-->
 
 
-                            <div class="cover-image"></div>
+                                <div class="cover-image"></div>
+                            </div>
                         </div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>E-mail:</th>
+                                <td>{{ profissional.user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefone:</th>
+                                <td>{{ profissional.user.telefone }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Cidade:</th>
+                                <td>{{ profissional.user.cidade }}</td>
+                            </tr>
+                            <tr>
+                                <th>Descrição:</th>
+                                <td>{{ profissional.descricao }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+
+                        {% if user.is_authenticated %}
+                        <div class="col">
+                            <span id="id-perfil" hidden>{{ profissional.user.id }}</span>
+                            <a onclick="save_id_perfil()" class="btn btn-primary block" id="enviar-mensagem-perfil"
+                               href="#" title="Enviar Mensagem">Enviar Mensagem</a>
+
+                            <a class="btn btn-primary block"
+                               href="{% url 'avaliacao:avaliacao'  profissional.user.id  %}"
+                               title="Avaliar Profissional">Avaliar Profissional</a>
+                        </div>
+
+                        {% endif %}
+                        <div align="right">
+                                <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
+                                    <img class="rounded "
+                                         src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
+                                         style="width: 120px; height: 100px; object-fit: fill;"
+                                         title="Avaliações do Profissional">
+                                </a>
+
+                        </div>
+
+                        <br>
+                        <br>
+
+
                     </div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>E-mail:</th>
-                            <td>{{ profissional.user.email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Telefone:</th>
-                            <td>{{ profissional.user.telefone }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Cidade:</th>
-                            <td>{{ profissional.user.cidade }}</td>
-                        </tr>
-                        <tr>
-                            <th>Descrição:</th>
-                            <td>{{ profissional.descricao }}</td>
-                        </tr>
-                       </tbody>
-                    </table>
-                    <br>
-                    <br>
-
-
-
-
-                    {% if user.is_authenticated %}
-                    <div class="col">
-                        <span id="id-perfil" hidden>{{ profissional.user.id }}</span>
-                        <a onclick="save_id_perfil()" class="btn btn-primary block" id="enviar-mensagem-perfil"
-                           href="#" title="Enviar Mensagem">Enviar Mensagem</a>
-
-                        <a class="btn btn-primary block"
-                           href="{% url 'avaliacao:avaliacao'  profissional.user.id  %}" title="Avaliar Profissional">Avaliar Profissional</a>
-                    </div>
-
-                    {% endif %}
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
                 </div>
             </div>
         </div>

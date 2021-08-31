@@ -29,11 +29,23 @@
                              style="width: 288px; height: 200px; object-fit: fill;" title="Detalhes">
                     </a>
                     {% endif %}
+
+                    <!--<a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
+                                    <img class="rounded "
+                                         src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
+                                         style="width: 120px; height: 100px; object-fit: fill;"
+                                         title="Avaliações do Profissional">
+                    </a>-->
+
                     <div class="card-body">
+
                         <a href="{{ profissional.slug}}" title="Detalhes">
                             <h5 class="card-title">{{ profissional.profissao }} </h5></a>
                         <p>{{profissional.user.first_name}}</p>
+
+
                     </div>
+
                 </div>
                 {% endfor %}
             </div>
