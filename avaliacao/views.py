@@ -3,6 +3,25 @@ from usuario.models import Usuario,Profissional
 from avaliacao.models import Avaliacao
 from django.contrib.auth.decorators import login_required
 from .form import AvaliacaoForm
+from django.db.models import Q, Count, Sum, Avg
+
+
+def teste(request):
+    if request.method != 'POST':
+        return render(request, 'teste.html')
+    soma =0
+    user = request.user.id
+    nota = request.POST.get('nota')
+    descricao = request.POST.get('descricao')
+    avaliacao = Avaliacao.objects.all()
+    for avaliacao in avaliacao:
+        soma = avaliacao.soma
+        print(soma)
+    #media = (int(soma) / 2)
+    criarAvaliacao = Avaliacao.objects.create(nota=nota, descricao=descricao,soma=soma)
+    criarAvaliacao.save()
+    return  render(request, 'usuario:home')
+
 
 @login_required(login_url='usuario:submit_login')
 def avaliacao(request,id):
@@ -15,6 +34,7 @@ def avaliacao(request,id):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
+
             obj.save()
         return redirect('usuario:listarProfissional')
     else:
@@ -28,9 +48,14 @@ def avaliacao(request,id):
 def listarAvaliacao(request):
     usuario = Usuario.objects.get(id=request.user.id)
     avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
-
+    total_pessoas = Avaliacao.objects.filter(profissional_id=usuario).count()
+    #soma = Avaliacao.objects.filter(profissional_id=usuario).aggregate(sum_nota=Sum('nota') / total_pessoas)
+    media = Avaliacao.objects.filter(profissional_id=usuario).aggregate(avg_rating=Avg('nota'))
     context = {
-        'avaliacao': avaliacao
+        'avaliacao': avaliacao,
+        'total_pessoas': total_pessoas,
+        #'soma': soma,
+        'media':media
     }
 
     return render(request, 'listarAvaliacao.html', context)
@@ -39,9 +64,11 @@ def listarAvaliacao(request):
 def clientelistarAvaliacoes(request,id):
     usuario = Usuario.objects.get(id=id)
     avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
-
+    total_pessoas = Avaliacao.objects.filter(profissional_id=usuario).count()
     context = {
-        'avaliacao':avaliacao
+        'avaliacao':avaliacao,
+        'total_pessoas': total_pessoas,
+
     }
     return render(request, 'clientelistarAvaliacoes.html', context)
 

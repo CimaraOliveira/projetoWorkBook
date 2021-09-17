@@ -26,29 +26,27 @@
                     {% if profissional.imagem %}
                     <a href="{{ profissional.slug }}">
                         <img class="rounded " src="{{ profissional.imagem.url  }}" alt="{{ profissional.profissao }}"
-                             style="width: 288px; height: 200px; object-fit: fill;" title="Detalhes">
+                             style="width: 288px; height: 200px; object-fit: fill;" title="Detalhes Profissional">
                     </a>
                     {% endif %}
+                    <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
+                        <img class="rounded "
+                             src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
+                             style="width: 80px; height: 60px; margin:-10px; padding:10px;"
+                             title="Avaliações do Profissional">
+                    </a>
 
-                    <!--<a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
-                                    <img class="rounded "
-                                         src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
-                                         style="width: 120px; height: 100px; object-fit: fill;"
-                                         title="Avaliações do Profissional">
-                    </a>-->
 
                     <div class="card-body">
-
-                        <a href="{{ profissional.slug}}" title="Detalhes">
+                        <a href="{{ profissional.slug}}" title="Detalhes Profissional">
                             <h5 class="card-title">{{ profissional.profissao }} </h5></a>
                         <p>{{profissional.user.first_name}}</p>
-
-
                     </div>
 
                 </div>
                 {% endfor %}
             </div>
+
         </div>
     </div>
 

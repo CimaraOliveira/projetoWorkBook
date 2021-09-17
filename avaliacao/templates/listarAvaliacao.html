@@ -7,7 +7,7 @@
     }
     .estrelas label i.fa:before {
     content:'\f005';
-    color: #009688;
+    color: #FC0;
     }
     .estrelas input[type=radio]:checked ~ label i.fa:before {
      color: #CCC;
@@ -19,8 +19,23 @@
 
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-star-o"></i> Avaliações do Profissional</h1>
+            <h1><i class="fa fa-star-o"></i> Avaliações do Profissional
+            </h1>
+            <!--Total de Avaliações ({{total_pessoas}}) média {{media.avg_rating|floatformat:1}}-->
 
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center mt-100">
+        <div class="row">
+            <div class="col-md-200">
+                <div class="card">
+                    <div class="card-body text-center"><span class="myratings">{{media.avg_rating|floatformat:1}}</span>
+                        <p class="mt-1">{{total_pessoas}} avaliações</p>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -85,9 +100,16 @@
                                         {% elif avaliacao.nota != 5 %}
                                         <input type="radio" disabled id="cm_star-5" name="nota" value="5"/>
                                         {% endif %}
+
+
+
+
+
+
+
                                         <!-- Button trigger modal -->
                                         &nbsp;&nbsp;&nbsp;<button type="button" class="badge badge-primary" data-toggle="modal"
-                                                data-target="#exampleModal{{avaliacao.id}}">
+                                                data-target="#exampleModal{{avaliacao.id}}" title="Detalhes">
                                             <i class="fa fa-eye"></i>
                                         </button>
 
@@ -108,7 +130,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
+                                                                data-dismiss="modal" title="Fechar">Fechar
                                                         </button>
                                                     </div>
                                                 </div>

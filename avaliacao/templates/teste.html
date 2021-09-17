@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<head>
+    <style>
+    .estrelas input[type=radio] {
+    display: none;
+    }
+    .estrelas label i.fa:before {
+    content:'\f005';
+    color: #FC0;
+    }
+    .estrelas input[type=radio]:checked ~ label i.fa:before {
+     color: #CCC;
+    }
+
+
+    </style>
+</head>
+<main class="app-content">
+
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-edit"></i>Avaliação Profissional</h1>
+            <p>Deixe sua Avaliação!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'parciais/_mensagges.html' %}
+            <div class="tile">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <form method="post" action="{% url 'avaliacao:teste'  %}" class="form">
+                            {%csrf_token %}
+
+
+                              <div class="row">
+                                <div id="show_class" class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="nota">Nota <span class="asteriskField">*</span></label>
+                                            <input class="form-control" name="nota" id="nota" type="text"
+                                                placeholder="nota" required autofocus>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="descricao">Descricaao <span class="asteriskField">*</span></label>
+                                            <input class="form-control" name="descricao" id="descricao" type="text"
+                                                placeholder="Nome" required autofocus>
+                                    </div>
+                                </div>
+
+
+                                <div class="tile-footer">
+                                    <button class="btn btn-primary" type="submit" title="Avaliar">Avaliar</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}
+
