@@ -6,23 +6,6 @@ from .form import AvaliacaoForm
 from django.db.models import Q, Count, Sum, Avg
 
 
-def teste(request):
-    if request.method != 'POST':
-        return render(request, 'teste.html')
-    soma =0
-    user = request.user.id
-    nota = request.POST.get('nota')
-    descricao = request.POST.get('descricao')
-    avaliacao = Avaliacao.objects.all()
-    for avaliacao in avaliacao:
-        soma = avaliacao.soma
-        print(soma)
-    #media = (int(soma) / 2)
-    criarAvaliacao = Avaliacao.objects.create(nota=nota, descricao=descricao,soma=soma)
-    criarAvaliacao.save()
-    return  render(request, 'usuario:home')
-
-
 @login_required(login_url='usuario:submit_login')
 def avaliacao(request,id):
     usuario = Usuario.objects.get(id=id)

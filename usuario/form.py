@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 class FormPerfil(ModelForm):
     class Meta:
         model = Profissional
-        fields = ['profissao', 'categoria', 'imagem','descricao']
+        fields = ['profissao', 'categoria', 'cpf','imagem','descricao']
         exclude = ('slug','user',)
 
     def clean_user_id(self):

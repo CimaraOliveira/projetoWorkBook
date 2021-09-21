@@ -12,6 +12,8 @@ from . import models
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 from django.core.paginator import Paginator
+from avaliacao.models import Avaliacao
+from django.db.models import Avg
 
 
 app_name='usuario'
@@ -91,10 +93,13 @@ def add_perfil(request, id):
             obj.is_profissional=True
             obj.save()
             form.save()
+            print('***************************')
         messages.success(request, 'Perfil profissional adicionado com sucesso!')
-        return redirect('usuario:detailProfissional',id)
+        #return redirect('usuario:detailProfissional',id)
+        return redirect('usuario:listarProfissional')
     else:
         form = FormPerfil()
+        print('########')
 
     context = {
         'form': form
@@ -152,6 +157,7 @@ class DetalhesProfissional(DetailView):
     slug_id_url_kwarg = 'slug'
 
 
+
 def logout_user(request):
     request.session.flush()
     logout(request)
@@ -194,7 +200,7 @@ def dadosProfissional(request, user_id):
     data['profissional'] = profissional
     return render(request, 'usuario/dadosProfissional.html', data)
 
-@login_required(login_url='usuario:submit_login')
+"""@login_required(login_url='usuario:submit_login')
 def detailProfissional(request, user_id):
     data = {}
     profissional = Profissional.objects.get(user_id=user_id)
@@ -206,7 +212,7 @@ def detailProfissional(request, user_id):
     data['form'] = form
     data['profissional'] = profissional
     return render(request, 'usuario/detailProfissional.html', data)
-
+"""
 @login_required(login_url='usuario:submit_login')
 def detailUsuario(request, id):
     data = {}
@@ -222,4 +228,15 @@ def detailUsuario(request, id):
     return render(request, 'usuario/detailUsuario.html', data)
 
 
+def listarAvaliacao(request):
+    usuario = Usuario.objects.get(id=request.user.id)
+    avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+    total_pessoas = Avaliacao.objects.filter(profissional_id=usuario).count()
+    media = Avaliacao.objects.filter(profissional_id=usuario).aggregate(avg_rating=Avg('nota'))
+    context = {
+        'avaliacao': avaliacao,
+        'total_pessoas': total_pessoas,
+        'media':media
+    }
 
+    return render(request, 'listarAvaliacao.html', context)

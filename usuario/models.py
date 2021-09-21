@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.forms import ValidationError
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from rest_framework.authtoken.models import Token
 
+
+from utils.validacpf import valida_cpf
 
 class Categoria(models.Model):
     #user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -70,6 +72,7 @@ class Profissional(models.Model):
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
+            cpf = models.CharField(max_length=11)
             user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario',
                                         error_messages={
                                             "unique": "Já existe um profissional cadastrado para este usuário."
@@ -87,16 +90,18 @@ class Profissional(models.Model):
                     self.slug = slug
                 super().save(*args, **kwargs)
 
+            def clean(self):
+                error_messages = {}
+                if not valida_cpf(self.cpf):
+                    error_messages['cpf'] = 'Digite um cpf Válido!'
+
+                if error_messages:
+                    raise ValidationError(error_messages)
+
             class Meta:
                 verbose_name = 'Profissional'
                 verbose_name_plural = 'Profissional'
                 ordering = ['id']
-
-
-            """def clean(self):
-                model = self.__class__
-                if model.objects.count() > 0 and self.user_id != model.objects.get().user_id:
-                    raise ValidationError("Você já tem um perfil profissional cadastrado.")"""
 
 
 

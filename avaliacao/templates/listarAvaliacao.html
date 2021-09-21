@@ -12,6 +12,7 @@
     .estrelas input[type=radio]:checked ~ label i.fa:before {
      color: #CCC;
     }
+}
 
 
 </style>
@@ -30,8 +31,213 @@
         <div class="row">
             <div class="col-md-200">
                 <div class="card">
-                    <div class="card-body text-center"><span class="myratings">{{media.avg_rating|floatformat:1}}</span>
+                    <div class="card-body text-center"><span class="myratings">Nota: {{media.avg_rating|floatformat:1}}</span>
                         <p class="mt-1">{{total_pessoas}} avaliações</p>
+
+                         {% if media.avg_rating  >= 1.0 and media.avg_rating <= 1.9 %}
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                {% endif %}
+
+                        {% if media.avg_rating  >= 2.0 and media.avg_rating <= 2.9 %}
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50" >
+                                            <polygon fill="#c0c0c0" style="width: 10%"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                {% endif %}
+                        {% if media.avg_rating  >= 3.0 and media.avg_rating <= 3.9 %}
+
+                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+
+                        {% endif %}
+
+                        {% if media.avg_rating  >= 4.0 and media.avg_rating <= 4.9 %}
+
+                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+
+
+                        {% endif %}
+
+                         {% if media.avg_rating  >= 5  %}
+
+                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                         {% endif %}
 
                     </div>
                 </div>
@@ -63,49 +269,219 @@
                                 <h5><a href="#"></a>{{avaliacao.cliente.username}}</h5>
                                 <p class="text-muted"><small>Nota: {{avaliacao.nota}} {{avaliacao.data_avaliacao}}</small>
                                 </p>
-                                <div class="post-content">
 
+                               <div class="post-content">
                                     <!--<p> Nota: {{avaliar.nota}}</p>-->
                                     <link rel="stylesheet"
                                           href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
                                     <div class="estrelas">
-                                        <input type="radio" id="cm_star-empty" name="nota" value=""/>
-                                        <label for="cm_star-1"><i class="fa"></i></label>
-                                        {% if avaliacao.nota == 1%}
-                                        <input type="radio" disabled id="cm_star-1" name="nota" value="1" checked/>
-                                        {% elif avaliacao.nota != 1 %}
-                                        <input type="radio" disabled id="cm_star-1" name="nota" value="1"/>
+
+                                         <!--<svg height="22" viewBox="35 0 50 50">
+                                            <polygon fill="#000" stroke="#f2c832" stroke-linecap="20"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>-->
+
+                                        {% if avaliacao.nota == 1 %}
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
                                         {% endif %}
-                                        <label for="cm_star-2"><i class="fa"></i></label>
-                                        {% if avaliacao.nota == 2%}
-                                        <input type="radio" disabled id="cm_star-2" name="nota" value="2" checked/>
-                                        {% elif avaliacao.nota != 2 %}
-                                        <input type="radio" disabled id="cm_star-2" name="nota" value="2"/>
+                                        {% if avaliacao.nota == 2 %}
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22"  viewBox="0 0 50 50">
+                                            <polygon  fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
                                         {% endif %}
-                                        <label for="cm_star-3"><i class="fa"></i></label>
-                                        {% if avaliacao.nota == 3%}
-                                        <input type="radio" disabled id="cm_star-3" name="nota" value="3" checked/>
-                                        {% elif avaliacao.nota != 3 %}
-                                        <input type="radio" disabled id="cm_star-3" name="nota" value="3"/>
+
+                                         {% if avaliacao.nota == 3 %}
+
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                         {% endif %}
+
+                                          {% if avaliacao.nota == 4 %}
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#c0c0c0"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         {% endif %}
+
+                                          {% if avaliacao.nota == 5 %}
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+                                         <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
+                                        <svg height="22" viewBox="0 0 50 50">
+                                            <polygon fill="#f2c832"
+                                                     points="25,3.553 30.695,18.321 46.5,19.173
+                                                     34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321">
+
+                                            </polygon>
+                                        </svg>
+
                                         {% endif %}
-                                        <label for="cm_star-4"><i class="fa"></i></label>
-                                        {% if avaliacao.nota == 4%}
-                                        <input type="radio" disabled id="cm_star-4" name="nota" value="4" checked/>
-                                        {% elif avaliacao.nota != 4 %}
-                                        <input type="radio" disabled id="cm_star-4" name="nota" value="4"/>
-                                        {% endif %}
-                                        <label for="cm_star-5"><i class="fa"></i></label>
-                                        {% if avaliacao.nota == 5%}
-                                        <input type="radio" disabled id="cm_star-5" name="nota" value="5" checked/>
-                                        {% elif avaliacao.nota != 5 %}
-                                        <input type="radio" disabled id="cm_star-5" name="nota" value="5"/>
-                                        {% endif %}
-
-
-
-
-
-
 
                                         <!-- Button trigger modal -->
                                         &nbsp;&nbsp;&nbsp;<button type="button" class="badge badge-primary" data-toggle="modal"
