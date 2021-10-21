@@ -84,12 +84,7 @@
                              style="width: 288px; height: 200px; object-fit: fill;">
                     </a>
                     {% endif %}
-                     <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
-                        <img class="rounded "
-                             src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
-                             style="width: 80px; height: 60px; margin:-10px; padding:10px;"
-                             title="Avaliações do Profissional">
-                    </a>
+
                     <div class="card-body">
                         <a href="{{ profissional.slug }}">
                             <h5 class="card-title">{{ profissional.profissao }} </h5></a>
@@ -106,6 +101,8 @@
     <div class="clearfix"></div>
 
         </div>
+
+
     <nav aria-label="Navegação de página exemplo">
         <ul class="pagination">
             {% for pagina in profissional.paginator.page_range %}
@@ -117,7 +114,6 @@
             {% endfor %}
         </ul>
     </nav>
-
 
 </main>
 

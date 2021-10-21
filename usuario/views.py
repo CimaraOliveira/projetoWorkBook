@@ -20,6 +20,9 @@ app_name='usuario'
 
 def home(request):
    profissional = Profissional.objects.all()
+   paginator = Paginator(profissional, 6)
+   page = request.GET.get('p')
+   profissional = paginator.get_page(page)
    context = {
        'profissional': profissional
    }

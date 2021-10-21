@@ -14882,6 +14882,16 @@ be a descendant of the grid when it is being dragged.
   transition: margin-left 0.3s ease;
 }
 
+.app-content-cadastro {
+  min-height: 1100px;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #E5E5E5;
+  -webkit-transition: margin-left 0.3s ease;
+  -o-transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease;
+}
+
 @media (min-width: 768px) {
   .app-content {
     margin-left: 230px;
@@ -16455,6 +16465,26 @@ be a descendant of the grid when it is being dragged.
 
 .login-content .login-box .btn-container {
   margin-bottom: 0;
+}
+
+.container1{
+
+
+  position: absolute;
+  top: 120;
+  bottom: 0;
+  left: 350;
+  right: 0;
+  padding: 40px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+
+
+
+
 }
 
 .login-content .login-box .login-form, .login-content .login-box .forget-form {

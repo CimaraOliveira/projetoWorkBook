@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if not request.user.is_authenticated %}
+
+<header>
+    {% include 'parciais/nav.html' %}
+</header>
+
+{% endif %}
+
 <main class="app-content">
     {% include 'parciais/_mensagges.html' %}
     <div class="row">

@@ -4,6 +4,7 @@ from avaliacao.models import Avaliacao
 from django.contrib.auth.decorators import login_required
 from .form import AvaliacaoForm
 from django.db.models import Q, Count, Sum, Avg
+from django.core.paginator import Paginator
 
 
 @login_required(login_url='usuario:submit_login')
@@ -31,13 +32,14 @@ def avaliacao(request,id):
 def listarAvaliacao(request):
     usuario = Usuario.objects.get(id=request.user.id)
     avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+    paginator = Paginator(avaliacao, 3)
+    page = request.GET.get('p')
+    avaliacao = paginator.get_page(page)
     total_pessoas = Avaliacao.objects.filter(profissional_id=usuario).count()
-    #soma = Avaliacao.objects.filter(profissional_id=usuario).aggregate(sum_nota=Sum('nota') / total_pessoas)
     media = Avaliacao.objects.filter(profissional_id=usuario).aggregate(avg_rating=Avg('nota'))
     context = {
         'avaliacao': avaliacao,
         'total_pessoas': total_pessoas,
-        #'soma': soma,
         'media':media
     }
 
@@ -47,6 +49,9 @@ def listarAvaliacao(request):
 def clientelistarAvaliacoes(request,id):
     usuario = Usuario.objects.get(id=id)
     avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+    paginator = Paginator(avaliacao, 3)
+    page = request.GET.get('p')
+    avaliacao = paginator.get_page(page)
     total_pessoas = Avaliacao.objects.filter(profissional_id=usuario).count()
     context = {
         'avaliacao':avaliacao,

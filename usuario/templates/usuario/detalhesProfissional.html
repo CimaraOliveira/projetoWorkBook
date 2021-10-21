@@ -68,30 +68,14 @@
                                 </div>
 
                                 <h1>{{profissional.user.first_name}} {{ profissional.user.last_name}}</h1>
-                                <h4>{{profissional.profissao}} <!--<a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
-                                    <img class="rounded "
-                                         src="https://minhaopiniao.online/uploads/2525/6074bd6885832.jpg"
-                                         style="width: 120px; height: 100px; margin:-1px; padding:10px;"
-                                         title="Avaliações do Profissional">
-                                </a>--></h4>
+                                <h4>{{profissional.profissao}} </h4>
                                 <br>
-                                 <div align="right">
+                                <div align="right">
+                                    <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
+                                        Visualizar avaliações do Profissonal
+                                    </a>
 
-
-                        </div>
-
-                                <!--<div align="right">
-                                     <div class="card col-18" style="width: 18rem;">
-                                         <a href="{% url 'avaliacao:clientelistarAvaliacoes'  profissional.user.id  %}">
-                                             <img class="rounded " src="https://img2.gratispng.com/20180714/qjv/kisspng-5-star-guest-house-car-dealership-film-scratches-5b4ab62ac141e9.4054372515316229547916.jpg"
-                                                  style="width: 80px; height: 80px; object-fit: fill;"
-                                                  title="Avaliações do Profissional">
-                                         </a>
-                                     </div>
-
-                                </div>-->
-
-
+                                </div>
                                 <div class="cover-image"></div>
                             </div>
                         </div>
