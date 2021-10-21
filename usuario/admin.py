@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['id','is_profissional','first_name','username', 'cidade', 'email','telefone','cidade','rua','imagem','is_superuser', 'is_active', 'is_staff', ]
 
 class ProfissionalAdmin(admin.ModelAdmin):
-    list_display = ['id','user_id','slug','cpf','profissao', 'descricao', 'imagem',]
+    list_display = ['id','user_id','slug','profissao', 'descricao', 'imagem',]
 
 
 class CategoriaAdmin(admin.ModelAdmin):

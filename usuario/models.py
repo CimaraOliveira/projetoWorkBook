@@ -72,7 +72,6 @@ class Profissional(models.Model):
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
-            cpf = models.CharField(max_length=11)
             user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usario',
                                         error_messages={
                                             "unique": "Já existe um profissional cadastrado para este usuário."
@@ -90,13 +89,13 @@ class Profissional(models.Model):
                     self.slug = slug
                 super().save(*args, **kwargs)
 
-            def clean(self):
+            """def clean(self):
                 error_messages = {}
                 if not valida_cpf(self.cpf):
                     error_messages['cpf'] = 'Digite um cpf Válido!'
 
                 if error_messages:
-                    raise ValidationError(error_messages)
+                    raise ValidationError(error_messages)"""
 
             class Meta:
                 verbose_name = 'Profissional'
