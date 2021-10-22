@@ -25,7 +25,49 @@
                             {% endif %}
                               <br/>
 
-                               {{form|crispy}}
+                               <!--{{form|crispy}}-->
+
+                              <div id="div_id_profissao" class="form-group"><label for="id_profissao"
+                                                                                       class=" requiredField">
+                                      Profissão<span class="asteriskField">*</span> </label>
+                                      <div class=""><input type="text" name="profissao" maxlength="250"
+                                                           class="textinput textInput form-control" required=""
+                                                           id="id_profissao"></div>
+                                  </div>
+                                  <div id="div_id_categoria" class="form-group"><label for="id_categoria"
+                                                                                       class=" requiredField">
+                                      Categoria<span class="asteriskField">*</span> </label>
+                                      <div class=""><select name="categoria" class="select form-control" required=""
+                                                            id="id_categoria">
+                                          <option value="" selected="">Selecione</option>
+                                          <option value="1">Assistência técnica</option>
+                                          <option value="2">Aulas</option>
+                                          <option value="3">Consultorias</option>
+                                          <option value="4">Design e tecnologia</option>
+                                          <option value="5">Eventos</option>
+                                          <option value="6">Eventos</option>
+                                          <option value="7">Reformas e reparos</option>
+
+                                      </select></div>
+                                  </div>
+                                  <div id="div_id_imagem" class="form-group"><label for="id_imagem" class="">
+                                      Imagem
+                                  </label>
+                                      <div class=""><input type="file" name="imagem" accept="image/*"
+                                                           class="clearablefileinput form-control-file" id="id_imagem">
+                                      </div>
+                                  </div>
+
+
+                                  <div id="div_id_descricao" class="form-group"><label for="id_descricao"
+                                                                                       class=" requiredField">
+                                      Descrição<span class="asteriskField">*</span> </label>
+                                      <div class=""><textarea name="descricao" maxlength="250"
+                                                           class="textinput textInput form-control" required=""
+                                                              id="id_descricao"  rows="3" ></textarea>
+                                      </div>
+                                  </div>
+
 
                               <div class="tile-footer">
                                   <button class="btn btn-primary" type="submit" title="Salvar">Salvar</button>

@@ -64,19 +64,10 @@
                                         <label for="id_texto">Deixe seu comentário para:</label>
                                         <label for="id_texto">{{profissional.user.first_name}}</label>
                                     </label>
-                                        <div class=""><input type="text" name="descricao" maxlength="250"
-                                                             class="textinput textInput form-control" id="id_descricao">
+                                        <div class=""><textarea name="descricao" maxlength="250"
+                                                                class="textinput textInput form-control" id="id_descricao" rows="3"></textarea>
                                         </div>
                                     </div>
-
-                                    <!--<div id="div_id_data_avaliacao" class="form-group"><label for="id_data_avaliacao"
-                                                                                              class="">
-                                        Data avaliacao
-                                    </label>
-                                        <div class=""><input type="text" name="data_avaliacao" maxlength="10"
-                                                             class="textinput textInput form-control"
-                                                             id="id_data_avaliacao"></div>
-                                    </div>-->
 
 
                                     <input type="hidden" name="cliente" id="id_cliente" value={{request.user.id}}>

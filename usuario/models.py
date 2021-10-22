@@ -11,22 +11,7 @@ from rest_framework.authtoken.models import Token
 from utils.validacpf import valida_cpf
 
 class Categoria(models.Model):
-    #nome = models.Charfield(max_lenght=255)
-    #user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    LOAN_STATUS = (
-        ('Assistência técnica', 'Assistência técnica'),
-        ('Aulas', 'Aulas'),
-        ('Consultorias', 'Consultorias'),
-        ('Design e tecnologia', 'Design e tecnologia'),
-        ('Eventos', 'Eventos'),
-        ('Moda', 'Moda'),
-        ('Beleza', 'Beleza'),
-        ('Reformas e reparos', 'Reforma'),
-        ('Saúde', 'Saúde'),
-        ('Serviços Domésticos', 'Serviços Domésticos'),
-        ('Outros', 'Outros'),
-    )
-    nome = models.CharField(max_length=20, choices=LOAN_STATUS, blank=True)
+    nome = models.CharField(max_length=255)
 
     def __str__(self):
         return self.nome
@@ -69,8 +54,8 @@ class Usuario(AbstractUser):
 
 class Profissional(models.Model):
             profissao = models.CharField('Profissão', max_length=250)
-            #categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria')
-            categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, related_name='categoria')
+            categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria')
+            #categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, related_name='categoria')
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)
