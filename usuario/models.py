@@ -11,6 +11,7 @@ from rest_framework.authtoken.models import Token
 from utils.validacpf import valida_cpf
 
 class Categoria(models.Model):
+    #nome = models.Charfield(max_lenght=255)
     #user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     LOAN_STATUS = (
         ('Assistência técnica', 'Assistência técnica'),
@@ -68,6 +69,7 @@ class Usuario(AbstractUser):
 
 class Profissional(models.Model):
             profissao = models.CharField('Profissão', max_length=250)
+            #categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria')
             categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, related_name='categoria')
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
