@@ -6,7 +6,7 @@ $("#submit_login").click(async function(){
         Session.create('key', res.data)
         await Req.getJSON({uri: `${uri_api_auth_key}`, params: {key: res.data.key}, headers:{
             'Authorization': `Basic ${btoa($("#username").val()+':'+$("#password").val())}`
-        }, 
+        },
         onSuccess: (res) => {
             Session.create('id', res.data)
             button.attr('type', 'submit')
@@ -16,8 +16,8 @@ $("#submit_login").click(async function(){
             button.attr('type', 'submit')
             $('form').submit()
         }})
-    }) 
-})    
+    })
+})
 
 async function getKey(fc){
     //get_by_username_password
@@ -27,5 +27,5 @@ async function getKey(fc){
     Session.create('basic', `${basic}`)
     await Req.getJSON({uri: `${uri_api_username_password}`, params: {username: username, password: password}, headers:{
         'Authorization': `Basic ${basic}`
-    }, onSuccess: fc, onError: (d) => console.log(d)})
+    }, onSuccess: fc, onError: (d) => document.getElementById('alert').innerHTML = "<p class='alert alert-danger'>"+d.data.detail+"</p>"})
 }
