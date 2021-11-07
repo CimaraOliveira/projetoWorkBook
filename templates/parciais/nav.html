@@ -1,0 +1,20 @@
+{% load static %}
+<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:home' %}"><img
+        style=" filter: invert(100%)" height="50"
+        src="{% static 'images/estacao-de-servico.svg' %}">WorkBook</a>
+
+   <ul class="app-nav">
+        <li class="dropdown"><a class="app-nav__item" href="{% url 'usuario:home' %}" data-toggle="dropdown"><i
+                class="fa fa-home"></i>&nbsp;INÍCIO</a>
+
+        <li class="dropdown"><a class="app-nav__item" href="{% url 'usuario:cadastro' %}" data-toggle="dropdown"><i
+                class="fa fa-pencil-square-o"></i>&nbsp;CADASTRE-SE</a>
+        </li>
+        <li class="dropdown"><a class="app-nav__item" href="{% url 'usuario:submit_login' %}" data-toggle="dropdown"><i
+                class="fa fa-sign-in"></i>&nbsp;ENTRAR</a>
+        </li>
+        <li class="dropdown"><a class="app-nav__item" href="#sobre" data-toggle="dropdown"><i
+                class="fa fa-info-circle"></i>&nbsp;SOBRE</a>
+        </li>
+    </ul>
+</header>

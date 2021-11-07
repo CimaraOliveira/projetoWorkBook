@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+db.sqlite3
+.env
+.venv
+staticfiles
+/venv
+projetoWorkBook/static/
+*.idea
+*pyc

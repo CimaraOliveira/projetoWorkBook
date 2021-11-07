@@ -1,0 +1,149 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta name="description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>WorkBook</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="app sidebar-mini">
+<!-- Navbar-->
+{% if user.is_authenticated %}
+<header class="app-header"><a class="app-header__logo" href="{% url 'usuario:listarProfissional' %}" title="Início">WorkBook</a>
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+                                    aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+
+
+        <li class="dropdown">
+            <a class="app-nav__item" href="#" data-toggle="dropdown"
+               aria-label="Show notifications">
+                <span id="badge-size"></span>
+                <i class="fa fa-bell-o fa-lg" title="Notificações"></i>
+            </a>
+            <ul class="app-notification dropdown-menu dropdown-menu-right">
+                <div class="app-notification__content" id="notificacoes">
+
+                </div>
+            </ul>
+        </li>
+
+
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown"
+                                aria-label="Open Profile Menu" title="Usuário"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="{% url 'usuario:detailUsuario' request.user.id %}"
+                       title="Dados Pessoais"><i class="fa fa-user fa-lg"></i>Dados Pessoais</a></li>
+                <li><a class="dropdown-item" href="{% url 'usuario:logout_user' %}" title="Sair"><i
+                        class="fa fa-sign-out fa-lg"></i> Sair</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+
+    <div class="app-sidebar__user">
+        {% if request.user.imagem %}
+        <img class="app-sidebar__user-avatar"
+             src="{{request.user.imagem.url}}" style="max-width: 45px; height: auto" alt="User Image">
+        {% else %}
+        <img width="40"
+             src="https://static.vecteezy.com/ti/vetor-gratis/p1/2318271-icone-do-perfil-do-usuario-gr%C3%A1tis-vetor.jpg">
+        {% endif %}
+        <div>
+            <p class="app-sidebar__user-name"> &ensp; {{user.first_name}}</p>
+        </div>
+    </div>
+
+
+    <ul class="app-menu">
+
+        <li><a class="app-menu__item" href="{% url 'usuario:listarProfissional' %}"><i
+                class="app-menu__icon fa fa-home"></i><span class="app-menu__label" title="Início">Início</span></a>
+        </li>
+
+        {% if not user.is_profissional %}
+        <li><a class="app-menu__item" href="{% url 'usuario:add_perfil' user.id  %}"><i
+                class="app-menu__icon icon fa fa-user"></i><span class="app-menu__label" title="Adicionar Profissional">
+                Habilitar perfil profissional</span></a></li>
+
+        {% endif %}
+
+
+        {% if user.is_profissional %}
+        <li>
+            <a class="app-menu__item" href="{% url 'avaliacao:listarAvaliacao' %}">
+                <i class="app-menu__icon fa fa-star-o"></i>
+                <span class="app-menu__label" title="Avaliações">Avaliações Profissionais</span>
+            </a>
+        </li>
+
+
+        <!--<li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-id-badge"></i>
+             <span class="app-menu__label">Dados Profissional</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+          <li>
+               <a class="app-menu__item" href="{% url 'usuario:dadosProfissional' request.user.id %}">
+                   <i class="app-menu__icon fa fa-edit"></i>
+                   <span class="app-menu__label">Detalhes</span>
+               </a>
+           </li>
+
+
+           <li>
+            </ul>
+         </li>-->
+
+
+        {% endif %}
+
+
+        <li><a class="app-menu__item" href="{% url 'teste_chat'  %}"><i
+                class="app-menu__icon fa fa-envelope-o"></i><span class="app-menu__label"
+                                                                  title="Mensagens">Mensagens</span></a>
+        </li>
+
+        <li><a class="app-menu__item" href="{% url 'usuario:detailUsuario' request.user.id %}"><i
+                class="app-menu__icon fa fa-user-circle"></i><span class="app-menu__label" title="Dados Pessoais">Dados Pessoais</span></a>
+        </li>
+
+
+        <li>
+            <a class="app-menu__item" href="{% url 'usuario:logout_user' %}"><i
+                    class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label" title="Sair">Sair</span>
+            </a>
+        </li>
+
+    </ul>
+</aside>
+{% endif %}
+
+</body>
+
+</html>
