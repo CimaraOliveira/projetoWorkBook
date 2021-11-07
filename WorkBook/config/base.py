@@ -176,4 +176,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "sistema.workbook@gmail.com"
 EMAIL_HOST_PASSWORD = "workbook.21"
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
