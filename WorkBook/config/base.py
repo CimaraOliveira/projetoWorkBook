@@ -16,11 +16,8 @@ import os
 from django.contrib.messages import constants
 import crispy_forms
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,7 +29,6 @@ SECRET_KEY = 'django-insecure-bk_(au98@3)v7+q3+l49-hmnuoi1b_f5oc6agd8_4+b4t4%1#r
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://workbook-projeto.herokuapp.com/']
-
 
 # Application definition
 
@@ -50,19 +46,15 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
 
-
     'accounts',
     'usuario.apps.UsuarioConfig',
     'mensagem.apps.MensagemConfig',
     'avaliacao.apps.AvaliacaoConfig',
     'notificacoes.apps.NotificacoesConfig',
 
-
-
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +71,7 @@ ROOT_URLCONF = 'WorkBook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,31 +84,27 @@ TEMPLATES = [
     },
 ]
 
-#Django RFST Frameworc
+# Django RFST Frameworc
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
 
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
 
     ),
-
-
 
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
 
-
-    #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
 
 }
 
 WSGI_APPLICATION = 'WorkBook.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -139,8 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -154,15 +140,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-#pegar foto
+# pegar foto
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-MESSAGE_TAGS ={
+MESSAGE_TAGS = {
     constants.DEBUG: 'alert-info',
     constants.ERROR: 'alert-danger',
     constants.INFO: 'alert-info',
