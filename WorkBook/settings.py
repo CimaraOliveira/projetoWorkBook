@@ -14,6 +14,8 @@ from pathlib import Path
 import django_heroku
 import os
 from django.contrib.messages import constants
+from dj_database_url import parse as db_url
+import dj_database_url as db
 import crispy_forms
 
 
@@ -122,10 +124,9 @@ WSGI_APPLICATION = 'WorkBook.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': db.config(
+        'DATABASE_URL',
+        default='sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))),
 }
 
 
