@@ -14,6 +14,8 @@ from pathlib import Path
 import django_heroku
 import os
 from django.contrib.messages import constants
+from dj_database_url import parse as db_url
+import dj_database_url as db
 import crispy_forms
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -67,6 +69,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'WorkBook.urls'
+
+DATABASES = {
+    'default': db.config(
+        'DATABASE_URL',
+        default='sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))),
+}
 
 TEMPLATES = [
     {
