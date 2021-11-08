@@ -25,7 +25,7 @@
 	$("[data-toggle='tooltip']").tooltip();
 
 })();
-const baseURI = "http://127.0.0.1:8000";
+const baseURI = "https://workbook-teste.herokuapp.com";
 const uri_api_notificacao = `${baseURI}/api/notificacao/`
 const uri_api_messages = `${baseURI}/api/mensagem/`;
 const uri_api_token = `${baseURI}/api-token/`
