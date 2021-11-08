@@ -182,7 +182,7 @@ MESSAGE_TAGS ={
 
 # User Model
 AUTH_USER_MODEL = "usuario.Usuario"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/')
