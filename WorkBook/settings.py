@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 import os
 from django.contrib.messages import constants
 import crispy_forms
@@ -30,7 +31,7 @@ SECRET_KEY = 'django-insecure-bk_(au98@3)v7+q3+l49-hmnuoi1b_f5oc6agd8_4+b4t4%1#r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://workbook-projeto.herokuapp.com/']
 
 
 # Application definition
@@ -197,3 +198,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "sistema.workbook@gmail.com"
 EMAIL_HOST_PASSWORD = "workbook.21"
+
+django_heroku.settings(locals())
