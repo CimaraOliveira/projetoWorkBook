@@ -31,7 +31,7 @@ def avaliacao(request,id):
 
 def listarAvaliacao(request):
     usuario = Usuario.objects.get(id=request.user.id)
-    avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+    avaliacao = Avaliacao.objects.filter(profissional_id=usuario).order_by('-id')
     paginator = Paginator(avaliacao, 3)
     page = request.GET.get('p')
     avaliacao = paginator.get_page(page)
@@ -48,7 +48,7 @@ def listarAvaliacao(request):
 
 def clientelistarAvaliacoes(request,id):
     usuario = Usuario.objects.get(id=id)
-    avaliacao = Avaliacao.objects.filter(profissional_id=usuario)
+    avaliacao = Avaliacao.objects.filter(profissional_id=usuario).order_by('-id')
     paginator = Paginator(avaliacao, 3)
     page = request.GET.get('p')
     avaliacao = paginator.get_page(page)
