@@ -28,8 +28,6 @@ def home(request):
    }
    return render(request, 'usuario/home.html',context)
 
-def teste(request):
-    return render(request, 'usuario/teste.html')
 
 def index(request):
     return render(request, 'usuario/index.html')
@@ -98,8 +96,8 @@ def add_perfil(request, id):
             form.save()
             print('***************************')
         messages.success(request, 'Perfil profissional adicionado com sucesso!')
-        #return redirect('usuario:detailProfissional',id)
-        return redirect('usuario:listarProfissional')
+        return redirect('usuario:detailProfissional',id)
+        #return redirect('usuario:listarProfissional')
     else:
         form = FormPerfil()
         print('########')
@@ -168,7 +166,7 @@ def logout_user(request):
 
 def listarProfissional(request):
     profissional = Profissional.objects.all()
-    paginator = Paginator(profissional, 3)
+    paginator = Paginator(profissional, 6)
     page = request.GET.get('p')
     profissional = paginator.get_page(page)
     context = {
@@ -184,6 +182,7 @@ def dadosPessoais(request, id):
 
     if form.is_valid():
         form.save()
+        messages.success(request, 'Dados atualizados com Sucesso!')
         return redirect('usuario:detailUsuario', usuario.id)
 
     data['form'] = form
@@ -203,7 +202,8 @@ def dadosProfissional(request, user_id):
     data['profissional'] = profissional
     return render(request, 'usuario/dadosProfissional.html', data)
 
-"""@login_required(login_url='usuario:submit_login')
+#######################################################
+@login_required(login_url='usuario:submit_login')
 def detailProfissional(request, user_id):
     data = {}
     profissional = Profissional.objects.get(user_id=user_id)
@@ -215,7 +215,7 @@ def detailProfissional(request, user_id):
     data['form'] = form
     data['profissional'] = profissional
     return render(request, 'usuario/detailProfissional.html', data)
-"""
+
 @login_required(login_url='usuario:submit_login')
 def detailUsuario(request, id):
     data = {}

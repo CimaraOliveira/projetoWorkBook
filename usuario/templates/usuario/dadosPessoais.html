@@ -14,24 +14,21 @@
             <div class="card user-card-full">
                 <div class="row m-l-0 m-r-0">
                     <div class="card-body">
-                        <form method="post" action="{% url 'usuario:dadosPessoais' usuario.id %}" enctype="multipart/form-data">
+                        <form method="post" action="{% url 'usuario:dadosPessoais' usuario.id %}"
+                              enctype="multipart/form-data">
                             {% csrf_token %}
 
-                                {{ form|crispy }}
+                            {{ form|crispy }}
 
-                            <div class="row">
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary" title="Atualizar">Atualizar</button>
-                                    <a class="btn btn-danger" href="{% url 'usuario:detailUsuario' user.id %}">Cancelar</a>
 
-                                </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary" title="Atualizar">Atualizar</button>
+                                <a class="btn btn-danger" href="{% url 'usuario:detailUsuario' user.id %}">Cancelar</a>
 
                             </div>
                         </form>
 
                     </div>
-
-
                 </div>
             </div>
 

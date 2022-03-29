@@ -1,14 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from django.forms import ValidationError
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from rest_framework.authtoken.models import Token
-
-
-from utils.validacpf import valida_cpf
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=255)
@@ -30,8 +26,8 @@ class Usuario(AbstractUser):
     rua = models.CharField('rua', max_length=60)
     uf = models.CharField('uf', max_length=2)
     bairro = models.CharField('bairro', max_length=40)
-    is_staff = models.BooleanField(default=0)
-    is_superuser = models.BooleanField(default=1)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_profissional = models.BooleanField(default=False)
 
@@ -55,7 +51,6 @@ class Usuario(AbstractUser):
 class Profissional(models.Model):
             profissao = models.CharField('Profissão', max_length=250)
             categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria')
-            #categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, related_name='categoria')
             slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
             descricao = models.CharField('Descrição', max_length=250)
             imagem = models.ImageField(upload_to='fotos/%Y/%m/', blank=True, null=True)

@@ -85,21 +85,32 @@
                                 <th>Cidade:</th>
                                 <td>{{ profissional.user.cidade }}</td>
                             </tr>
+                             <tr>
+                                <th>Bairro:</th>
+                                <td>{{ profissional.user.bairro }}</td>
+                            </tr>
+                             <tr>
+                                <th>UF:</th>
+                                <td>{{ profissional.user.uf }}</td>
+                            </tr>
                             <tr>
                                 <th>Descrição:</th>
                                 <td>{{ profissional.descricao }}</td>
                             </tr>
+
                             </tbody>
                         </table>
-                        <br>
-
-                        <div class="row">
+                         <br>
+                         <br/>
+                         <br/>
                             <div class="col">
                                 <a class="btn btn-primary" href="{% url 'usuario:dadosProfissional' user.id %}"
                                    title="Alterar">Alterar Dados</a>
                             </div>
-                        </div>
+
                         <br/>
+                         <br>
+                         <br>
 
                     </div>
                 </div>
