@@ -94,7 +94,7 @@ def add_perfil(request, id):
             obj.is_profissional=True
             obj.save()
             form.save()
-            print('***************************')
+
         messages.success(request, 'Perfil profissional adicionado com sucesso!')
         return redirect('usuario:detailProfissional',id)
         #return redirect('usuario:listarProfissional')
